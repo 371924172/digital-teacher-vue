@@ -6,10 +6,10 @@
 
 --frontend 前端
 
-​	--public 公共资源
+​	    --public 公共资源
 
-​	--src
+​	    --src
 
-​		--router 路由文件
+​		    --router 路由文件
 
-​		--views  页面源代码
+​		    --views  页面源代码
