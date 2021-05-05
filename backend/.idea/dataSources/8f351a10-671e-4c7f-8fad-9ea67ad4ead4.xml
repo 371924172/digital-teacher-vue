@@ -756,7 +756,6 @@ SELECT|sys.sys_config
     </user>
     <table id="234" parent="2" name="ego_problem">
       <Comment>题目 </Comment>
-      <Collation>latin1_swedish_ci</Collation>
     </table>
     <table id="235" parent="2" name="ego_ptag">
       <Comment>题目标签 </Comment>
@@ -764,8 +763,9 @@ SELECT|sys.sys_config
     <column id="236" parent="234" name="ID">
       <Position>1</Position>
       <Comment>题目ID</Comment>
-      <DataType>varchar(32)|0s</DataType>
+      <DataType>int(10)|0s</DataType>
       <NotNull>1</NotNull>
+      <SequenceIdentity>null</SequenceIdentity>
     </column>
     <column id="237" parent="234" name="PROBLEM_ID">
       <Position>2</Position>
@@ -907,19 +907,19 @@ SELECT|sys.sys_config
     <column id="264" parent="235" name="ID">
       <Position>1</Position>
       <Comment>标签ID</Comment>
-      <DataType>varchar(32)|0s</DataType>
+      <DataType>int(10)|0s</DataType>
       <NotNull>1</NotNull>
-      <Collation>latin1_swedish_ci</Collation>
+      <SequenceIdentity>null</SequenceIdentity>
     </column>
     <column id="265" parent="235" name="NAME">
       <Position>2</Position>
+      <Comment>名称</Comment>
       <DataType>varchar(32)|0s</DataType>
     </column>
     <column id="266" parent="235" name="CREATED_BY">
       <Position>3</Position>
       <Comment>创建人</Comment>
       <DataType>varchar(32)|0s</DataType>
-      <Collation>latin1_swedish_ci</Collation>
     </column>
     <column id="267" parent="235" name="CREATED_TIME">
       <Position>4</Position>
@@ -930,7 +930,6 @@ SELECT|sys.sys_config
       <Position>5</Position>
       <Comment>更新人</Comment>
       <DataType>varchar(32)|0s</DataType>
-      <Collation>latin1_swedish_ci</Collation>
     </column>
     <column id="269" parent="235" name="UPDATED_TIME">
       <Position>6</Position>
