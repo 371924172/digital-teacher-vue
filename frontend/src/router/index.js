@@ -56,15 +56,26 @@ export const constantRoutes = [
   },
 
   {
-    path: '/edit',
+    path: '/problem',
     component: Layout,
-    meta:{title:'题目管理'},
+    meta: { title: '题目管理' },
     children: [
       {
-        path: 'index',
-        name: 'Form',
+        path: 'edit',
+        name: 'edit',
         component: () => import('@/views/problem/edit'),
         meta: { title: '编辑题目', icon: 'form' }
+      },
+      {
+        path: 'list',
+        name: 'list',
+        component: () => import('@/views/problem/list'),
+        meta: { title: '题目列表', icon: 'form' }
+      }, {
+        path: 'test',
+        name: 'test',
+        component: () => import('@/views/problem/test'),
+        meta: { title: '测试', icon: 'form' }
       }
     ]
   },

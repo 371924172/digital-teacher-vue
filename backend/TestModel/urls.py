@@ -6,4 +6,5 @@ urlpatterns = []
 
 router = DefaultRouter()
 router.register(r'test', views.TestInfo)
+router.register(r're', views.TagInfo)
 urlpatterns += router.urls
