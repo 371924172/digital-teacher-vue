@@ -1,19 +1,58 @@
 <template>
   <div>
-    <el-input
-      v-model="searchName"
-      size="mini"
-      placeholder="输入关键字搜索"
-      style="width: 180px; margin: 10px"
-      prefix-icon="el-icon-search"
-    ></el-input>
+    <el-row>
+      <el-col :span="14">
+        <el-input
+          v-model="searchName"
+          size="mini"
+          placeholder="输入关键字搜索"
+          style="width: 180px; margin: 10px"
+          prefix-icon="el-icon-search"
+        ></el-input
+      ></el-col>
+      <el-col :span="1.5">
+        <el-select
+          v-model="searchTag"
+          placeholder="标签"
+          multiple
+          size="mini"
+          :clearable="true"
+          style="margin-top: 10px"
+        >
+          <el-option
+            v-for="item in ptagList"
+            :key="item.id"
+            :label="item.name"
+            :value="item.id"
+          >
+          </el-option>
+        </el-select> </el-col
+      ><el-col :span="1.5"
+        ><el-select
+          v-model="searchDiff"
+          placeholder="难度"
+          size="mini"
+          style="margin-top: 10px"
+        >
+          <el-option
+            v-for="item in difficultyList"
+            :key="item.id"
+            :label="item.label"
+            :value="item.id"
+          >
+          </el-option> </el-select
+      ></el-col>
+    </el-row>
+
     <el-table
       :data="
         problemList
           .filter(
             (data) =>
               !search ||
-              data.name.toLowerCase().includes(searchName.toLowerCase())
+              (data.name.toLowerCase().includes(searchName.toLowerCase()) &&
+                data.ptag.includes(searchTag) &&
+                data.difficulty.toString().includes(searchDiff))
           )
           .slice((currentPage - 1) * pageSize, currentPage * pageSize)
       "
@@ -23,7 +62,15 @@
       <el-table-column type="selection" width="60"> </el-table-column>
       <el-table-column prop="problem_id" label="题号" width="100">
       </el-table-column>
-      <el-table-column prop="name" label="名称" width="300"> </el-table-column>
+      <el-table-column label="名称" width="300">
+        <template slot-scope="scope">
+          <router-link
+            :to="{ name: 'problemDetail', query: { id: scope.row.id } }"
+          >
+            {{ scope.row.name }}
+          </router-link>
+        </template>
+      </el-table-column>
       <el-table-column prob="ptag" label="标签">
         <template slot-scope="scope">
           <el-tag
@@ -69,23 +116,12 @@ export default {
   data() {
     return {
       searchName: "",
+      searchTag: "",
+      searchDiff: "",
       pageSize: 5,
       currentPage: 1,
-      problemList: [
-        {
-          id: '',
-          problem_id: '',
-          name: '',
-          difficulty: '',
-          ptag: '',
-        },
-      ],
-      ptagList: [
-        {
-          id: '',
-          name: '',
-        },
-      ],
+      problemList: [],
+      ptagList: [],
       colorList: [
         "#9dc6eb",
         "#f8c471",
@@ -95,6 +131,12 @@ export default {
         "#f8c471",
         "#b9a3ef",
         "#fdb1ca",
+      ],
+      // difficultyList: ["简单", "适中", "困难"],
+      difficultyList: [
+        { id: 0, label: "简单" },
+        { id: 1, label: "适中" },
+        { id: 2, label: "困难" },
       ],
     };
   },
@@ -113,18 +155,15 @@ export default {
           this.ptagList = response.data;
         });
     },
+    // getDetail() {
+    //   this.$router.push({ path: "detail", query: { id: row.id } });
+    // },
     formatDifficulty(row) {
-      switch (row.difficulty) {
-        case 0:
-          return "简单";
-          break;
-        case 1:
-          return "适中";
-          break;
-        case 2:
-          return "困难";
-          break;
-      }
+      // return this.difficultyList[row.difficulty];
+      var difficulty = this.difficultyList.find((d)=>{
+        return d.id == row.difficulty;
+      })
+      return difficulty.label;
     },
     filterHandler(value, row, column) {
       const property = column["property"];
@@ -164,5 +203,9 @@ export default {
 .el-tag {
   margin-left: 5px;
   border-style: none;
+}
+.el-input {
+  width: 6em;
+  margin-right: 1em;
 }
 </style>

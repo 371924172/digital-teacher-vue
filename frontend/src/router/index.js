@@ -76,7 +76,12 @@ export const constantRoutes = [
         name: 'test',
         component: () => import('@/views/problem/test'),
         meta: { title: '测试', icon: 'form' }
-      }
+      }, {
+        path: 'detail',
+        name:'problemDetail',
+        component: () => import('@/views/problem/detail'),
+        hidden: true
+      },
     ]
   },
   // 404 page must be placed at the end !!!

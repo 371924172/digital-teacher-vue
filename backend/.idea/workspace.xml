@@ -2,10 +2,9 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="70789dd4-1549-4df6-b3d5-9ff8b5e39b4e" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/dataSources.local.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources.local.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/dataSources/8f351a10-671e-4c7f-8fad-9ea67ad4ead4.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources/8f351a10-671e-4c7f-8fad-9ea67ad4ead4.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/problem/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/problem/models.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/src/router/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/src/router/index.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/src/views/problem/list.vue" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/src/views/problem/list.vue" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -122,7 +121,7 @@
       <updated>1618903425759</updated>
       <workItem from="1618903432507" duration="3079000" />
       <workItem from="1619149735836" duration="21367000" />
-      <workItem from="1619692239124" duration="5906000" />
+      <workItem from="1619692239124" duration="12288000" />
     </task>
     <servers />
   </component>
