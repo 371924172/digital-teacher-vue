@@ -111,6 +111,8 @@
   </div>
 </template>
 <script>
+import api from '@/api/problem'
+
 export default {
   name: "problemList",
   data() {
@@ -144,13 +146,13 @@ export default {
     getData() {
       this.axios({
         method: "get",
-        url: "http://127.0.0.1:8000/problem/",
+        url: api.problemApi,
       }).then((response) => {
         this.problemList = response.data;
       }),
         this.axios({
           method: "get",
-          url: "http://127.0.0.1:8000/ptag/",
+          url:api.ptagApi,
         }).then((response) => {
           this.ptagList = response.data;
         });
