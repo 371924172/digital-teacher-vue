@@ -3,8 +3,22 @@
   <component name="ChangeListManager">
     <list default="true" id="70789dd4-1549-4df6-b3d5-9ff8b5e39b4e" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../frontend/src/router/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/src/router/index.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/TestModel/__init__.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/TestModel/admin.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/TestModel/apps.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/TestModel/migrations/0001_initial.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/TestModel/migrations/0002_auto_20210423_1535.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/TestModel/migrations/__init__.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/TestModel/models.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/TestModel/serializers.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/TestModel/urls.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/TestModel/views.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/settings.py" beforeDir="false" afterPath="$PROJECT_DIR$/backend/settings.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/problem/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/problem/models.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../frontend/src/views/problem/list.vue" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/src/views/problem/list.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/src/views/problem/test copy 2.vue" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/src/views/problem/test copy 3.vue" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/src/views/problem/test copy.vue" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -121,7 +135,8 @@
       <updated>1618903425759</updated>
       <workItem from="1618903432507" duration="3079000" />
       <workItem from="1619149735836" duration="21367000" />
-      <workItem from="1619692239124" duration="12288000" />
+      <workItem from="1619692239124" duration="12296000" />
+      <workItem from="1620368949392" duration="563000" />
     </task>
     <servers />
   </component>

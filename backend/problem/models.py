@@ -2,7 +2,7 @@ from django.db import models
 
 
 class Problem(models.Model):
-    id = models.AutoField(db_column='ID', primary_key=True, max_length=10,)  # Field name made lowercase.
+    id = models.AutoField(db_column='ID', primary_key=True)  # Field name made lowercase.
     problem_id = models.CharField(db_column='PROBLEM_ID', max_length=32)  # Field name made lowercase.
     puid = models.CharField(db_column='PUID', max_length=32, blank=True, null=True)  # Field name made lowercase.
     name = models.CharField(db_column='NAME', max_length=128)  # Field name made lowercase.
@@ -52,7 +52,7 @@ class Problem(models.Model):
 
 
 class Ptag(models.Model):
-    id = models.AutoField(db_column='ID', primary_key=True, max_length=10)  # Field name made lowercase.
+    id = models.AutoField(db_column='ID', primary_key=True)  # Field name made lowercase.
     name = models.CharField(db_column='NAME', max_length=32, blank=True, null=True)  # Field name made lowercase.
     created_by = models.CharField(db_column='CREATED_BY', max_length=32, blank=True, null=True)  # Field name made lowercase.
     created_time = models.DateTimeField(db_column='CREATED_TIME', blank=True, null=True)  # Field name made lowercase.
