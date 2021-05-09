@@ -12,6 +12,9 @@
             <li v-if="tools.strong" name="粗体">
                 <span @click="insertStrong" class="iconfont icon-bold"></span>
             </li>
+            <li v-if="tools.strong" name="括号">
+                <span @click="insertClk" class="iconfont icon-bold"></span>
+            </li>
             <li v-if="tools.italic" name="斜体">
                 <span @click="insertItalic" class="iconfont icon-italic"></span>
             </li>

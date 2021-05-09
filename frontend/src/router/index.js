@@ -81,7 +81,12 @@ export const constantRoutes = [
         name:'problemDetail',
         component: () => import('@/views/problem/detail'),
         hidden: true
-      },
+      },{
+        path: 'pro',
+        name: 'ppp',
+        component: ()=>import('@/views/prob/pro'),
+        meta: { title: '题目', icon: 'form' }
+      }
     ]
   },
   // 404 page must be placed at the end !!!

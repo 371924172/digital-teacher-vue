@@ -16,6 +16,11 @@ import axios from 'axios'
 import VueAxios from 'vue-axios'
 Vue.use(VueAxios, axios)
 
+//var dialog = require('art-dialog');
+
+import Dialog from 'art-dialog-vue' //esm
+//const DiAlog = require('art-dialog-vue').default //RequireJS，非esm形式要加.default
+Vue.use(Dialog)//使用插件
 
 import '@/icons' // icon
 import '@/permission' // permission control

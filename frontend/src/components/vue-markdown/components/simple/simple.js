@@ -1,6 +1,8 @@
 import marked from '../../config/marked';
 import common from '../../mixins/common';
 import Vue from 'vue'
+
+
 var WaveDrom = require("wavedrom");
 
 export default {
@@ -12,11 +14,15 @@ export default {
             data: ''
         };
     },
+    props:{
+        sig:""
+    },
     mounted() {
         this.init();
     },
     methods: {
         init() {
+            
             this.currentValue = this.value;
             this.data = '123';
             this.themeName = this.theme;
@@ -115,6 +121,7 @@ export default {
             }
             this.$set(this, 'currentValue', textDom.value);
         },
+        
         setCaretPosition(position) {
             // 设置光标位置
             const textDom = this.$refs.textarea;
@@ -169,6 +176,18 @@ export default {
                 this.setCaretPosition(point + 2);
             } else {
                 this.setCaretPosition(point + 2);
+            }
+        },
+        insertClk() {
+            // 括号
+            this.$emit('cha');
+            const point = this.getCursortPosition();
+            const lastChart = this.currentValue.substring(point - 1, point);
+            this.insertContent('((('+JSON.stringify(this.sig)+')))');
+            if (lastChart !== '\n' && this.currentValue !== '') {
+                this.setCaretPosition(point + 3);
+            } else {
+                this.setCaretPosition(point + 3);
             }
         },
         insertItalic() {
