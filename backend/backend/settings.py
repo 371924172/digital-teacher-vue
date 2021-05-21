@@ -15,7 +15,6 @@ from pathlib import Path
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
-
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/3.1/howto/deployment/checklist/
 
@@ -25,8 +24,7 @@ SECRET_KEY = 'v10dj73dn7ed$fk#mo$=u5(@*ymbz@+-r5$1q)qsl3pgd&z0ah'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
-
+ALLOWED_HOSTS = ['*']
 
 # Application definition
 
@@ -37,11 +35,13 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    
+
     'rest_framework',
+    'rest_framework.authtoken',
     'corsheaders',
 
-    'problem'
+    'problem',
+    'user'
 
 ]
 
@@ -54,8 +54,30 @@ MIDDLEWARE = [
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
     'corsheaders.middleware.CorsMiddleware',
-    'django.middleware.common.CommonMiddleware', # 注意顺序
+    'django.middleware.common.CommonMiddleware',  # 注意顺序
+
 ]
+
+REST_FRAMEWORK = {
+    # DEFAULT_PERMISSION_CLASSES设置默认的权限类，通过认证后赋予用户的权限
+    'DEFAULT_PERMISSION_CLASSES': (
+        'rest_framework.permissions.IsAuthenticated',
+    ),
+    # DEFAULT_AUTHENTICATION_CLASSES设置默认的认证类，这里用token，也可以设置session或自定义的认证
+    'DEFAULT_AUTHENTICATION_CLASSES': (
+        'rest_framework_jwt.authentication.JSONWebTokenAuthentication',
+        'rest_framework.authentication.SessionAuthentication',
+        'rest_framework.authentication.BasicAuthentication',
+    ),
+}
+import datetime
+
+JWT_AUTH = {
+    "JWT_EXPIRATION_DELTA": datetime.timedelta(days=1),
+    "JWT_RESPONSE_PAYLOAD_HANDLER": "user.utils.jwt_response_payload_handler"
+}
+
+AUTH_USER_MODEL = 'user.User'
 
 ROOT_URLCONF = 'backend.urls'
 
@@ -71,12 +93,12 @@ TEMPLATES = [
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
             ],
+
         },
     },
 ]
 
 WSGI_APPLICATION = 'backend.wsgi.application'
-
 
 # Database
 # https://docs.djangoproject.com/en/3.1/ref/settings/#databases
@@ -90,14 +112,18 @@ WSGI_APPLICATION = 'backend.wsgi.application'
 
 DATABASES = {
     'default':
-    {
-        'ENGINE': 'django.db.backends.mysql',    # 数据库引擎
-        'NAME': 'ego', # 数据库名称
-        'HOST': '127.0.0.1', # 数据库地址，本机 ip 地址 127.0.0.1
-        'PORT': 3306, # 端口
-        'USER': 'root',  # 数据库用户名
-        'PASSWORD': '123456', # 数据库密码
-    }
+        {
+            'ENGINE': 'django.db.backends.mysql',  # 数据库引擎
+            'NAME': 'ego',  # 数据库名称
+            'HOST': '127.0.0.1',  # 数据库地址，本机 ip 地址 127.0.0.1
+            'PORT': 3306,  # 端口
+            'USER': 'root',  # 数据库用户名
+            'PASSWORD': '123456',  # 数据库密码
+            'OPTIONS': {
+                'init_command': "SET foreign_key_checks = 0;"
+                                "SET sql_mode = 'STRICT_TRANS_TABLES';"
+            }
+        }
 }
 
 # Password validation
@@ -118,7 +144,6 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
-
 # Internationalization
 # https://docs.djangoproject.com/en/3.1/topics/i18n/
 
@@ -132,14 +157,13 @@ USE_L10N = True
 
 USE_TZ = True
 
-
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/3.1/howto/static-files/
 
 STATIC_URL = '/static/'
 
 # 解决跨域问题
-#跨域增加忽略
+# 跨域增加忽略
 CORS_ALLOW_CREDENTIALS = True
 CORS_ORIGIN_ALLOW_ALL = True
 # CORS_ORIGIN_WHITELIST = (

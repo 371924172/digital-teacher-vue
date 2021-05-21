@@ -8,9 +8,8 @@ import 'element-ui/lib/theme-chalk/index.css'
 import '@/styles/index.scss' // global css
 
 import App from './App'
-import store from './store'
 import router from './router'
-
+import store from './store'
 //axios
 import axios from 'axios'
 import VueAxios from 'vue-axios'

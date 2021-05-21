@@ -47,7 +47,7 @@ class Problem(models.Model):
     updated_time = models.DateTimeField(db_column='UPDATED_TIME', blank=True, null=True)  # Field name made lowercase.
 
     class Meta:
-        managed = False
+        managed = True
         db_table = 'ego_problem'
 
 
@@ -60,5 +60,5 @@ class Ptag(models.Model):
     updated_time = models.DateTimeField(db_column='UPDATED_TIME', blank=True, null=True)  # Field name made lowercase.
 
     class Meta:
-        managed = False
+        managed = True
         db_table = 'ego_ptag'

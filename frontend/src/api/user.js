@@ -1,18 +1,17 @@
 import request from '@/utils/request'
-
+import host from '@/api/host'
 export function login(data) {
   return request({
-    url: '/vue-admin-template/user/login',
+    url: host + 'authenticated/',
     method: 'post',
     data
   })
 }
 
-export function getInfo(token) {
+export function getInfo(userid) {
   return request({
-    url: '/vue-admin-template/user/info',
+    url: host + 'getInfo/' + userid + '/',
     method: 'get',
-    params: { token }
   })
 }
 
@@ -20,5 +19,13 @@ export function logout() {
   return request({
     url: '/vue-admin-template/user/logout',
     method: 'post'
+  })
+}
+
+
+export function getUserlist() {
+  return request({
+      url: host + 'users/',
+      method: 'get'
   })
 }

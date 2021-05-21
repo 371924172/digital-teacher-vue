@@ -111,7 +111,7 @@
   </div>
 </template>
 <script>
-import api from '@/api/problem'
+import { getList, getPtagList, PtagColor } from "@/api/problem";
 
 export default {
   name: "problemList",
@@ -123,17 +123,8 @@ export default {
       pageSize: 5,
       currentPage: 1,
       problemList: [],
-      ptagList: [],
-      colorList: [
-        "#9dc6eb",
-        "#f8c471",
-        "#b9a3ef",
-        "#fdb1ca",
-        "#9dc6eb",
-        "#f8c471",
-        "#b9a3ef",
-        "#fdb1ca",
-      ],
+      ptagList: [{ id: Number, name: "" }],
+
       // difficultyList: ["简单", "适中", "困难"],
       difficultyList: [
         { id: 0, label: "简单" },
@@ -144,27 +135,21 @@ export default {
   },
   methods: {
     getData() {
-      this.axios({
-        method: "get",
-        url: api.problemApi,
-      }).then((response) => {
+      getList().then((response) => {
         this.problemList = response.data;
-      }),
-        this.axios({
-          method: "get",
-          url:api.ptagApi,
-        }).then((response) => {
-          this.ptagList = response.data;
-        });
+      });
+      getPtagList().then((response) => {
+        this.ptagList = response.data;
+      });
     },
     // getDetail() {
     //   this.$router.push({ path: "detail", query: { id: row.id } });
     // },
     formatDifficulty(row) {
       // return this.difficultyList[row.difficulty];
-      var difficulty = this.difficultyList.find((d)=>{
+      var difficulty = this.difficultyList.find((d) => {
         return d.id == row.difficulty;
-      })
+      });
       return difficulty.label;
     },
     filterHandler(value, row, column) {
@@ -187,13 +172,15 @@ export default {
     },
 
     formatTag(id) {
-      var tag = this.ptagList.find((t) => {
-        return t.id == id;
-      });
-      return tag.name;
+      if (id) {
+        var tag = this.ptagList.find((t) => {
+          return t.id == id;
+        });
+        return tag.name;
+      } else return "尚未分配标签";
     },
     tagColor(item) {
-      return this.colorList[item];
+      return PtagColor[item];
     },
   },
   mounted() {

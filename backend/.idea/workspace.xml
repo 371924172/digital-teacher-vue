@@ -2,23 +2,37 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="70789dd4-1549-4df6-b3d5-9ff8b5e39b4e" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/user/serializers.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/user/urls.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/user/utils.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/dataSources.local.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources.local.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/dataSources/8f351a10-671e-4c7f-8fad-9ea67ad4ead4.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources/8f351a10-671e-4c7f-8fad-9ea67ad4ead4.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/dataSources/8f351a10-671e-4c7f-8fad-9ea67ad4ead4/storage_v2/_src_/schema/ego.DYgBAA.meta" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources/8f351a10-671e-4c7f-8fad-9ea67ad4ead4/storage_v2/_src_/schema/ego.DYgBAA.meta" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/TestModel/__init__.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/TestModel/admin.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/TestModel/apps.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/TestModel/migrations/0001_initial.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/TestModel/migrations/0002_auto_20210423_1535.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/TestModel/migrations/__init__.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/TestModel/models.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/TestModel/serializers.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/TestModel/urls.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/TestModel/views.py" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/backend/settings.py" beforeDir="false" afterPath="$PROJECT_DIR$/backend/settings.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/urls.py" beforeDir="false" afterPath="$PROJECT_DIR$/backend/urls.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/problem/migrations/0001_initial.py" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/problem/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/problem/models.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/problem/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/problem/views.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/LICENSE" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/README-zh.md" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/README.md" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/src/App.vue" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/src/App.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/src/api/problem.js" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/src/api/problem.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/src/api/user.js" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/src/api/user.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/src/main.js" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/src/main.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/src/permission.js" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/src/permission.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/src/router/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/src/router/index.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/src/store/getters.js" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/src/store/getters.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/src/store/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/src/store/index.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/src/store/modules/app.js" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/src/store/modules/app.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/src/store/modules/settings.js" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/src/store/modules/settings.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/src/store/modules/user.js" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/src/store/modules/user.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/src/utils/auth.js" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/src/utils/auth.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/src/utils/request.js" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/src/utils/request.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/src/views/login/index.vue" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/../frontend/src/views/problem/list.vue" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/src/views/problem/list.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../frontend/src/views/problem/test copy 2.vue" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../frontend/src/views/problem/test copy 3.vue" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../frontend/src/views/problem/test copy.vue" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/src/views/problem/test.vue" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/src/views/problem/test.vue" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -66,7 +80,7 @@
     <property name="node.js.selected.package.eslint" value="(autodetect)" />
     <property name="node.js.selected.package.tslint" value="(autodetect)" />
     <property name="restartRequiresConfirmation" value="false" />
-    <property name="settings.editor.selected.configurable" value="editor.preferences.pyOptions" />
+    <property name="settings.editor.selected.configurable" value="preferences.pluginManager" />
   </component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
@@ -137,6 +151,13 @@
       <workItem from="1619149735836" duration="21367000" />
       <workItem from="1619692239124" duration="12296000" />
       <workItem from="1620368949392" duration="563000" />
+      <workItem from="1620447328007" duration="236000" />
+      <workItem from="1620532191433" duration="2556000" />
+      <workItem from="1620904500828" duration="31565000" />
+      <workItem from="1621137620161" duration="10551000" />
+      <workItem from="1621247846319" duration="3058000" />
+      <workItem from="1621327903486" duration="4181000" />
+      <workItem from="1621338175608" duration="13370000" />
     </task>
     <servers />
   </component>
@@ -154,6 +175,22 @@
       </map>
     </option>
     <option name="oldMeFiltersMigrated" value="true" />
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/user/serializers.py</url>
+          <line>14</line>
+          <option name="timeStamp" value="1" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/user/serializers.py</url>
+          <line>17</line>
+          <option name="timeStamp" value="2" />
+        </line-breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
     <SUITE FILE_PATH="coverage/backend$tests.coverage" NAME="tests Coverage Results" MODIFIED="1619163949230" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/TestModel" />

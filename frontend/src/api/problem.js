@@ -1,7 +1,27 @@
-const problemApi = "http://127.0.0.1:8000/problem/";
-const ptagApi = "http://127.0.0.1:8000/ptag/";
+import request from '@/utils/request'
+import host from '@/api/host'
 
-export default {
-    problemApi: problemApi,
-    ptagApi:ptagApi
+export function getList() {
+    return request({
+        url: host + 'problem/',
+        method: 'get',
+    })
 }
+
+export function getPtagList() {
+    return request({
+        url: host + 'ptag/',
+        method: 'get',
+    })
+}
+
+export var PtagColor = [
+    "#9dc6eb",
+    "#f8c471",
+    "#b9a3ef",
+    "#fdb1ca",
+    "#9dc6eb",
+    "#f8c471",
+    "#b9a3ef",
+    "#fdb1ca",
+]
