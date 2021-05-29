@@ -32,6 +32,16 @@ export const constantRoutes = [
 
   },
   {
+    path: '/profile',
+    name: 'userProfile',
+    component: Layout,
+    component: () => import('@/views/user/detail'),
+    meta: {
+      title: '个人信息 '
+    },
+    hidden: true,
+  },
+  {
     path: '/problem',
     component: Layout,
     meta: { title: '题目管理' },
@@ -59,21 +69,49 @@ export const constantRoutes = [
       },
     ]
   },
+  {
+    path: '/user',
+    redirect: '/user/list/',
+    component: Layout,
+    meta: { title: '用户管理' },
+    alwaysShow: true,
+    children: [{
+      path: 'list',
+      component: () => import('@/views/user/list'),
+      meta: { title: '用户列表' }
+    }, {
+      path: 'check',
+      component: () => import('@/views/user/check'),
+      meta: { title: '用户审核' }
+    }, {
+      path: 'detail',
+      name: 'userDetail',
+      component: () => import('@/views/user/detail'),
+      meta: { title: '详细信息' },
+      hidden: true,
+    },
+    {
+      path: 'changePassword',
+      component: () => import('@/views/user/changePassword'),
+      meta: { title: '修改密码' },
+    }]
 
+  },
   { path: '/', redirect: '/dashboard', hidden: true },
   // 404 page must be placed at the end !!!
   { path: '*', redirect: '/404', hidden: true }
 ]
-export const asyncRoutes = [{
-  path: '/user',
-  component: Layout,
-  meta: { title: '用户管理' },
-  children: [{
-    path: 'list',
-    component: () => import('@/views/user/list'),
-    meta: { title: '用户列表' }
-  }]
-}
+export const asyncRoutes = [
+  // {
+  //   path: '/user',
+  //   component: Layout,
+  //   meta: { title: '用户管理' },
+  //   children: [{
+  //     path: 'list',
+  //     component: () => import('@/views/user/list'),
+  //     meta: { title: '用户列表' }
+  //   }]
+  // }
 ]
 const createRouter = () => new Router({
   // mode: 'history', // require service support

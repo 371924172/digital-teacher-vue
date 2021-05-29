@@ -19,8 +19,8 @@
           {{username}}<i class="el-icon-arrow-down el-icon--right"></i>
         </span>
         <el-dropdown-menu slot="dropdown" class="user-dropdown">
-          <router-link to="/">
-            <el-dropdown-item> Home </el-dropdown-item>
+          <router-link to="profile">
+            <el-dropdown-item>个人信息 </el-dropdown-item>
           </router-link>
           <a
             target="_blank"

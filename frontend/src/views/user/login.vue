@@ -84,8 +84,8 @@ export default {
     };
     return {
       loginForm: {
-        username: "1",
-        password: "1",
+        username: "11",
+        password: "11",
       },
       // loginRules: {
       //   username: [{ required: true, trigger: 'blur', validator: validateUsername }],
@@ -122,12 +122,17 @@ export default {
           this.$store
             .dispatch("user/login", this.loginForm)
             .then(() => {
+              this.$message({
+                message: "登录成功",
+                type: "success",
+              });
               this.$router.push({
                 path: "/",
               });
               this.loading = false;
             })
             .catch(() => {
+              this.$message.error("用户名或密码错误");
               this.loading = false;
             });
         } else {

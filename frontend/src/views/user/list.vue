@@ -1,6 +1,6 @@
 <template>
   <div>
-    <el-row>
+    <!-- <el-row>
       <el-col :span="14">
         <el-input
           v-model="searchName"
@@ -42,59 +42,29 @@
           >
           </el-option> </el-select
       ></el-col>
-    </el-row>
+    </el-row> -->
 
     <el-table
-      :data="
-        problemList
-          .filter(
-            (data) =>
-              !search ||
-              (data.name.toLowerCase().includes(searchName.toLowerCase()) &&
-                data.ptag.includes(searchTag) &&
-                data.difficulty.toString().includes(searchDiff))
-          )
-          .slice((currentPage - 1) * pageSize, currentPage * pageSize)
-      "
+      :data="userList"
       style="width: 100%"
       @selection-change="handleSelectionChange"
     >
-      <el-table-column type="selection" width="60"> </el-table-column>
-      <el-table-column prop="problem_id" label="题号" width="100">
-      </el-table-column>
-      <el-table-column label="名称" width="300">
+      <el-table-column prop="username" label="用户名"></el-table-column>
+      <el-table-column type="name" label="真实名字">
         <template slot-scope="scope">
           <router-link
-            :to="{ name: 'problemDetail', query: { id: scope.row.id } }"
+            :to="{ name: 'userDetail', params: { id: scope.row.id } }"
           >
-            {{ scope.row.name }}
+            {{ scope.row.username }}
           </router-link>
         </template>
       </el-table-column>
-      <el-table-column prob="ptag" label="标签">
+      <el-table-column prop="mobile_phone" label="手机号码"> </el-table-column>
+      <el-table-column prop="email" label="电子邮箱"> </el-table-column>
+      <el-table-column label="是否为管理员">
         <template slot-scope="scope">
-          <el-tag
-            v-for="item in scope.row.ptag.split(',')"
-            :key="item.index"
-            size="mini"
-            :color="tagColor(item)"
-            effect="dark"
-          >
-            {{ formatTag(item) }}
-          </el-tag>
+          <el-checkbox v-model="scope.row.is_superuser"></el-checkbox>
         </template>
-      </el-table-column>
-      <el-table-column
-        prop="difficulty"
-        label="难度"
-        :filters="[
-          { text: '简单', value: '0' },
-          { text: '适中', value: '1' },
-          { text: '困难', value: '2' },
-        ]"
-        :filter-method="filterHandler"
-        :formatter="formatDifficulty"
-      >
       </el-table-column>
     </el-table>
     <el-pagination
@@ -105,7 +75,7 @@
       :page-sizes="[20, 50, 100]"
       :page-size="pageSize"
       layout="total, sizes, prev, pager, next, jumper"
-      :total="problemList.length"
+      :total="userList.length"
     >
     </el-pagination>
   </div>
@@ -118,34 +88,17 @@ export default {
   data() {
     return {
       userList: [],
+      pageSize: 5,
+      currentPage: 1,
     };
   },
   methods: {
     getData() {
       getUserList().then((response) => {
-        console.log(response.data)
+        this.userList = response.data;
+        console.log(this.userList);
       });
     },
-    // getDetail() {
-    //   this.$router.push({ path: "detail", query: { id: row.id } });
-    // },
-    formatDifficulty(row) {
-      // return this.difficultyList[row.difficulty];
-      var difficulty = this.difficultyList.find((d) => {
-        return d.id == row.difficulty;
-      });
-      return difficulty.label;
-    },
-    filterHandler(value, row, column) {
-      const property = column["property"];
-      return row[property] === value;
-    },
-    search() {
-      this.problemList;
-    },
-    handleSelectionChange(selected) {},
-
-    //每页条数改变时触发 选择一页显示多少行
     handleSizeChange(val) {
       this.currentPage = 1;
       this.pageSize = val;
@@ -154,18 +107,7 @@ export default {
     handleCurrentChange(val) {
       this.currentPage = val;
     },
-
-    formatTag(id) {
-      if (id) {
-        var tag = this.ptagList.find((t) => {
-          return t.id == id;
-        });
-        return tag.name;
-      } else return "尚未分配标签";
-    },
-    tagColor(item) {
-      return PtagColor[item];
-    },
+    handleSelectionChange(selected) {},
   },
   mounted() {
     this.getData();

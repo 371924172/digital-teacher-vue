@@ -137,6 +137,7 @@ export default {
     getData() {
       getList().then((response) => {
         this.problemList = response.data;
+        console.log(response.data);
       });
       getPtagList().then((response) => {
         this.ptagList = response.data;
