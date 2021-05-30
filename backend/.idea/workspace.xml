@@ -2,37 +2,38 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="70789dd4-1549-4df6-b3d5-9ff8b5e39b4e" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/user/serializers.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/user/urls.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/user/utils.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/dataSources.local.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources.local.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lesson/__init__.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lesson/migrations/__init__.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lesson/serializers.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lesson/urls.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/dataSources/8f351a10-671e-4c7f-8fad-9ea67ad4ead4.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources/8f351a10-671e-4c7f-8fad-9ea67ad4ead4.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/dataSources/8f351a10-671e-4c7f-8fad-9ea67ad4ead4/storage_v2/_src_/schema/ego.DYgBAA.meta" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources/8f351a10-671e-4c7f-8fad-9ea67ad4ead4/storage_v2/_src_/schema/ego.DYgBAA.meta" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/backend/settings.py" beforeDir="false" afterPath="$PROJECT_DIR$/backend/settings.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/backend/urls.py" beforeDir="false" afterPath="$PROJECT_DIR$/backend/urls.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/db.sqlite3" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/problem/__init__.py" beforeDir="false" afterPath="$PROJECT_DIR$/problem/__init__.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/problem/migrations/0001_initial.py" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/problem/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/problem/models.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/problem/serializers.py" beforeDir="false" afterPath="$PROJECT_DIR$/problem/serializers.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/problem/urls.py" beforeDir="false" afterPath="$PROJECT_DIR$/problem/urls.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/problem/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/problem/views.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../frontend/LICENSE" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../frontend/README-zh.md" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../frontend/README.md" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../frontend/src/App.vue" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/src/App.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../frontend/src/api/problem.js" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/src/api/problem.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/test.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/user/migrations/0001_initial.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/user/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/user/models.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/user/serializers.py" beforeDir="false" afterPath="$PROJECT_DIR$/user/serializers.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/user/urls.py" beforeDir="false" afterPath="$PROJECT_DIR$/user/urls.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/user/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/user/views.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../frontend/src/api/user.js" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/src/api/user.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../frontend/src/main.js" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/src/main.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/src/components/Breadcrumb/index.vue" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/src/components/Breadcrumb/index.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/src/layout/components/Navbar.vue" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/src/layout/components/Navbar.vue" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../frontend/src/permission.js" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/src/permission.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../frontend/src/router/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/src/router/index.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../frontend/src/store/getters.js" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/src/store/getters.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../frontend/src/store/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/src/store/index.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../frontend/src/store/modules/app.js" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/src/store/modules/app.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../frontend/src/store/modules/settings.js" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/src/store/modules/settings.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../frontend/src/store/modules/user.js" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/src/store/modules/user.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../frontend/src/utils/auth.js" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/src/utils/auth.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../frontend/src/utils/request.js" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/src/utils/request.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../frontend/src/views/login/index.vue" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/../frontend/src/views/problem/list.vue" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/src/views/problem/list.vue" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../frontend/src/views/problem/test.vue" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/src/views/problem/test.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/src/views/user/list.vue" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/src/views/user/list.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/src/views/user/login.vue" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/src/views/user/login.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/src/views/user/register.vue" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/src/views/user/register.vue" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -80,7 +81,7 @@
     <property name="node.js.selected.package.eslint" value="(autodetect)" />
     <property name="node.js.selected.package.tslint" value="(autodetect)" />
     <property name="restartRequiresConfirmation" value="false" />
-    <property name="settings.editor.selected.configurable" value="preferences.pluginManager" />
+    <property name="settings.editor.selected.configurable" value="preferences.keymap" />
   </component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
@@ -158,6 +159,10 @@
       <workItem from="1621247846319" duration="3058000" />
       <workItem from="1621327903486" duration="4181000" />
       <workItem from="1621338175608" duration="13370000" />
+      <workItem from="1621855556542" duration="20893000" />
+      <workItem from="1622111532678" duration="16092000" />
+      <workItem from="1622263788670" duration="8228000" />
+      <workItem from="1622272708186" duration="5167000" />
     </task>
     <servers />
   </component>
@@ -180,14 +185,8 @@
     <breakpoint-manager>
       <breakpoints>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
-          <url>file://$PROJECT_DIR$/user/serializers.py</url>
-          <line>14</line>
+          <url>file://D:/python/Lib/site-packages/rest_framework_jwt/views.py</url>
           <option name="timeStamp" value="1" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
-          <url>file://$PROJECT_DIR$/user/serializers.py</url>
-          <line>17</line>
-          <option name="timeStamp" value="2" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>

@@ -5,10 +5,11 @@ from . import views
 
 urlpatterns = [
     url(r'^authenticated/$', obtain_jwt_token),
-    url(r'^register/(?P<username>\w)/exist/', views.LoginAndRegisterView.as_view({'get': 'exist '})),
-    url(r'^getInfo/(?P<pk>\w)', views.LoginAndRegisterView.as_view({'get': 'retrieve'}))
+    url(r'^changePassword/', views.UserProfileView.as_view({'put': 'changePassword'})),
+    url(r'^updateIssuperuser/', views.UserView.as_view({'put': 'updateIssuperuser'})),
 ]
 
 router = DefaultRouter()
 router.register(r'users', views.UserView)
+router.register(r'userProfile', views.UserProfileView)
 urlpatterns += router.urls

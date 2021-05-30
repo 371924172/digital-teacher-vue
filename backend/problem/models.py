@@ -54,11 +54,152 @@ class Problem(models.Model):
 class Ptag(models.Model):
     id = models.AutoField(db_column='ID', primary_key=True)  # Field name made lowercase.
     name = models.CharField(db_column='NAME', max_length=32, blank=True, null=True)  # Field name made lowercase.
-    created_by = models.CharField(db_column='CREATED_BY', max_length=32, blank=True, null=True)  # Field name made lowercase.
+    created_by = models.CharField(db_column='CREATED_BY', max_length=32, blank=True,
+                                  null=True)  # Field name made lowercase.
     created_time = models.DateTimeField(db_column='CREATED_TIME', blank=True, null=True)  # Field name made lowercase.
-    updated_by = models.CharField(db_column='UPDATED_BY', max_length=32, blank=True, null=True)  # Field name made lowercase.
+    updated_by = models.CharField(db_column='UPDATED_BY', max_length=32, blank=True,
+                                  null=True)  # Field name made lowercase.
     updated_time = models.DateTimeField(db_column='UPDATED_TIME', blank=True, null=True)  # Field name made lowercase.
 
     class Meta:
         managed = True
         db_table = 'ego_ptag'
+
+
+class Device(models.Model):
+    id = models.AutoField(db_column='ID', primary_key=True)  # Field name made lowercase.
+    sn = models.CharField(db_column='SN', max_length=32)  # Field name made lowercase.
+    type = models.CharField(db_column='TYPE', max_length=32)  # Field name made lowercase.
+    mmac = models.CharField(db_column='MMAC', max_length=32)  # Field name made lowercase.
+    mip = models.CharField(db_column='MIP', max_length=32)  # Field name made lowercase.
+    mfr_time = models.DateTimeField(db_column='MFR_TIME', blank=True, null=True)  # Field name made lowercase.
+    created_by = models.CharField(db_column='CREATED_BY', max_length=32, blank=True,
+                                  null=True)  # Field name made lowercase.
+    created_time = models.DateTimeField(db_column='CREATED_TIME', blank=True, null=True)  # Field name made lowercase.
+    updated_by = models.CharField(db_column='UPDATED_BY', max_length=32, blank=True,
+                                  null=True)  # Field name made lowercase.
+    updated_time = models.DateTimeField(db_column='UPDATED_TIME', blank=True, null=True)  # Field name made lowercase.
+
+    class Meta:
+        managed = True
+        db_table = 'ego_device'
+
+
+class Drecord(models.Model):
+    id = models.AutoField(db_column='ID', primary_key=True)  # Field name made lowercase.
+    device_id = models.ForeignKey('Device', on_delete=models.CASCADE,db_column='device_id')
+    info = models.CharField(db_column='INFO', max_length=1024, blank=True, null=True)  # Field name made lowercase.
+    created_by = models.CharField(db_column='CREATED_BY', max_length=32, blank=True,
+                                  null=True)  # Field name made lowercase.
+    created_time = models.DateTimeField(db_column='CREATED_TIME', blank=True, null=True)  # Field name made lowercase.
+    updated_by = models.CharField(db_column='UPDATED_BY', max_length=32, blank=True,
+                                  null=True)  # Field name made lowercase.
+    updated_time = models.DateTimeField(db_column='UPDATED_TIME', blank=True, null=True)  # Field name made lowercase.
+
+    class Meta:
+        managed = True
+        db_table = 'ego_drecord'
+
+
+class Pcateory(models.Model):
+    id = models.AutoField(db_column='ID', primary_key=True)  # Field name made lowercase.
+    name = models.CharField(db_column='NAME', max_length=32)  # Field name made lowercase.
+
+    class Meta:
+        managed = True
+        db_table = 'ego_pcateory'
+
+
+class Pgroup(models.Model):
+    id = models.AutoField(db_column='ID', primary_key=True)  # Field name made lowercase.
+    pid = models.CharField(db_column='PID', max_length=32, blank=True, null=True)  # Field name made lowercase.
+    name = models.CharField(db_column='NAME', max_length=128, blank=True, null=True)  # Field name made lowercase.
+    decription = models.TextField(db_column='DECRIPTION', blank=True, null=True)  # Field name made lowercase.
+    created_by = models.CharField(db_column='CREATED_BY', max_length=32, blank=True,
+                                  null=True)  # Field name made lowercase.
+    created_time = models.DateTimeField(db_column='CREATED_TIME', blank=True, null=True)  # Field name made lowercase.
+    updated_by = models.CharField(db_column='UPDATED_BY', max_length=32, blank=True,
+                                  null=True)  # Field name made lowercase.
+    updated_time = models.DateTimeField(db_column='UPDATED_TIME', blank=True, null=True)  # Field name made lowercase.
+
+    class Meta:
+        managed = True
+        db_table = 'ego_pgroup'
+
+
+class Poprecord(models.Model):
+    id = models.AutoField(db_column='ID', primary_key=True)  # Field name made lowercase.
+    problem_id = models.ForeignKey('Problem', on_delete=models.CASCADE,db_column='problem_id')
+    status = models.IntegerField(db_column='STATUS', blank=True, null=True)  # Field name made lowercase.
+    user_id = models.ForeignKey('user.User', on_delete=models.CASCADE,db_column='user_id')
+    datatime = models.DateTimeField(db_column='DATATIME', blank=True, null=True)  # Field name made lowercase.
+
+    class Meta:
+        managed = True
+        db_table = 'ego_poprecord'
+
+
+class Propcate(models.Model):
+    id = models.AutoField(db_column='ID', primary_key=True)  # Field name made lowercase.
+    problem_id = models.ForeignKey('Problem', on_delete=models.CASCADE,db_column='problem_id')
+    pcateory_id = models.ForeignKey('Pcateory', on_delete=models.CASCADE,db_column='pcateory_id')
+    created_by = models.CharField(db_column='CREATED_BY', max_length=32, blank=True,
+                                  null=True)  # Field name made lowercase.
+    created_time = models.DateTimeField(db_column='CREATED_TIME', blank=True, null=True)  # Field name made lowercase.
+    updated_by = models.CharField(db_column='UPDATED_BY', max_length=32, blank=True,
+                                  null=True)  # Field name made lowercase.
+    updated_time = models.DateTimeField(db_column='UPDATED_TIME', blank=True, null=True)  # Field name made lowercase.
+
+    class Meta:
+        managed = True
+        db_table = 'ego_propcate'
+
+
+class Propgroup(models.Model):
+    id = models.AutoField(db_column='ID', primary_key=True)  # Field name made lowercase.
+    pgroup_id = models.ForeignKey('Pgroup', on_delete=models.CASCADE,db_column='pgroup_id')
+    problem_id = models.ForeignKey('Problem', on_delete=models.CASCADE,db_column='problem_id')
+    created_by = models.CharField(db_column='CREATED_BY', max_length=32, blank=True,
+                                  null=True)  # Field name made lowercase.
+    created_time = models.DateTimeField(db_column='CREATED_TIME', blank=True, null=True)  # Field name made lowercase.
+    updated_by = models.CharField(db_column='UPDATED_BY', max_length=32, blank=True,
+                                  null=True)  # Field name made lowercase.
+    updated_time = models.DateTimeField(db_column='UPDATED_TIME', blank=True, null=True)  # Field name made lowercase.
+
+    class Meta:
+        managed = True
+        db_table = 'ego_propgroup'
+
+
+class Proptag(models.Model):
+    id = models.AutoField(db_column='ID', primary_key=True)  # Field name made lowercase.
+    problem_id = models.ForeignKey('Problem', on_delete=models.CASCADE,db_column='problem_id')
+    ptag_id = models.ForeignKey('Ptag', on_delete=models.CASCADE,db_column='ptag_id')
+    created_by = models.CharField(db_column='CREATED_BY', max_length=32, blank=True,
+                                  null=True)  # Field name made lowercase.
+    created_time = models.DateTimeField(db_column='CREATED_TIME', blank=True, null=True)  # Field name made lowercase.
+    updated_by = models.CharField(db_column='UPDATED_BY', max_length=32, blank=True,
+                                  null=True)  # Field name made lowercase.
+    updated_time = models.DateTimeField(db_column='UPDATED_TIME', blank=True, null=True)  # Field name made lowercase.
+
+    class Meta:
+        managed = True
+        db_table = 'ego_proptag'
+
+
+class Psource(models.Model):
+    id = models.AutoField(db_column='ID', primary_key=True)  # Field name made lowercase.
+    type = models.IntegerField(db_column='TYPE', blank=True, null=True)  # Field name made lowercase.
+    source = models.CharField(db_column='SOURCE', max_length=128, blank=True, null=True)  # Field name made lowercase.
+    decription = models.CharField(db_column='DECRIPTION', max_length=1024, blank=True,
+                                  null=True)  # Field name made lowercase.
+    created_by = models.CharField(db_column='CREATED_BY', max_length=32, blank=True,
+                                  null=True)  # Field name made lowercase.
+    created_time = models.DateTimeField(db_column='CREATED_TIME', blank=True, null=True)  # Field name made lowercase.
+    updated_by = models.CharField(db_column='UPDATED_BY', max_length=32, blank=True,
+                                  null=True)  # Field name made lowercase.
+    updated_time = models.DateTimeField(db_column='UPDATED_TIME', blank=True, null=True)  # Field name made lowercase.
+
+    class Meta:
+        managed = True
+        db_table = 'ego_psource'

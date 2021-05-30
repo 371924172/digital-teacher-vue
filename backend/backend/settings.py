@@ -40,6 +40,7 @@ INSTALLED_APPS = [
     'rest_framework.authtoken',
     'corsheaders',
 
+    'lesson',
     'problem',
     'user'
 
@@ -57,7 +58,6 @@ MIDDLEWARE = [
     'django.middleware.common.CommonMiddleware',  # 注意顺序
 
 ]
-
 REST_FRAMEWORK = {
     # DEFAULT_PERMISSION_CLASSES设置默认的权限类，通过认证后赋予用户的权限
     'DEFAULT_PERMISSION_CLASSES': (
@@ -103,12 +103,6 @@ WSGI_APPLICATION = 'backend.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/3.1/ref/settings/#databases
 
-# DATABASES = {
-#     'default': {
-#         'ENGINE': 'django.db.backends.sqlite3',
-#         'NAME': BASE_DIR / 'db.sqlite3',
-#     }
-# }
 
 DATABASES = {
     'default':

@@ -16,20 +16,20 @@ class User(AbstractUser):
                                   null=True)  # Field name made lowercase.
     gender = models.CharField(db_column='GENDER', max_length=32, blank=True, null=True)  # Field name made lowercase.
     birth = models.DateField(db_column='BIRTH', blank=True, null=True)  # Field name made lowercase.
-    avatar = models.CharField(db_column='AVATAR', max_length=32, blank=True, null=True)  # Field name made lowercase.
+    avatar = models.ImageField(upload_to="imgs", db_column='AVATAR', max_length=32, blank=True,
+                               null=True)  # Field name made lowercase.
     intro = models.CharField(db_column='INTRO', max_length=512, blank=True, null=True)  # Field name made lowercase.
     present_address = models.CharField(db_column='PRESENT_ADDRESS', max_length=128, blank=True,
                                        null=True)  # Field name made lowercase.
     email = models.CharField(db_column='EMAIL', max_length=32, blank=True, null=True)  # Field name made lowercase.
     last_login = models.DateTimeField(auto_now=True)
-    status = models.CharField(db_column='STATUS', max_length=32, blank=True, null=True)  # Field name made lowercase.
+    status = models.CharField(db_column='STATUS', max_length=32, blank=True, null=True,default='FALSE')  # Field name made lowercase.
     created_by = models.CharField(db_column='CREATED_BY', max_length=32, blank=True,
                                   null=True)  # Field name made lowercase.
     created_time = models.DateTimeField(db_column='CREATED_TIME', blank=True, null=True)  # Field name made lowercase.
     updated_by = models.CharField(db_column='UPDATED_BY', max_length=32, blank=True,
                                   null=True)  # Field name made lowercase.
     updated_time = models.DateTimeField(db_column='UPDATED_TIME', blank=True, null=True)  # Field name made lowercase.
-
 
     class Meta:
         managed = True
