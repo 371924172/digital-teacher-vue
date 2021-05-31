@@ -4,14 +4,15 @@
     :model="changePasswordForm"
     :rules="rules"
     label-width="80px"
+    hide-required-asterisk="True"
   >
-    <el-form-item label="旧密码">
+    <el-form-item label="旧密码" prop="oldpassword">
       <el-input v-model="changePasswordForm.oldpassword"></el-input>
     </el-form-item>
-    <el-form-item label="新密码">
+    <el-form-item label="新密码" prop="newpassword">
       <el-input v-model="changePasswordForm.newpassword"></el-input>
     </el-form-item>
-    <el-form-item label="确认密码">
+    <el-form-item label="确认密码" prop="repassword">
       <el-input v-model="changePasswordForm.repassword"></el-input>
     </el-form-item>
     <el-form-item>
@@ -47,7 +48,7 @@ export default {
       },
       rules: {
         oldpassword: [
-          { requied: true, message: "请输入旧密码", trigger: "blur" },
+          { required: true, message: "请输入旧密码", trigger: "blur" },
         ],
         newpassword: [{ validator: validatePass, trigger: "blur" }],
         repassword: [{ validator: validatePass2, trigger: "blur" }],
@@ -56,7 +57,6 @@ export default {
   },
   methods: {
     onSubmit(formName) {
-      console.log(formName);
       this.$refs[formName].validate((valid) => {
         if (valid) {
           changePassword(this.changePasswordForm).then((response) => {

@@ -1,4 +1,5 @@
 from rest_framework.viewsets import ModelViewSet
+from rest_framework.response import Response
 from .models import *
 from .serializers import *
 
@@ -27,6 +28,12 @@ class pcategoryView(ModelViewSet):
     queryset = Pcateory.objects.all()
     serializer_class = pcategorySerializer
 
+    def create(self, request):
+        serializer = self.get_serializer(data=request.data, many=isinstance(request.data, list))
+        serializer.is_valid(raise_exception=True)
+        serializer.save()
+
+        return Response(request.data)
 
 class pgroupView(ModelViewSet):
     queryset = Pgroup.objects.all()
@@ -51,6 +58,13 @@ class propgroupView(ModelViewSet):
 class proptagView(ModelViewSet):
     queryset = Proptag.objects.all()
     serializer_class = proptagSerializer
+
+    def create(self, request):
+        serializer = self.get_serializer(data=request.data, many=isinstance(request.data, list))
+        serializer.is_valid(raise_exception=True)
+        serializer.save()
+
+        return Response(request.data)
 
 
 class psourceView(ModelViewSet):
