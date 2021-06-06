@@ -36,6 +36,7 @@ export default {
     ...mapGetters(["sidebar"]),
     routes() {
       return JSON.parse(sessionStorage.getItem("routes"));
+      // return this.$router.options.routes
     },
     activeMenu() {
       const route = this.$route;

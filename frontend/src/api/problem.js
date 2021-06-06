@@ -8,6 +8,12 @@ export function getList() {
     })
 }
 
+export function getMyProblem() {
+    return request({
+        url: host + 'problem/myProblem/',
+        method: 'get'
+    })
+}
 export function getPtagList() {
     return request({
         url: host + 'ptag/',

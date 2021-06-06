@@ -5,7 +5,6 @@ import NProgress from 'nprogress' // progress bar
 import 'nprogress/nprogress.css' // progress bar style
 import { getToken } from '@/utils/auth' // get token from cookie
 import getPageTitle from '@/utils/get-page-title'
-
 NProgress.configure({ showSpinner: false }) // NProgress Configuration
 
 const whiteList = ['/login', '/register'] // no redirect whitelist
@@ -22,7 +21,8 @@ router.beforeEach(async (to, from, next) => {
     );
     sessionStorage.removeItem("store")
   }
-  // start progress bar
+  // console.log(router.options)
+  // start progress bar 
   NProgress.start()
 
   // set page title
@@ -38,16 +38,24 @@ router.beforeEach(async (to, from, next) => {
       NProgress.done() // hack: https://github.com/PanJiaChen/vue-element-admin/pull/2939
     } else {
       // determine whether the user has obtained his permission roles through getInfo
-      const hasRoles = store.getters.username
-      if (hasRoles) {
-        next()
+      // const hasRoles = store.getters.roles && store.getters.roles.length > 0
+      const status = store.getters.status;
+      console.log(status)
+      if (status) {
+        if (status == 'True')
+          next()
+        else {
+          Message.error("该用户尚未通过审核，请联系管理员");
+          await store.dispatch("user/logout");
+        }
+
       } else {
         try {
           // get user info
           // note: roles must be a object array! such as: ['admin'] or ,['developer','editor']
-          const { is_superuser } = await store.dispatch('user/getInfo')
+          const { roles } = await store.dispatch('user/getInfo')
           // generate accessible routes map based on roles
-          const accessRoutes = is_superuser ? asyncRoutes : []
+          const accessRoutes = await store.dispatch('permission/generateRoutes', roles)
           sessionStorage.setItem('routes', JSON.stringify(constantRoutes.concat(accessRoutes)))
           // dynamically add accessible routes
           router.addRoutes(accessRoutes)

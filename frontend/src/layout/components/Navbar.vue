@@ -16,11 +16,14 @@
         </div> -->
       <el-dropdown trigger="click">
         <span class="el-dropdown-link">
-          {{username}}<i class="el-icon-arrow-down el-icon--right"></i>
+          {{ username }}<i class="el-icon-arrow-down el-icon--right"></i>
         </span>
         <el-dropdown-menu slot="dropdown" class="user-dropdown">
-          <router-link to="profile">
+          <router-link to="/profile">
             <el-dropdown-item>个人信息 </el-dropdown-item>
+          </router-link>
+          <router-link to="/myproblem">
+            <el-dropdown-item>我创建的题目 </el-dropdown-item>
           </router-link>
           <a
             target="_blank"
@@ -45,7 +48,7 @@
 
 <script>
 import { mapGetters } from "vuex";
-import store from '../../store'
+import store from "../../store";
 import Breadcrumb from "@/components/Breadcrumb";
 import Hamburger from "@/components/Hamburger";
 

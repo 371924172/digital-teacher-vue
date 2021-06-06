@@ -39,12 +39,7 @@ export function logout() {
 }
 
 
-export function getUserList() {
-  return request({
-    url: host + 'users/',
-    method: 'get'
-  })
-}
+
 
 export function getUncheckedUser() {
   return request({
@@ -63,7 +58,7 @@ export function checkUser(data) {
 
 export function updateInfo(data) {
   return request({
-    url: host + 'users/',
+    url: host + 'users/' + data.id + '/',
     method: 'put',
     data
   })

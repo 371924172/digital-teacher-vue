@@ -123,7 +123,7 @@ export default {
             .dispatch("user/login", this.loginForm)
             .then(() => {
               this.$message({
-                message: "登录成功",
+                message: "正在登录...",
                 type: "success",
               });
               this.$router.push({

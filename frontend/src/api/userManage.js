@@ -1,9 +1,40 @@
 import request from '@/utils/request'
 import host from '@/api/host'
 
-export function getUserlist() {
+export function getUserList() {
     return request({
         url: host + 'users/',
         method: 'get'
+    })
+}
+
+export function assignRole(data) {
+    return request({
+        url: host + 'role/assign/',
+        method: 'post',
+        data
+    })
+}
+
+export function getRole() {
+    return request({
+        url: host + 'role/',
+        method: 'get',
+    })
+}
+
+export function deleteAdmin(id) {
+    return request({
+        url: host + 'role/' + id + '/',
+        method: 'delete'
+
+    })
+}
+
+export function addUser(data) {
+    return request({
+        url: host + 'users/add/',
+        method: "post",
+        data
     })
 }

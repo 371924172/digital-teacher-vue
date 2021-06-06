@@ -1,12 +1,17 @@
 from rest_framework.permissions import BasePermission
+from .models import Role
 
 
 # 自定义权限管理
-class is_superuser(BasePermission):
+class isAdmin(BasePermission):
     def has_permission(self, request, view):
         # 获取当前登陆用户
         user = request.user
-        # 如果未登录，返回False --> 无权限
+        role = Role.objects.filter(user_id=user.id)
+        roles = []
+        for r in role:
+            if r.name == 'admin':
+                return 1
         return bool(user.is_superuser)
 
 
@@ -15,5 +20,5 @@ def jwt_response_payload_handler(token, user=None, request=None):
     return {
         'token': token,
         'userid': user.id,
-        'is_superuser': user.is_superuser
+        'status': user.status
     }

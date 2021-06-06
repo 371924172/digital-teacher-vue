@@ -12,7 +12,11 @@ export const constantRoutes = [
     component: () => import('@/views/user/login'),
     hidden: true
   },
-
+  {
+    path: '/myproblem',
+    component: () => import('@/views/user/myproblem'),
+    hidden: true
+  },
   {
     path: '/404',
     component: () => import('@/views/404'),
@@ -27,8 +31,15 @@ export const constantRoutes = [
 
     path: '/dashboard',
     name: 'Dashboard',
+    redirect: '/dashboard/dashboard',
     component: Layout,
-    meta: { title: 'Dashboard', icon: 'dashboard' }
+    meta: { title: 'Dashboard', icon: 'dashboard' },
+    children: [
+      {
+        path: 'dashboard',
+        component: () => import('@/views/dashboard/index')
+      }
+    ]
 
   },
   {
@@ -69,11 +80,17 @@ export const constantRoutes = [
       },
     ]
   },
+
+  { path: '/', redirect: '/dashboard', hidden: true },
+  // 404 page must be placed at the end !!!
+  { path: '*', redirect: '/404', hidden: true }
+]
+export const asyncRoutes = [
   {
     path: '/user',
     redirect: '/user/list/',
     component: Layout,
-    meta: { title: '用户管理' },
+    meta: { roles: ['admin'], title: '用户管理' },
     alwaysShow: true,
     children: [{
       path: 'list',
@@ -83,6 +100,10 @@ export const constantRoutes = [
       path: 'check',
       component: () => import('@/views/user/check'),
       meta: { title: '用户审核' }
+    }, {
+      path: "assignRole",
+      component: () => import('@/views/user/assignRole'),
+      meta: { title: '权限管理' }
     }, {
       path: 'detail',
       name: 'userDetail',
@@ -97,21 +118,6 @@ export const constantRoutes = [
     }]
 
   },
-  { path: '/', redirect: '/dashboard', hidden: true },
-  // 404 page must be placed at the end !!!
-  { path: '*', redirect: '/404', hidden: true }
-]
-export const asyncRoutes = [
-  // {
-  //   path: '/user',
-  //   component: Layout,
-  //   meta: { title: '用户管理' },
-  //   children: [{
-  //     path: 'list',
-  //     component: () => import('@/views/user/list'),
-  //     meta: { title: '用户列表' }
-  //   }]
-  // }
 ]
 const createRouter = () => new Router({
   // mode: 'history', // require service support

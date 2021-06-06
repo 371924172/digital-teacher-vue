@@ -4,11 +4,32 @@
     <list default="true" id="70789dd4-1549-4df6-b3d5-9ff8b5e39b4e" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/dataSources.local.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources.local.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/dataSources/8f351a10-671e-4c7f-8fad-9ea67ad4ead4.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources/8f351a10-671e-4c7f-8fad-9ea67ad4ead4.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/dataSources/8f351a10-671e-4c7f-8fad-9ea67ad4ead4/storage_v2/_src_/schema/ego.DYgBAA.meta" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources/8f351a10-671e-4c7f-8fad-9ea67ad4ead4/storage_v2/_src_/schema/ego.DYgBAA.meta" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/backend/settings.py" beforeDir="false" afterPath="$PROJECT_DIR$/backend/settings.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/problem/migrations/0001_initial.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/problem/migrations/0002_auto_20210528_2028.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/problem/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/problem/models.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/problem/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/problem/views.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/user/migrations/0001_initial.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/user/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/user/models.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/user/serializers.py" beforeDir="false" afterPath="$PROJECT_DIR$/user/serializers.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/user/urls.py" beforeDir="false" afterPath="$PROJECT_DIR$/user/urls.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/user/utils.py" beforeDir="false" afterPath="$PROJECT_DIR$/user/utils.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/user/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/user/views.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/src/api/problem.js" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/src/api/problem.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/src/api/user.js" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/src/api/user.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/src/api/userManage.js" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/src/api/userManage.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/src/layout/components/Navbar.vue" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/src/layout/components/Navbar.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/src/layout/components/Sidebar/index.vue" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/src/layout/components/Sidebar/index.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/src/permission.js" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/src/permission.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/src/router/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/src/router/index.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/src/store/getters.js" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/src/store/getters.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/src/store/modules/permission.js" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/src/store/modules/permission.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/src/store/modules/user.js" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/src/store/modules/user.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/src/views/dashboard/index.vue" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/src/views/dashboard/index.vue" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../frontend/src/views/user/changePassword.vue" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/src/views/user/changePassword.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/src/views/user/list.vue" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/src/views/user/list.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/src/views/user/permission.vue" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -49,6 +70,7 @@
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
     <property name="node.js.detected.package.eslint" value="true" />
     <property name="node.js.detected.package.tslint" value="true" />
     <property name="node.js.path.for.package.eslint" value="project" />
@@ -138,8 +160,13 @@
       <workItem from="1622111532678" duration="16092000" />
       <workItem from="1622263788670" duration="8228000" />
       <workItem from="1622272708186" duration="5167000" />
-      <workItem from="1622358206335" duration="2142000" />
-      <workItem from="1622363024967" duration="4486000" />
+      <workItem from="1622440857251" duration="1092000" />
+      <workItem from="1622442719732" duration="5892000" />
+      <workItem from="1622615018146" duration="95000" />
+      <workItem from="1622616200343" duration="6736000" />
+      <workItem from="1622716850062" duration="5593000" />
+      <workItem from="1622870844961" duration="12101000" />
+      <workItem from="1622956565236" duration="7902000" />
     </task>
     <servers />
   </component>
@@ -165,16 +192,11 @@
           <url>file://D:/python/Lib/site-packages/rest_framework_jwt/views.py</url>
           <option name="timeStamp" value="1" />
         </line-breakpoint>
-        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
-          <url>file://$PROJECT_DIR$/problem/models.py</url>
-          <line>20</line>
-          <option name="timeStamp" value="2" />
-        </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
-    <SUITE FILE_PATH="coverage/backend$test.coverage" NAME="test Coverage Results" MODIFIED="1619165057483" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/TestModel" />
     <SUITE FILE_PATH="coverage/backend$tests.coverage" NAME="tests Coverage Results" MODIFIED="1619163949230" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/TestModel" />
+    <SUITE FILE_PATH="coverage/backend$test.coverage" NAME="test Coverage Results" MODIFIED="1619165057483" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/TestModel" />
   </component>
 </project>

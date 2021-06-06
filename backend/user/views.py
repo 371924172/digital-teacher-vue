@@ -2,24 +2,35 @@ from rest_framework.decorators import action
 from rest_framework.response import Response
 from rest_framework.viewsets import GenericViewSet, ModelViewSet
 from rest_framework.permissions import AllowAny
-from .utils import is_superuser
-from .serializers import UserSerializer
-from .models import User
+from .serializers import *
+from .models import User, Role
+from .utils import isAdmin
 from rest_framework import mixins
 from django.contrib.auth.hashers import make_password
 from django.contrib.auth import authenticate
 
 
 # 注册登录相关
-class UserProfileView(mixins.CreateModelMixin, mixins.RetrieveModelMixin, GenericViewSet):
+class UserProfileView(ModelViewSet):
     permission_classes = (AllowAny,)
     queryset = User.objects.all()
     serializer_class = UserSerializer
 
+    def retrieve(self, request, pk):
+        user = User.objects.get(pk=pk)
+        role = Role.objects.filter(user_id=pk)
+        roles = []
+        for r in role:
+            roles.append(r.name)
+
+        serializer = UserSerializer(user)
+        data = serializer.data
+        data['roles'] = roles
+        return Response(data)
+
     @action(methods=['post'], detail=False)
     def exist(self, request):
         username = request.data['username']
-        print(username)
         count = User.objects.filter(username=username).count()
         data = {
             "username": username,
@@ -40,32 +51,31 @@ class UserProfileView(mixins.CreateModelMixin, mixins.RetrieveModelMixin, Generi
                 'password': data['newpassword']
             }
             UserSerializer.changePassword(self, newpassword, request)
-            return Response(status=200)
-        return Response(data)
+            return Response({"status": 1})
+
+        return Response({"status": 0})
+
+        # 用户管理
 
 
-# 用户管理
 class UserView(ModelViewSet):
-    permission_classes = (is_superuser,)
+    permission_classes = (isAdmin,)
     queryset = User.objects.all()
     serializer_class = UserSerializer
 
-    def update(self, request, *args, **kwargs):
-        data = request.data
-        print(data)
-        return Response(data)
 
-    @action(methods=['put'], detail=False)
-    def permission(self, request):
+    @action(methods=['post'], detail=False)
+    def add(self, request):
         data = request.data
-        for user in data:
-            User.objects.filter(id=user['id']).update(is_superuser=user['is_superuser'])
-        return Response(data)
+        data['password'] = "123456"
+        serializer = self.get_serializer(data=data)
+        serializer.is_valid(raise_exception=True)
+        serializer.save()
+        return Response(serializer.data)
 
     @action(methods=['get'], detail=False)
     def unchecked(self, request):
         userList = User.objects.filter(status="FALSE")
-        print(userList)
         serializer = UserSerializer(userList, many=True)
         return Response(serializer.data)
 
@@ -75,3 +85,23 @@ class UserView(ModelViewSet):
         for user in data:
             User.objects.filter(id=user['id']).update(status=user['status'])
         return Response(data)
+
+
+class RoleView(ModelViewSet):
+    permission_classes = (isAdmin,)
+    queryset = Role.objects.all()
+    serializer_class = RoleSerializer
+
+    def list(self, request, *args, **kwargs):
+        role = Role.objects.all()
+        serializer = RoleSerializer(role, many=True)
+        return Response(serializer.data)
+
+    @action(methods=['post'], detail=False)
+    def assign(self, request):
+        data = request.data
+        print(data['id'])
+        user = User.objects.get(id=data['id'])
+        Role.objects.create(role_id=1, name='admin', assign_id=request.user.id, user_id=user.id)
+        # print(serializer.data)
+        return Response(status=200)

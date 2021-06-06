@@ -7,7 +7,8 @@ const state = {
   name: '',
   userid: '',
   username: '',
-  is_superuser: Boolean,
+  status: '',
+  roles: []
 }
 
 const mutations = {
@@ -23,8 +24,8 @@ const mutations = {
   SET_USERNAME: (state, username) => {
     state.username = username
   },
-  SET_IS_SUPERUSER: (state, is_superuser) => {
-    state.is_superuser = is_superuser
+  SET_STATUS: (state, status) => {
+    state.status = status
   }
 }
 
@@ -55,9 +56,10 @@ const actions = {
           reject('Verification failed, please Login again.')
         }
 
-        const { is_superuser, username } = data
-        commit('SET_IS_SUPERUSER', is_superuser)
+        const { roles, username, status } = data
+        commit('SET_ROLES', roles)
         commit('SET_USERNAME', username)
+        commit("SET_STATUS", status)
         resolve(data)
       }).catch(error => {
         reject(error)
@@ -72,7 +74,8 @@ const actions = {
         commit('SET_TOKEN', '')
         commit('SET_USERID', Number)
         commit('SET_USERNAME', '')
-        commit('SET_IS_SUPERUSER',Boolean)
+        commit('SET_ROLES', [])
+        commit("SET_STATUS", '')
         removeToken()
         resetRouter()
 

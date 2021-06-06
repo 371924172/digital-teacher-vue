@@ -1,72 +1,80 @@
 <template>
   <div>
-    <!-- <el-row>
-      <el-col :span="14">
-        <el-input
-          v-model="searchName"
-          size="mini"
-          placeholder="输入关键字搜索"
-          style="width: 180px; margin: 10px"
-          prefix-icon="el-icon-search"
-        ></el-input
-      ></el-col>
-      <el-col :span="1.5">
-        <el-select
-          v-model="searchTag"
-          placeholder="标签"
-          multiple
-          size="mini"
-          :clearable="true"
-          style="margin-top: 10px"
-        >
-          <el-option
-            v-for="item in ptagList"
-            :key="item.id"
-            :label="item.name"
-            :value="item.id"
-          >
-          </el-option>
-        </el-select> </el-col
-      ><el-col :span="1.5"
-        ><el-select
-          v-model="searchDiff"
-          placeholder="难度"
-          size="mini"
-          style="margin-top: 10px"
-        >
-          <el-option
-            v-for="item in difficultyList"
-            :key="item.id"
-            :label="item.label"
-            :value="item.id"
-          >
-          </el-option> </el-select
-      ></el-col>
-    </el-row> -->
+    <el-dialog
+      title="用户信息"
+      :visible.sync="dialogVisible"
+      :before-close="handleClose"
+      width="60%"
+    >
+      <el-form
+        ref="userForm"
+        :model="userInfo"
+        label-width="80px"
+        :rules="registerRules"
+      >
+        <el-form-item label="用户名">
+          <el-input v-model="userInfo.username"></el-input>
+        </el-form-item>
+
+        <el-form-item label="手机号">
+          <el-input v-model="userInfo.mobile_phone"></el-input>
+        </el-form-item>
+        <el-form-item label="电子邮件">
+          <el-input v-model="userInfo.email"></el-input>
+        </el-form-item>
+        <el-form-item label="姓名">
+          <el-input v-model="userInfo.name"></el-input>
+        </el-form-item>
+        <el-form-item label="昵称">
+          <el-input v-model="userInfo.nickname"></el-input>
+        </el-form-item>
+        <el-form-item label="身份证号">
+          <el-input v-model="userInfo.id_card_no"></el-input>
+        </el-form-item>
+        <el-form-item label="性别">
+          <el-radio-group v-model="userInfo.gender" label="性别">
+            <el-radio label="男" value="1"></el-radio>
+            <el-radio label="女" value="0"></el-radio>
+          </el-radio-group>
+        </el-form-item>
+        <el-form-item label="出生日期">
+          <el-date-picker v-model="userInfo.birth"> </el-date-picker
+        ></el-form-item>
+        <el-form-item label="简要介绍">
+          <el-input type="textarea" v-model="userInfo.intro"></el-input>
+        </el-form-item>
+        <el-form-item label="居住地址">
+          <el-input
+            type="textarea"
+            v-model="userInfo.present_address"
+          ></el-input>
+        </el-form-item>
+
+        <el-form-item>
+          <el-button type="primary" @click="addUpdateInfo">保存</el-button>
+        </el-form-item>
+      </el-form>
+    </el-dialog>
 
     <el-table
       :data="userList"
       style="width: 100%"
       @selection-change="handleSelectionChange"
+      @row-click="openUpdate"
     >
       <el-table-column prop="username" label="用户名"></el-table-column>
-      <el-table-column type="name" label="真实名字">
-        <template slot-scope="scope">
-          <router-link
-            :to="{ name: 'userDetail', params: { id: scope.row.id } }"
-          >
-            {{ scope.row.username }}
-          </router-link>
-        </template>
-      </el-table-column>
+      <el-table-column prop="name" label="真实名字"> </el-table-column>
       <el-table-column prop="mobile_phone" label="手机号码"> </el-table-column>
       <el-table-column prop="email" label="电子邮箱"> </el-table-column>
-      <el-table-column label="是否为管理员">
+      <el-table-column >
         <template slot-scope="scope">
-          <el-checkbox v-model="scope.row.is_superuser"></el-checkbox>
+          删除逻辑，还没写完
         </template>
       </el-table-column>
     </el-table>
+    <el-table-column>
+      <el-button type="primary" @click="openCreate">创建用户</el-button>
+    </el-table-column>
     <el-pagination
       align="center"
       @size-change="handleSizeChange"
@@ -81,8 +89,8 @@
   </div>
 </template>
 <script>
-import { getUserList } from "@/api/user";
-
+import { getUserList, addUser } from "@/api/userManage";
+import { getInfo, updateInfo } from "@/api/user";
 export default {
   name: "problemList",
   data() {
@@ -90,6 +98,23 @@ export default {
       userList: [],
       pageSize: 5,
       currentPage: 1,
+      dialogVisible: false,
+      userInfo: {},
+      id: Number,
+      registerRules: {
+        username: [
+          { required: true, message: "请输入用户名", trigger: "blur" },
+          { message: "", trigger: "blur" },
+        ],
+        password: [
+          { required: true, message: "请输入密码", trigger: "blur" },
+          { message: "", trigger: "blur" },
+        ],
+        repassword: [
+          { required: true, message: "请确认密码", trigger: "blur" },
+          { message: "", trigger: "blur" },
+        ],
+      },
     };
   },
   methods: {
@@ -98,6 +123,22 @@ export default {
         this.userList = response.data;
         console.log(this.userList);
       });
+    },
+    onSubmit() {},
+
+    openUpdate(row, event, column) {
+      getInfo(row.id).then((response) => {
+        this.userInfo = response.data;
+        // sessionStorage.setItem("userid", this.id);
+      });
+      this.dialogVisible = true;
+    },
+    openCreate() {
+      this.dialogVisible = true;
+    },
+    handleClose() {
+      this.dialogVisible = false;
+      this.userInfo = {};
     },
     handleSizeChange(val) {
       this.currentPage = 1;
@@ -108,6 +149,19 @@ export default {
       this.currentPage = val;
     },
     handleSelectionChange(selected) {},
+    addUpdateInfo() {
+      if (this.userInfo.status) {
+        updateInfo(this.userInfo).then((response) => {
+          console.log(response.data);
+        });
+      } else {
+        this.userInfo.status = "True";
+        addUser(this.userInfo);
+      }
+      this.handleClose();
+      this.userList = {};
+      this.getData();
+    },
   },
   mounted() {
     this.getData();

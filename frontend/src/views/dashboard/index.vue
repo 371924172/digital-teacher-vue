@@ -1,20 +1,27 @@
 <template>
   <div class="dashboard-container">
-    <div class="dashboard-text">name: {{ name }}</div>
+    <div class="dashboard-text">name: {{ username }}</div>
   </div>
 </template>
 
 <script>
-import { mapGetters } from 'vuex'
+import { mapGetters } from "vuex";
 
 export default {
-  name: 'Dashboard',
+  username: "Dashboard",
   computed: {
-    ...mapGetters([
-      'name'
-    ])
-  }
-}
+    ...mapGetters(["username"]),
+  },
+  methods: {
+    test() {
+      // console.log(this.$router.options);
+      // console.log("1");
+    },
+  },
+  mounted() {
+    this.test();
+  },
+};
 </script>
 
 <style lang="scss" scoped>

@@ -23,7 +23,7 @@
   </el-form>
 </template>
 <script>
-import { changePassword } from "@/api/user";
+import { changePassword, logout } from "@/api/user";
 export default {
   data() {
     var validatePass = (rule, value, callback) => {
@@ -60,7 +60,15 @@ export default {
       this.$refs[formName].validate((valid) => {
         if (valid) {
           changePassword(this.changePasswordForm).then((response) => {
-            console.log(response);
+            const { status } = response.data;
+            if (status) {
+              this.$message({
+                message: "成功修改密码,请重新登录",
+                type: "success",
+              });
+              this.$store.dispatch("user/logout");
+              this.$router.push("/login");
+            } else this.$message.error("旧密码错误");
           });
         } else {
           console.log("error");
