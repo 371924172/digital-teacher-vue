@@ -1,3 +1,5 @@
+from django.core.files.base import ContentFile
+from django.core.files.storage import default_storage
 from rest_framework.decorators import action
 from rest_framework.response import Response
 from rest_framework.viewsets import GenericViewSet, ModelViewSet
@@ -5,9 +7,8 @@ from rest_framework.permissions import AllowAny
 from .serializers import *
 from .models import User, Role
 from .utils import isAdmin
-from rest_framework import mixins
-from django.contrib.auth.hashers import make_password
 from django.contrib.auth import authenticate
+import os
 
 
 # 注册登录相关
@@ -55,14 +56,21 @@ class UserProfileView(ModelViewSet):
 
         return Response({"status": 0})
 
-        # 用户管理
+    @action(methods=['post'], detail=True)
+    def avatar(self, request, pk):
+        avatar = request.data['img']
+        avatar.name = pk + '.png'
+        os.remove('news/' + avatar.name)
+        user = User.objects.get(pk=pk)
+        user.avatar = avatar
+        user.save()
+        return Response({"status": 200})
 
 
 class UserView(ModelViewSet):
     permission_classes = (isAdmin,)
     queryset = User.objects.all()
     serializer_class = UserSerializer
-
 
     @action(methods=['post'], detail=False)
     def add(self, request):

@@ -1,3 +1,4 @@
+from django.core.files.storage import FileSystemStorage
 from django.db import models
 from django.contrib.auth.models import AbstractUser
 
@@ -23,7 +24,7 @@ class User(AbstractUser):
                                   null=True)  # Field name made lowercase.
     gender = models.CharField(db_column='GENDER', max_length=32, blank=True, null=True)  # Field name made lowercase.
     birth = models.DateField(db_column='BIRTH', blank=True, null=True)  # Field name made lowercase.
-    avatar = models.ImageField(upload_to="imgs", db_column='AVATAR', max_length=32, blank=True,
+    avatar = models.ImageField(upload_to='avatar', db_column='AVATAR', max_length=32, blank=True,
                                null=True)  # Field name made lowercase.
     intro = models.CharField(db_column='INTRO', max_length=512, blank=True, null=True)  # Field name made lowercase.
     present_address = models.CharField(db_column='PRESENT_ADDRESS', max_length=128, blank=True,

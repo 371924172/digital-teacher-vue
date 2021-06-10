@@ -66,10 +66,8 @@
       <el-table-column prop="name" label="真实名字"> </el-table-column>
       <el-table-column prop="mobile_phone" label="手机号码"> </el-table-column>
       <el-table-column prop="email" label="电子邮箱"> </el-table-column>
-      <el-table-column >
-        <template slot-scope="scope">
-          删除逻辑，还没写完
-        </template>
+      <el-table-column>
+        <template slot-scope="scope"> 删除逻辑，还没写完 </template>
       </el-table-column>
     </el-table>
     <el-table-column>
@@ -152,11 +150,19 @@ export default {
     addUpdateInfo() {
       if (this.userInfo.status) {
         updateInfo(this.userInfo).then((response) => {
-          console.log(response.data);
+          console.log(response);
         });
       } else {
         this.userInfo.status = "True";
-        addUser(this.userInfo);
+        addUser(this.userInfo).then((response) => {
+          console.log(response);
+          const { status } = response;
+          if (status == 200)
+            this.$message({
+              message: "添加成功",
+              type: "success",
+            });
+        });
       }
       this.handleClose();
       this.userList = {};
