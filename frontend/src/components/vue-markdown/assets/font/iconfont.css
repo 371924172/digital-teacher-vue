@@ -18,7 +18,9 @@
 .icon-md:before {
   content: "\e604";
 }
-
+.icon-clk::before{
+  content: "\e684";
+}
 .icon-redo:before {
   content: "\e627";
 }

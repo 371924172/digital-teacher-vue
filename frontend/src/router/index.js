@@ -86,6 +86,18 @@ export const constantRoutes = [
         name: 'ppp',
         component: ()=>import('@/views/prob/pro'),
         meta: { title: '题目', icon: 'form' }
+      },
+      {
+        path: 'tidan',
+        name: 'tilist',
+        component: ()=>import('@/views/tidan/tidan'),
+        meta: { title: '题单', icon: 'form' }
+      },
+      {
+        path: 'tidan1',
+        name: 'tilist1',
+        component: ()=>import('@/views/tidan/prolist'),
+        meta: { title: '题单题目选择', icon: 'form' }
       }
     ]
   },
