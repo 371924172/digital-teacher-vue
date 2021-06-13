@@ -95,7 +95,14 @@
                 >
               </div>
             </div>
-            <el-button slot="reference"  style="margin-left: 10px" icon="el-icon-delete" type="danger" size="mini" circle></el-button>
+            <el-button
+              slot="reference"
+              style="margin-left: 10px"
+              icon="el-icon-delete"
+              type="danger"
+              size="mini"
+              circle
+            ></el-button>
           </el-popover>
           <!-- <el-button
             style="margin-left: 10px"
@@ -130,6 +137,7 @@ import { deleteUser, getUserList, addUser } from "@/api/userManage";
 import { getInfo, updateInfo } from "@/api/user";
 export default {
   name: "problemList",
+  inject: ["reload"],
   data() {
     return {
       userList: [],
@@ -200,16 +208,16 @@ export default {
               message: "添加成功",
               type: "success",
             });
+             this.reload();
         });
       }
       this.handleClose();
       this.userInfo = {};
-      this.getData();
     },
     deleteUser(id) {
       console.log(id);
       deleteUser(id);
-      this.getData();
+      this.reload();
     },
   },
   mounted() {
