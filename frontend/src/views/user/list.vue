@@ -65,7 +65,7 @@
       <el-table-column prop="name" label="真实名字"> </el-table-column>
       <el-table-column prop="mobile_phone" label="手机号码"> </el-table-column>
       <el-table-column prop="email" label="电子邮箱"> </el-table-column>
-      <el-table-column label = "操作">
+      <el-table-column label="操作">
         <!-- <el-button @click.stop="deleteUser(scope.row.id)">删除</el-button> -->
         <template slot-scope="scope">
           <el-button
@@ -77,7 +77,7 @@
           ></el-button>
           <el-popover
             ref="popoverDel"
-            placement="top-end"
+            placement="bottom"
             width="160"
             trigger="click"
           >
@@ -85,7 +85,7 @@
               <div class="delTip">
                 <i class="el-icon-warning" style="color: #e6a23c"></i>提示
               </div>
-              <p>此操作将永久删除该文件, 是否继续?</p>
+              <p>此操作将永久删除该用户, 是否继续?</p>
               <div style="text-align: center">
                 <el-button
                   type="primary"
@@ -95,21 +95,23 @@
                 >
               </div>
             </div>
+            <el-button slot="reference"  style="margin-left: 10px" icon="el-icon-delete" type="danger" size="mini" circle></el-button>
           </el-popover>
-          <el-button
+          <!-- <el-button
             style="margin-left: 10px"
             v-popover:popoverDel
             type="danger"
             size="mini"
             icon="el-icon-delete"
             circle
-          ></el-button>
+          ></el-button> -->
         </template>
       </el-table-column>
     </el-table>
-    <el-table-column>
-      <el-button type="primary" @click="openCreate">创建用户</el-button>
-    </el-table-column>
+    <el-button style="margin: 10px" type="primary" @click="openCreate"
+      >创建用户</el-button
+    >
+
     <el-pagination
       align="center"
       @size-change="handleSizeChange"
@@ -156,7 +158,6 @@ export default {
     getData() {
       getUserList().then((response) => {
         this.userList = response.data;
-        console.log(this.userList);
       });
     },
     onSubmit() {},
@@ -209,7 +210,6 @@ export default {
       console.log(id);
       deleteUser(id);
       this.getData();
-      this.update();
     },
   },
   mounted() {

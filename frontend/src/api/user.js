@@ -72,9 +72,3 @@ export function changePassword(data) {
   })
 }
 
-export function deleteUser(id) {
-  return request({
-    url: host + id + '/users/',
-    method: "delete"
-  })
-}
