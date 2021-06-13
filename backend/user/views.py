@@ -58,9 +58,10 @@ class UserProfileView(ModelViewSet):
 
     @action(methods=['post'], detail=True)
     def avatar(self, request, pk):
-        avatar = request.data['img']
+        avatar = request.data['file']
+        # print(avatar)
         avatar.name = pk + '.png'
-        os.remove('news/' + avatar.name)
+        os.remove('avatar/' + avatar.name)
         user = User.objects.get(pk=pk)
         user.avatar = avatar
         user.save()
@@ -68,7 +69,7 @@ class UserProfileView(ModelViewSet):
 
 
 class UserView(ModelViewSet):
-    permission_classes = (isAdmin,)
+    # permission_classes = (isAdmin,)
     queryset = User.objects.all()
     serializer_class = UserSerializer
 

@@ -12,16 +12,8 @@ export const constantRoutes = [
     component: () => import('@/views/user/login'),
     hidden: true
   },
-  {
-    path: '/myproblem',
-    component: () => import('@/views/user/myproblem'),
-    hidden: true
-  },
-  {
-    path: '/404',
-    component: () => import('@/views/404'),
-    hidden: true
-  },
+
+
   {
     path: '/register',
     component: () => import('@/views/user/register'),
@@ -43,14 +35,26 @@ export const constantRoutes = [
 
   },
   {
-    path: '/profile',
-    name: 'userProfile',
+    path: '/user',
     component: Layout,
-    component: () => import('@/views/user/detail'),
-    meta: {
-      title: '个人信息 '
-    },
     hidden: true,
+    children: [
+      {
+        path: 'profile',
+        name: 'Profile',
+        component: Layout,
+        component: () => import('@/views/user/detail'),
+        meta: {
+          title: '个人信息 '
+        },
+      },
+      {
+        path: 'problem',
+        component: () => import('@/views/user/myproblem'),
+        meta: {
+          title: '我创建的题目'
+        },
+      },]
   },
   {
     path: '/problem',
@@ -83,7 +87,12 @@ export const constantRoutes = [
 
   { path: '/', redirect: '/dashboard', hidden: true },
   // 404 page must be placed at the end !!!
-  { path: '*', redirect: '/404', hidden: true }
+  { path: '*', redirect: '/404', hidden: true },
+  {
+    path: '/404',
+    component: () => import('@/views/404'),
+    hidden: true
+  },
 ]
 export const asyncRoutes = [
   {

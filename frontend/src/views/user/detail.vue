@@ -1,25 +1,29 @@
 <template>
   <div>
-    <a class="btn" @click="toggleShow">set avatar</a>
-    <my-upload
-      field="img"
-      @crop-success="cropSuccess"
-      @crop-upload-success="cropUploadSuccess"
-      @crop-upload-fail="cropUploadFail"
-      v-model="show"
-      :width="300"
-      :height="300"
-      :url="url"
-      :headers="headers"
-      img-format="png"
-    ></my-upload>
-    <img :src="imgDataUrl" />
     <el-form
       ref="userForm"
       :model="userInfo"
       label-width="80px"
       :rules="registerRules"
     >
+      <el-form-item label="头像">
+        <el-image
+          style="width: 100px; height: 100px"
+          :src="userAvatar"
+          :preview-src-list="srcList"
+        >
+        </el-image>
+
+        <el-button id="pick-avatar" style="margin-left: 20px" size="mini"
+          >上传头像</el-button
+        >
+        <avatar-cropper
+          @uploaded="handleUploaded"
+          @upload-headers="headers"
+          trigger="#pick-avatar"
+          :upload-url="url"
+        />
+      </el-form-item>
       <el-form-item label="用户名">
         <el-input v-model="userInfo.username"></el-input>
       </el-form-item>
@@ -63,6 +67,7 @@
   </div>
 </template>
 <script>
+import AvatarCropper from "vue-avatar-cropper";
 import "babel-polyfill";
 import myUpload from "vue-image-crop-upload";
 import { getInfo, updateInfo } from "@/api/user";
@@ -85,46 +90,23 @@ export default {
           { required: true, message: "请确认密码", trigger: "blur" },
           { message: "", trigger: "blur" },
         ],
-        show: false,
-        headers: {
-        },
-        url: "",
-        imgDataUrl: "", // the datebase64 url of created image
       },
+      userAvatar: require("../../../../backend/avatar/1.png"),
+      show: false,
+      headers: {
+        authorization: store.getters.token,
+      },
+      url: "",
     };
   },
   components: {
-    "my-upload": myUpload,
+    AvatarCropper,
   },
   methods: {
-    toggleShow() {
-      this.show = !this.show;
-    },
-    cropSuccess(imgDataUrl, field) {
-      console.log("-------- crop success --------");
-      this.imgDataUrl = imgDataUrl;
-    },
-    /**
-     * upload success
-     *
-     * [param] jsonData  server api return data, already json encode
-     * [param] field
-     */
-    cropUploadSuccess(jsonData, field) {
-      console.log("-------- upload success --------");
-      console.log(jsonData);
-      console.log("field: " + field);
-    },
-    /**
-     * upload fail
-     *
-     * [param] status    server api return error status, like 500
-     * [param] field
-     */
-    cropUploadFail(status, field) {
-      console.log("-------- upload fail --------");
-      console.log(status);
-      console.log("field: " + field);
+    handleUploaded(response) {
+      console.log(response);
+      // this.userAvatar =
+      //   "C://Users//37192//Desktop//dra-wave//backend//avatar//1.png";
     },
     getInfo() {
       if (sessionStorage.getItem("userid")) {

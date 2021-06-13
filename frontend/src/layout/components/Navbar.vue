@@ -19,10 +19,10 @@
           {{ username }}<i class="el-icon-arrow-down el-icon--right"></i>
         </span>
         <el-dropdown-menu slot="dropdown" class="user-dropdown">
-          <router-link to="/profile">
+          <router-link to="/user/profile">
             <el-dropdown-item>个人信息 </el-dropdown-item>
           </router-link>
-          <router-link to="/myproblem">
+          <router-link to="/user/problem">
             <el-dropdown-item>我创建的题目 </el-dropdown-item>
           </router-link>
           <a
@@ -38,7 +38,7 @@
             <el-dropdown-item>Docs</el-dropdown-item>
           </a>
           <el-dropdown-item divided @click.native="logout">
-            <span style="display: block">Log Out</span>
+            <span style="display: block">登出</span>
           </el-dropdown-item>
         </el-dropdown-menu>
       </el-dropdown>

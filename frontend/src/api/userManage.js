@@ -38,3 +38,10 @@ export function addUser(data) {
         data
     })
 }
+
+export function deleteUser(id) {
+    return request({
+        url: host + 'users/' + id + '/',
+        method: "delete"
+    })
+}

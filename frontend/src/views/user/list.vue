@@ -60,14 +60,51 @@
       :data="userList"
       style="width: 100%"
       @selection-change="handleSelectionChange"
-      @row-click="openUpdate"
     >
       <el-table-column prop="username" label="用户名"></el-table-column>
       <el-table-column prop="name" label="真实名字"> </el-table-column>
       <el-table-column prop="mobile_phone" label="手机号码"> </el-table-column>
       <el-table-column prop="email" label="电子邮箱"> </el-table-column>
-      <el-table-column>
-        <template slot-scope="scope"> 删除逻辑，还没写完 </template>
+      <el-table-column label = "操作">
+        <!-- <el-button @click.stop="deleteUser(scope.row.id)">删除</el-button> -->
+        <template slot-scope="scope">
+          <el-button
+            type="primary"
+            size="mini"
+            icon="el-icon-edit"
+            @click="openUpdate(scope.row.id)"
+            circle
+          ></el-button>
+          <el-popover
+            ref="popoverDel"
+            placement="top-end"
+            width="160"
+            trigger="click"
+          >
+            <div>
+              <div class="delTip">
+                <i class="el-icon-warning" style="color: #e6a23c"></i>提示
+              </div>
+              <p>此操作将永久删除该文件, 是否继续?</p>
+              <div style="text-align: center">
+                <el-button
+                  type="primary"
+                  size="mini"
+                  @click="deleteUser(scope.row.id)"
+                  >确定</el-button
+                >
+              </div>
+            </div>
+          </el-popover>
+          <el-button
+            style="margin-left: 10px"
+            v-popover:popoverDel
+            type="danger"
+            size="mini"
+            icon="el-icon-delete"
+            circle
+          ></el-button>
+        </template>
       </el-table-column>
     </el-table>
     <el-table-column>
@@ -87,7 +124,7 @@
   </div>
 </template>
 <script>
-import { getUserList, addUser } from "@/api/userManage";
+import { deleteUser, getUserList, addUser } from "@/api/userManage";
 import { getInfo, updateInfo } from "@/api/user";
 export default {
   name: "problemList",
@@ -124,8 +161,8 @@ export default {
     },
     onSubmit() {},
 
-    openUpdate(row, event, column) {
-      getInfo(row.id).then((response) => {
+    openUpdate(id) {
+      getInfo(id).then((response) => {
         this.userInfo = response.data;
         // sessionStorage.setItem("userid", this.id);
       });
@@ -165,8 +202,14 @@ export default {
         });
       }
       this.handleClose();
-      this.userList = {};
+      this.userInfo = {};
       this.getData();
+    },
+    deleteUser(id) {
+      console.log(id);
+      deleteUser(id);
+      this.getData();
+      this.update();
     },
   },
   mounted() {
