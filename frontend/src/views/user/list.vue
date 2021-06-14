@@ -196,12 +196,10 @@ export default {
     addUpdateInfo() {
       if (this.userInfo.status) {
         updateInfo(this.userInfo).then((response) => {
-          console.log(response);
         });
       } else {
         this.userInfo.status = "True";
         addUser(this.userInfo).then((response) => {
-          console.log(response);
           const { status } = response;
           if (status == 200)
             this.$message({
@@ -215,7 +213,6 @@ export default {
       this.userInfo = {};
     },
     deleteUser(id) {
-      console.log(id);
       deleteUser(id);
       this.reload();
     },

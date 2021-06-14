@@ -101,16 +101,29 @@ class RoleView(ModelViewSet):
     queryset = Role.objects.all()
     serializer_class = RoleSerializer
 
-    def list(self, request, *args, **kwargs):
-        role = Role.objects.all()
-        serializer = RoleSerializer(role, many=True)
-        return Response(serializer.data)
-
     @action(methods=['post'], detail=False)
     def assign(self, request):
         data = request.data
-        print(data['id'])
+        print(data)
         user = User.objects.get(id=data['id'])
-        Role.objects.create(role_id=1, name='admin', assign_id=request.user.id, user_id=user.id)
-        # print(serializer.data)
+        role = {'role_id': 1, 'name': 'admin', 'user': user.id}
+        serializer = self.get_serializer(data=role, context={'request': self.request})
+        serializer.is_valid()
+        serializer.save()
+
+        # Role.objects.create(role_id=1, name='admin', assign_id=request.user.id, user_id=user.id)
+        # # print(serializer.data)
         return Response(status=200)
+
+    @action(methods=['get'], detail=False)
+    def unadmin(self, request):
+        user = User.objects.raw(
+            "select * from ego_user where id NOT IN(select user_id from ego_role where name = 'admin')")
+        serializer = UserSerializer(user, many=True)
+        return Response(serializer.data)
+
+    @action(methods=['get'], detail=False)
+    def admin(self, request):
+        user = User.objects.raw("select *,eu.name from ego_role left join ego_user eu on ego_role.USER_ID = eu.ID")
+        serializer = UserSerializer(user, many=True)
+        return Response(serializer.data)

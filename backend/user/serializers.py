@@ -1,5 +1,6 @@
 from rest_framework import serializers
 from .models import *
+import datetime
 
 
 class UserSerializer(serializers.ModelSerializer):
@@ -27,3 +28,9 @@ class RoleSerializer(serializers.ModelSerializer):
     class Meta:
         model = Role
         fields = "__all__"
+
+    def validate(self, attrs):
+        request = self.context.get('request')
+        attrs['assign_id'] = request.user.id
+        attrs['assign_time'] = datetime.datetime.now()
+        return attrs

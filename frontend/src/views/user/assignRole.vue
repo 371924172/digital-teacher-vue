@@ -1,14 +1,47 @@
 <template>
   <div>
-    <el-table :data="roleList" style="width: 50%">
-      <el-table-column prop="user" label="管理员"></el-table-column>
+    <el-table :data="adminList" style="width: 50%">
+      <el-table-column prop="username" label="用户名"></el-table-column>
+
+      <el-table-column prop="name" label="真实姓名"></el-table-column>
       <el-table-column>
         <template slot-scope="scope">
-          <el-button type="danger" @click="deleteAdmin(scope.row.id)"
+          <!-- <el-button type="danger" @click="deleteAdmin(scope.row.id)"
             >移除</el-button
           >
         </template></el-table-column
-      >
+      > -->
+          <el-popover
+            ref="popoverDel"
+            placement="bottom"
+            width="160"
+            trigger="click"
+          >
+            <div>
+              <div class="delTip">
+                <i class="el-icon-warning" style="color: #e6a23c"></i>提示
+              </div>
+              <p>此操作将永久删除该用户, 是否继续?</p>
+              <div style="text-align: center">
+                <el-button
+                  type="primary"
+                  size="mini"
+                  @click="deleteAdmin(scope.row.id)"
+                  >确定</el-button
+                >
+              </div>
+            </div>
+            <el-button
+              slot="reference"
+              style="margin-left: 10px"
+              icon="el-icon-delete"
+              type="danger"
+              size="mini"
+              circle
+            ></el-button>
+          </el-popover>
+        </template>
+      </el-table-column>
     </el-table>
     <el-button type="primary" @click="onSubmit">确认</el-button>
     <el-button type="primary" @click="dialogVisible = true">新增</el-button>
@@ -31,17 +64,19 @@
 </template>
 <script>
 import {
-  getUserList,
+  getUnadmin,
+  getAdmin,
   getRole,
   deleteAdmin,
   assignRole,
 } from "@/api/userManage";
 
 export default {
+  inject: ["reload"],
   data() {
     return {
       userList: [],
-      roleList: [],
+      adminList: [],
       dialogVisible: false,
       admin: {
         id: "",
@@ -49,30 +84,24 @@ export default {
     };
   },
   methods: {
-    getRole() {
-      getRole().then((response) => {
-        this.roleList = response.data;
-        console.log(this.roleList);
+    getAdmin() {
+      getAdmin().then((response) => {
+        this.adminList = response.data;
       });
     },
     assignRole() {
       assignRole(this.admin).then((response) => {
         this.dialogVisible = false;
-        this.$forceUpdate();
-      });
-    },
-    onSubmit() {
-      checkUser(this.userList).then((response) => {
-        console.log(response);
+        this.reload();
       });
     },
     deleteAdmin(id) {
       deleteAdmin(id).then((response) => {
-        this.$forceUpdate();
+        this.reload();
       });
     },
-    getUserList() {
-      getUserList().then((response) => {
+    getUnadmin() {
+      getUnadmin().then((response) => {
         this.userList = response.data;
       });
     },
@@ -85,8 +114,8 @@ export default {
     },
   },
   mounted() {
-    this.getUserList();
-    this.getRole();
+    this.getUnadmin();
+    this.getAdmin();
   },
 };
 </script>

@@ -3,12 +3,12 @@
   <component name="ChangeListManager">
     <list default="true" id="70789dd4-1549-4df6-b3d5-9ff8b5e39b4e" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/settings.py" beforeDir="false" afterPath="$PROJECT_DIR$/backend/settings.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/user/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/user/models.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/problem/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/problem/views.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/user/serializers.py" beforeDir="false" afterPath="$PROJECT_DIR$/user/serializers.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/user/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/user/views.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../frontend/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/package-lock.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../frontend/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/package.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/src/api/userManage.js" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/src/api/userManage.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../frontend/src/views/problem/list.vue" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/src/views/problem/list.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/src/views/user/assignRole.vue" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/src/views/user/assignRole.vue" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../frontend/src/views/user/detail.vue" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/src/views/user/detail.vue" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../frontend/src/views/user/list.vue" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/src/views/user/list.vue" afterDir="false" />
     </list>
@@ -150,6 +150,7 @@
       <workItem from="1622956565236" duration="7902000" />
       <workItem from="1622983013726" duration="2274000" />
       <workItem from="1623288643736" duration="4344000" />
+      <workItem from="1623559593262" duration="28885000" />
     </task>
     <servers />
   </component>
