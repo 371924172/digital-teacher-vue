@@ -44,3 +44,7 @@ export var PtagColor = [
     "#b9a3ef",
     "#fdb1ca",
 ]
+
+export var status = [
+    
+]

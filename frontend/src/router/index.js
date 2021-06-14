@@ -59,7 +59,7 @@ export const constantRoutes = [
   {
     path: '/problem',
     component: Layout,
-    meta: { title: '题目管理' },
+    meta: { title: '题目管理', icon: 'form' },
     children: [
       {
         path: 'edit',
@@ -76,7 +76,7 @@ export const constantRoutes = [
         path: 'test',
         name: 'test',
         component: () => import('@/views/problem/test'),
-        meta: { title: '测试', icon: 'form' }
+        meta: { roles: ['admin'], title: '测试', icon: 'form' }
       }, {
         path: 'detail',
         name: 'problemDetail',
@@ -123,16 +123,31 @@ export const asyncRoutes = [
     path: '/user',
     redirect: '/user/list/',
     component: Layout,
-    meta: { roles: ['admin'], title: '用户管理' },
+    meta: { roles: ['admin'], title: '用户管理', icon: 'form' },
     alwaysShow: true,
     children: [{
       path: 'list',
       component: () => import('@/views/user/list'),
       meta: { title: '用户列表' }
     }, {
-      path: 'check',
-      component: () => import('@/views/user/check'),
+      path: 'checkUser',
+      component: () => import('@/views/user/checkUser'),
       meta: { title: '用户审核' }
+    }, {
+      path: 'check',
+      // redirect: 'check/publish',
+      meta: { title: '题目审核' },
+      component: () => import('@/views/user/checkProblem/publish'),
+      // children: [{
+      //   path: 'publish',
+      //   component: () => import('@/views/user/checkProblem/publish'),
+      //   meta: { title: '发布审核' }
+      // }, {
+      //   path: 'withdraw',
+      //   component: () => import('@/views/user/checkProblem/withdraw'),
+      //   meta: { title: '下架审核' }
+      // }]
+
     }, {
       path: "assignRole",
       component: () => import('@/views/user/assignRole'),

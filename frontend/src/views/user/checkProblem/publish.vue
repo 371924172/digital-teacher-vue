@@ -60,9 +60,8 @@
       @selection-change="handleSelectionChange"
     >
       <el-table-column type="selection" width="60"> </el-table-column>
-      <el-table-column prop="problem_id" label="题号" width="100">
-      </el-table-column>
-      <el-table-column label="名称" width="300">
+      <el-table-column prop="problem_id" label="题号"> </el-table-column>
+      <el-table-column label="名称">
         <template slot-scope="scope">
           <router-link
             :to="{ name: 'problemDetail', query: { id: scope.row.id } }"
@@ -96,6 +95,29 @@
         :formatter="formatDifficulty"
       >
       </el-table-column>
+       <el-table-column label="状态">
+         <template slot-scope="scope">
+           {{formatStatus(scope.row.publish_status)}}
+         </template>
+       </el-table-column>
+      <el-table-column label="是否通过">
+        <template slot-scope="scope">
+          <el-button
+            type="success"
+            size="mini"
+            icon="el-icon-success"
+            @click="receive(scope.row.id)"
+            circle
+          ></el-button>
+          <el-button
+            type="danger"
+            icon="el-icon-close"
+            size="mini"
+            @click="reject(scope.row.id)"
+            circle
+          ></el-button>
+        </template>
+      </el-table-column>
     </el-table>
     <el-pagination
       align="center"
@@ -123,13 +145,28 @@ export default {
       pageSize: 5,
       currentPage: 1,
       problemList: [],
-      ptagList: [],
+      ptagList: [{ id: Number, name: "" }],
 
       // difficultyList: ["简单", "适中", "困难"],
       difficultyList: [
         { id: 0, label: "简单" },
         { id: 1, label: "适中" },
         { id: 2, label: "困难" },
+      ],
+      statusList: [
+        { id: 0, label: "未发布" },
+        { id: 1, label: "发布待审核" },
+        { id: 2, label: "发布审核通过" },
+        { id: 3, label: "已发布" },
+        { id: 4, label: "下架待审核" },
+        { id: 5, label: "下架审核通过" },
+        { id: 6, label: "下架审核失败" },
+        { id: 7, label: "已下架" },
+        { id: 8, label: "删除待审核" },
+        { id: 9, label: "删除审核通过" },
+        { id: 10, label: "删除审核失败" },
+        { id: 11, label: "已删除" },
+        { id: 12, label: "删除待审核" },
       ],
     };
   },
@@ -175,7 +212,10 @@ export default {
     handleCurrentChange(val) {
       this.currentPage = val;
     },
+    receive(id) {
 
+    },
+    reject(id) {},
     formatTag(id) {
       if (id) {
         var tag = this.ptagList.find((t) => {
@@ -183,6 +223,12 @@ export default {
         });
         return tag.name;
       } else return "尚未分配标签";
+    },
+    formatStatus(id) {
+      var status = this.statusList.find((t) => {
+        return t.id == id;
+      });
+      return status.label;
     },
     tagColor(item) {
       return PtagColor[item];

@@ -104,7 +104,6 @@ export default {
   },
   methods: {
     handleUploaded(response) {
-      console.log(response);
       // this.userAvatar =
       //   "C://Users//37192//Desktop//dra-wave//backend//avatar//1.png";
     },

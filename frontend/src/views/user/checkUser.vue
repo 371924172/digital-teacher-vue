@@ -25,12 +25,10 @@ export default {
     getUncheckedUser() {
       getUncheckedUser().then((response) => {
         this.userList = response.data;
-        console.log(this.userList);
       });
     },
     onSubmit() {
       checkUser(this.userList).then((response) => {
-        console.log(response);
       });
     },
   },

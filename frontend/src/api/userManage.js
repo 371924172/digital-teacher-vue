@@ -45,3 +45,15 @@ export function deleteUser(id) {
         method: "delete"
     })
 }
+export function getUnadmin() {
+    return request({
+        url: host + 'role/unadmin/',
+        method: 'get'
+    })
+}
+export function getAdmin() {
+    return request({
+        url: host + 'role/admin/',
+        method: 'get'
+    })
+}
