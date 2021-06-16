@@ -7,13 +7,7 @@ export function getList() {
         method: 'get',
     })
 }
-export function getListofId(id) {
-    return request({
-        url: host + 'propgroup/listOfId/',
-        method: 'post',
-        data: id,
-    })
-}
+
 export function addProblem(data) {
     return request({
         url: host + 'problem/',

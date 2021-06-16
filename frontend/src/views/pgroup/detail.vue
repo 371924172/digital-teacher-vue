@@ -109,7 +109,7 @@
     >
     </el-pagination>
 
-    <el-button type="primary" @click="adds1">添加题目进题单</el-button>
+    <el-button type="primary" @click="adds1">添加题目</el-button>
     <el-button type="primary" @click="deletes">删除题目</el-button>
     <el-dialog
       :visible.sync="dialog"
@@ -231,24 +231,23 @@
   </div>
 </template>
 <script>
-import { getList, getPtagList, PtagColor, getListofId } from "@/api/problem";
-import { addProblemPgroup, deleteProblemPgroup } from "@/api/problem_pgroup";
+import { getList, getPtagList, PtagColor } from "@/api/problem";
+import {
+  addProblemPgroup,
+  deleteProblemPgroup,
+  getListofId,
+  getOutofPgroup,
+} from "@/api/problem_pgroup";
 export default {
   name: "problemList",
   inject: ["reload"],
   data() {
     return {
       dialog: false,
-      pGroupId1: Number,
-      pGroupId: {},
-      searchName: "",
-      searchTag: "",
-      searchDiff: "",
-      pageSize: 5,
-      currentPage: 1,
+      pGroupId: { id: "" },
       problemList: [],
       problemListId: [],
-      idlist: [],
+      propgroupList: [],
       pglist: [],
       deleteId: [],
       ptagList: [{ id: Number, name: "" }],
@@ -259,15 +258,20 @@ export default {
         { id: 1, label: "适中" },
         { id: 2, label: "困难" },
       ],
+      searchName: "",
+      searchTag: "",
+      searchDiff: "",
+      pageSize: 5,
+      currentPage: 1,
     };
   },
   methods: {
     adds() {
-      for (let i in this.idlist) {
-        var idLi = {};
-        idLi.pgroup_id = this.pGroupId1;
-        idLi.problem_id = this.idlist[i].id;
-        this.pglist = this.pglist.concat(idLi);
+      for (let i in this.propgroupList) {
+        var propgroup = {};
+        propgroup.pgroup_id = this.pGroupId.id;
+        propgroup.problem_id = this.propgroupList[i].id;
+        this.pglist = this.pglist.concat(propgroup);
       }
       console.log(this.pglist);
       //console.log(this.pglist);
@@ -278,7 +282,7 @@ export default {
       this.reload();
     },
     getData() {
-      getList()
+      getOutofPgroup(this.pGroupId)
         .then((response) => {
           this.problemList = response.data;
           console.log(response.data);
@@ -294,21 +298,15 @@ export default {
       this.dialog = false;
     },
     getParams() {
-      var routeparams = this.$route.params.id;
-    //   sessionStorage.setItem(pGroupId1,routeparams);
-    //   sessionStorage.setItem(pGroupId,pGroupId);
-      this.pGroupId1 = routeparams;
-      this.pGroupId.id = routeparams;
-      console.log(pGroupId1);
-      console.log(pGroupId);
+      this.pGroupId.id = this.$route.query.id;
     },
     adds1() {
       this.dialog = true;
     },
     deletes() {
-      for (let i in this.idlist) {
+      for (let i in this.propgroupList) {
         var deleteofid = {};
-        deleteofid.id = this.idlist[i].id;
+        deleteofid.id = this.propgroupList[i].id;
         this.deleteId = this.deleteId.concat(deleteofid);
       }
       deleteProblemPgroup(this.deleteId).then((response) => {
@@ -317,7 +315,7 @@ export default {
       this.reload();
     },
     getDataofId() {
-      console.log(this.pGroupId);
+      console.log(this.pGroupId.id);
       getListofId(this.pGroupId)
         .then((response) => {
           this.problemListId = response.data;
@@ -348,7 +346,7 @@ export default {
       this.problemList;
     },
     handleSelectionChange(selected) {
-      this.idlist = selected;
+      this.propgroupList = selected;
       //console.log(selected);
     },
 
@@ -375,16 +373,14 @@ export default {
     },
   },
   mounted() {
-    //  this.pGroupId1=sessionStorage.getItem(pGroupId1);
-    //  this.pGroupId=sessionStorage.getItem(pGroupId);
+    this.getParams();
     this.getData();
     this.getDataofId();
-    this.getParams();
   },
-//   watch: {
-    
-//     $route: "getParams",
-//   },
+  //   watch: {
+
+  //     $route: "getParams",
+  //   },
 };
 </script>
 <style>

@@ -52,7 +52,7 @@
               !search ||
               (data.name.toLowerCase().includes(searchName.toLowerCase()) &&
                 data.ptag.includes(searchTag) &&
-                (searchDiff ? data.difficulty == searchDiff : 1))
+                data.difficulty.toString().includes(searchDiff))
           )
           .slice((currentPage - 1) * pageSize, currentPage * pageSize)
       "
@@ -108,35 +108,56 @@
       :total="problemList.length"
     >
     </el-pagination>
+         
+        <el-button type="primary" @click="adds">选择题目并创建题单</el-button>
+      
   </div>
 </template>
 <script>
 import { getList, getPtagList, PtagColor } from "@/api/problem";
-
+import{addProblemPgroup}from '@/api/problem_pgroup';
 export default {
   name: "problemList",
   data() {
     return {
+      pGroupId: Number=1,
       searchName: "",
       searchTag: "",
       searchDiff: "",
-      pageSize: 20,
+      pageSize: 5,
       currentPage: 1,
       problemList: [],
-      ptagList: [],
+      idlist:[],
+      pglist: [],
+      ptagList: [{ id: Number, name: "" }],
 
       // difficultyList: ["简单", "适中", "困难"],
       difficultyList: [
-        { id: 1, label: "简单" },
-        { id: 2, label: "适中" },
-        { id: 3, label: "困难" },
+        { id: 0, label: "简单" },
+        { id: 1, label: "适中" },
+        { id: 2, label: "困难" },
       ],
     };
   },
   methods: {
+    getParams(){
+      var routeparams=this.$route.params.id;
+      this.pGroupId=routeparams;
+    },
+    adds(){
+     for( let i in this.idlist){
+       var idLi={};
+       idLi.pgroup_id=this.pGroupId;
+       idLi.problem_id=this.idlist[i].id;
+       this.pglist=this.pglist.concat(idLi);
+     }
+     //console.log(this.pglist);
+     addProblemPgroup(this.pglist).then(response=>{
+       console.log(response.data);
+     })
+    },
     getData() {
-      getList()
-        .then((response) => {
+      getList() .then((response) => {
           this.problemList = response.data;
           console.log(response.data);
         })
@@ -151,13 +172,11 @@ export default {
     //   this.$router.push({ path: "detail", query: { id: row.id } });
     // },
     formatDifficulty(row) {
-      if (row.difficulty) {
-        // return this.difficultyList[row.difficulty];
-        var difficulty = this.difficultyList.find((d) => {
-          return d.id == row.difficulty;
-        });
-        return difficulty.label;
-      } else return "其他";
+      // return this.difficultyList[row.difficulty];
+      var difficulty = this.difficultyList.find((d) => {
+        return d.id == row.difficulty;
+      });
+      return difficulty.label;
     },
     filterHandler(value, row, column) {
       const property = column["property"];
@@ -166,7 +185,10 @@ export default {
     search() {
       this.problemList;
     },
-    handleSelectionChange(selected) {},
+    handleSelectionChange(selected) {
+     this.idlist=selected;
+      //console.log(selected);
+    },
 
     //每页条数改变时触发 选择一页显示多少行
     handleSizeChange(val) {

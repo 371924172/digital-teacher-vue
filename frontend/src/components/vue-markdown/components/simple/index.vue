@@ -9,12 +9,16 @@
             <li>
                 <slot name="title"/>
             </li>
+            <li v-if="tools.strong" name="插入波形图">
+                <span @click="insertWave" class="el-icon-s-platform"></span>
+            </li>
+            <li v-if="tools.strong" name="编辑波形图">
+                <span @click="editWave" class="el-icon-edit"></span>
+            </li>
             <li v-if="tools.strong" name="粗体">
                 <span @click="insertStrong" class="iconfont icon-bold"></span>
             </li>
-            <li v-if="tools.strong" name="波形图">
-                <span @click="insertClk" class="iconfont icon-clk"></span>
-            </li>
+            
             <li v-if="tools.italic" name="斜体">
                 <span @click="insertItalic" class="iconfont icon-italic"></span>
             </li>
@@ -232,17 +236,17 @@
 </template>
 
 <script>
-    import markdown from './simple';
+import markdown from "./simple";
 
-    export default markdown;
+export default markdown;
 </script>
 
 <style scoped lang="less">
-    @import "../../assets/font/iconfont.css";
-    @import "../../assets/css/theme";
-    @import "../../assets/css/light";
-    @import "../../assets/css/dark";
-    @import "../../assets/css/one-dark";
-    @import "../../assets/css/github";
-    @import "../../assets/css/index";
+@import "../../assets/font/iconfont.css";
+@import "../../assets/css/theme";
+@import "../../assets/css/light";
+@import "../../assets/css/dark";
+@import "../../assets/css/one-dark";
+@import "../../assets/css/github";
+@import "../../assets/css/index";
 </style>

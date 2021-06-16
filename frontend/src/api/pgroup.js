@@ -5,12 +5,18 @@ export function addPgroup(data) {
     return request({
         url: host + 'pgroup/',
         method: 'post',
-        data : data
+        data: data
     })
 }
 export function deletePgroup() {
-       return request({
-            url: host + 'pgroup/'+ id +'/',
-           method: 'delete',
-        })
+    return request({
+        url: host + 'pgroup/' + id + '/',
+        method: 'delete',
+    })
+}
+export function getPgroupList() {
+    return request({
+        url: host + 'pgroup/',
+        method: 'get'
+    })
 }

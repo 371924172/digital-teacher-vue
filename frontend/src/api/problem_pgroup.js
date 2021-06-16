@@ -15,3 +15,19 @@ export function deleteProblemPgroup(id) {
         data: id
     })
 }
+
+export function getListofId(data) {
+    return request({
+        url: host + 'propgroup/listOfId/',
+        method: 'post',
+        data: data,
+    })
+}
+
+export function getOutofPgroup(data) {
+    return request({
+        url: host + 'propgroup/outofPgroup/',
+        method: 'post',
+        data: data,
+    })
+}

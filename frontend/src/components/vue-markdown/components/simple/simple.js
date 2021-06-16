@@ -14,17 +14,16 @@ export default {
             data: ''
         };
     },
-    props:{
-        sig:""
+    props: {
+        wave: ""
     },
     mounted() {
         this.init();
     },
     methods: {
         init() {
-            
+
             this.currentValue = this.value;
-            this.data = '123';
             this.themeName = this.theme;
             this.preview = this.isPreview;
             if (this.isPreview) {
@@ -121,7 +120,7 @@ export default {
             }
             this.$set(this, 'currentValue', textDom.value);
         },
-        
+
         setCaretPosition(position) {
             // 设置光标位置
             const textDom = this.$refs.textarea;
@@ -178,17 +177,19 @@ export default {
                 this.setCaretPosition(point + 2);
             }
         },
-        insertClk() {
-            // 括号
-            this.$emit('cha');
+        insertWave() {
+            this.$emit('insertWave');
             const point = this.getCursortPosition();
             const lastChart = this.currentValue.substring(point - 1, point);
-            this.insertContent('((('+JSON.stringify(this.sig)+')))');
+            this.insertContent('(((' + JSON.stringify(this.wave) + ')))');
             if (lastChart !== '\n' && this.currentValue !== '') {
                 this.setCaretPosition(point + 3);
             } else {
                 this.setCaretPosition(point + 3);
             }
+        },
+        editWave() {
+            this.$emit('editWave');
         },
         insertItalic() {
             // 斜体
@@ -358,7 +359,7 @@ export default {
                 this.textareaHeight = this.indexLenth * 22;
                 this.addImageClickListener();
                 this.addCopyListener();
-                this.$emit('getWave', currentValue);
+                this.$emit('getValue', currentValue);
                 //自定义wavedrom
                 this.$nextTick(() => {
                     new Vue({

@@ -91,7 +91,7 @@ export default {
           { message: "", trigger: "blur" },
         ],
       },
-      userAvatar: require("../../../../backend/avatar/1.png"),
+      userAvatar: "",
       show: false,
       headers: {
         authorization: store.getters.token,

@@ -52,9 +52,17 @@ export const constantRoutes = [
         path: 'problem',
         component: () => import('@/views/user/myproblem'),
         meta: {
-          title: '我创建的题目'
+          title: '我的题目'
         },
-      },]
+      },
+      {
+        path: 'pgroup',
+        component: () => import('@/views/user/pgroup'),
+        meta: {
+          title: '我的题单'
+        },
+      },
+    ]
   },
   {
     path: '/problem',
@@ -83,32 +91,39 @@ export const constantRoutes = [
         component: () => import('@/views/problem/detail'),
         hidden: true
       }, {
-        path: 'pro',
-        name: 'ppp',
-        component: () => import('@/views/problem/addProblem'),
-        meta: { title: '题目', icon: 'form' }
+        path: 'add',
+        name: 'addProblem',
+        component: () => import('@/views/problem/add'),
+        meta: { title: '添加题目', icon: 'form' }
       },
-      {
-        path: 'pgroup',
-        name: 'tilist',
-        component: () => import('@/views/pgroup/addPgroup'),
-        meta: { title: '题单', icon: 'form' }
-      },
-      {
-        path: 'pgroupdetail',
-        name: 'detail',
-        component: () => import('@/views/pgroup/detail'),
-        meta: { title: '题单细节', icon: 'form' }
-      },
-      {
-        path: 'pgrouplist',
-        name: 'tilist1',
-        component: () => import('@/views/pgroup/prolist'),
-        meta: { title: '题单题目选择', icon: 'form' }
-      }
+
     ]
   },
-
+  {
+    path: '/pgroup',
+    component: Layout,
+    meta: { title: '题单管理', icon: 'form' },
+    children: [{
+      path: 'list',
+      name: 'pgrouplist',
+      component: () => import('@/views/pgroup/list'),
+      meta: { title: '题单列表', icon: 'form' }
+    }, {
+      path: 'add',
+      name: 'addpgroup',
+      component: () => import('@/views/pgroup/add'),
+      meta: { title: '添加题单' },
+      hidden: true
+    },
+    {
+      path: 'detail',
+      name: 'pgroupdetail',
+      component: () => import('@/views/pgroup/detail'),
+      meta: { title: '题单中的题目' },
+      hidden: true
+    },
+    ]
+  },
   { path: '/', redirect: '/dashboard', hidden: true },
   // 404 page must be placed at the end !!!
   { path: '*', redirect: '/404', hidden: true },
