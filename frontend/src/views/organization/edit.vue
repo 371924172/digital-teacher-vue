@@ -1,119 +1,153 @@
 <template>
   <div class="tableAll">
-    <div class="addArea">
-      <el-button class="add_btn" type="primary" @click="add">新增</el-button>
-    </div>
-
     <div class="tableMain">
-      <el-table :data="tableData" style="width: 100%">
-        <el-table-column prop="organizeName" label="组织名称" width="180">
+      <el-table :data="tableData" style="width: 100%" @selection-change="handleSelectionChange">
+        <el-table-column prop="name" label="组织名称" width="180">
         </el-table-column>
-        <el-table-column prop="organizeSName" label="组织简称" width="180">
+        <el-table-column prop="short_name" label="组织简称" width="180">
         </el-table-column>
-        <el-table-column prop="organizeIntroduction" label="组织介绍" width="180">
+        <el-table-column prop="intro" label="组织介绍" width="180">
         </el-table-column>
         <el-table-column label="操作">
           <template slot-scope="scope">
-            <el-button size="small" @click="handleEdit(scope.$index, scope.row)">编辑
+            <el-button type="primary" size="mini" icon="el-icon-edit" @click="openUpdate(scope.row.id)" circle></el-button>
+            <!--<el-button size="small" @click="openUpdate(scope.row.id)">编辑</el-button>-->
+            <el-button slot="reference" style="margin-left: 10px"
+                       @click="deleteOrganization(scope.row.id)" icon="el-icon-delete" type="danger" size="mini" circle>
             </el-button>
-            <el-button size="small" type="danger" @click="handleDelete(scope.$index, scope.row)">删除
-            </el-button>
+            <!--<el-button size="small" type="danger" @click="deleteOrganization(scope.row.id)">删除</el-button>-->
           </template>
         </el-table-column>
       </el-table>
     </div>
 
 
-    <el-dialog style="width: 1000px;height: 1000px;" title="组织信息" :visible.sync="dialog">
-      <el-form :model="form">
+    <el-dialog style="width: 1000px;height:1000px;" title="组织信息"
+               :visible.sync="dialogVisible" before-close="handleClose">
+      <el-form :model="organizationInfo">
         <el-form-item label="组织名称" width="80px">
-          <el-input class="dialog_input" v-model="form.organizeName" ></el-input>
+          <el-input class="dialog_input" v-model="organizationInfo.name" ></el-input>
         </el-form-item>
         <el-form-item label="组织简称" width="80px">
-          <el-input class="dialog_input" v-model="form.organizeSName" ></el-input>
+          <el-input class="dialog_input" v-model="organizationInfo.short_name" ></el-input>
         </el-form-item>
         <el-form-item label="组织介绍" width="80px">
-          <el-input class="dialog_input" v-model="form.organizeIntroduction" ></el-input>
+          <el-input class="dialog_input" v-model="organizationInfo.intro" ></el-input>
         </el-form-item>
       </el-form>
 
       <div slot="footer" class="dialog-footer">
-        <el-button @click="cancel">取 消</el-button>
-        <el-button type="primary" @click="submit">确 定</el-button>
+        <!--<el-button @click="cancel">取 消</el-button>-->
+        <el-button type="primary" @click="addUpdateInfo">提交</el-button>
       </div>
     </el-dialog>
+
+    <div class="addArea">
+      <el-button class="add_btn" type="primary" @click="openCreate">创建组织</el-button>
+    </div>
+
+    <el-pagination
+      align="center"
+      @size-change="handleSizeChange"
+      @current-change="handleCurrentChange"
+      :current-page="currentPage"
+      :page-sizes="[20, 50, 100]"
+      :page-size="pageSize"
+      layout="total, sizes, prev, pager, next, jumper"
+      :total="tableData.length"
+    >
+    </el-pagination>
   </div>
 </template>
 
 <script type="text/javascript">
-
+  import { getOrganizationList, addOrganization, getOrganization,deleteOrganization,updateOrganization }
+  from "@/api/organization";
   export default {
-    name:"eltable",
+    name:"organizationList",
+    inject: ["reload"],
     data() {
       return {
-        tableData: [{
-          organizeName: '东南大学',
-          organizeSName: '东大',
-          organizeIntroduction: '12345678',
-        },],
-        dialog: false,
 
-        formLabelWidth: '80px',
-        form: {},
-        submitType : "",
+        tableData:[],
+        organizationInfo:{},
+        pageSize: 5,
+        currentPage: 1,
+        dialogVisible: false,
       }
     },
     methods: {
-      add() {
-        this.form = {
-          organizeName: '',
-          organizeSName: '',
-          organizeIntroduction: ''
-        }
-        this.submitType = "add";
-        this.dialog = true
+      getData() {//获取数据
+        getOrganizationList().then((response) => {
+          this.tableData = response.data;
+          console.log(response);
+        });
       },
-      submit() {
-        this.dialog = false
 
-        if(this.submitType == "add"){
-          this.tableData.push(this.form)
-        }
+      openUpdate(id) {
+        getOrganization(id).then((response) => {
+          this.organizationInfo = response.data;
+        });
+        this.dialogVisible = true;
       },
-      handleEdit(index, row) {
-        this.form = this.tableData[index]
-        this.submitType = "update";
-        this.form = row
-        this.dialog = true
+
+      openCreate() {
+        this.dialogVisible = true;
       },
-      handleDelete(index, row) {
-        this.$confirm('此操作将永久删除该文件, 是否继续?', '提示', {
-          confirmButtonText: '确定',
-          cancelButtonText: '取消',
-          type: 'warning'
-        }).then(() => {
-          this.tableData.splice(index, 1)
-        this.$message({
-          type: 'success',
-          message: '删除成功!'
-        })
-      }).catch(() => {
-          this.$message({
-          type: 'info',
-          message: '已取消删除'
-        })
-      })
-      },
-      cancel() {
-        this.dialog = false
+      handleClose() {
+        this.dialogVisible = false;
+        this.organizationInfo = {};
       },
       handleSizeChange(val) {
-        console.log(`每页 ${val} 条`)
+        this.currentPage = 1;
+        this.pageSize = val;
       },
+      //当前页改变时触发 跳转其他页
       handleCurrentChange(val) {
-        console.log(`当前页: ${val}`)
-      }
+        this.currentPage = val;
+      },
+      handleSelectionChange(selected) {},
+
+      addUpdateInfo() {
+        if (this.organizationInfo.id == null) {
+          addOrganization(this.organizationInfo).then((response) => {
+              this.$message({
+                message: "添加成功！",
+                type: "success",
+              });
+            this.reload();
+          });
+        }else {
+          updateOrganization(this.organizationInfo).then((response) => {
+            console.log(response);
+            const {status} = response;
+            if (status == 200)
+              this.$message({
+                message: "修改成功！",
+                type: "success",
+              });
+            this.reload();
+          });
+        }
+          this.handleClose();
+          this.organizationInfo = {};
+        },
+
+
+      deleteOrganization(id) {
+        console.log(id);
+        deleteOrganization(id);
+        this.$message({
+          message: "删除成功！",
+          type: "success",
+        });
+        this.reload();
+      },
     },
+    mounted() {
+      this.getData();
+    },
+
   }
 </script>
 
@@ -130,7 +164,7 @@
     /* border: red 1px solid; */
   }
   .add_btn{
-    float: right;
+    float: left;
     margin-right: 20px;
   }
   .dialog_input{

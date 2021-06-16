@@ -9,7 +9,7 @@
           style="width: 180px; margin: 10px"
           prefix-icon="el-icon-search"
         ></el-input
-      ></el-col>
+        ></el-col>
       <el-col :span="1.5">
         <el-select
           v-model="searchTag"
@@ -28,20 +28,20 @@
           </el-option>
         </el-select> </el-col
       ><el-col :span="1.5"
-        ><el-select
-          v-model="searchDiff"
-          placeholder="难度"
-          size="mini"
-          style="margin-top: 10px"
-        >
-          <el-option
-            v-for="item in difficultyList"
-            :key="item.id"
-            :label="item.label"
-            :value="item.id"
-          >
-          </el-option> </el-select
-      ></el-col>
+    ><el-select
+      v-model="searchDiff"
+      placeholder="难度"
+      size="mini"
+      style="margin-top: 10px"
+    >
+      <el-option
+        v-for="item in difficultyList"
+        :key="item.id"
+        :label="item.label"
+        :value="item.id"
+      >
+      </el-option> </el-select
+    ></el-col>
     </el-row>
 
     <el-table
@@ -111,95 +111,95 @@
   </div>
 </template>
 <script>
-import { getList, getPtagList, PtagColor } from "@/api/problem";
+  import { getList, getPtagList, PtagColor } from "@/api/problem";
 
-export default {
-  name: "problemList",
-  data() {
-    return {
-      searchName: "",
-      searchTag: "",
-      searchDiff: "",
-      pageSize: 5,
-      currentPage: 1,
-      problemList: [],
-      ptagList: [{ id: Number, name: "" }],
+  export default {
+    name: "problemList",
+    data() {
+      return {
+        searchName: "",
+        searchTag: "",
+        searchDiff: "",
+        pageSize: 5,
+        currentPage: 1,
+        problemList: [],
+        ptagList: [],
 
-      // difficultyList: ["简单", "适中", "困难"],
-      difficultyList: [
-        { id: 0, label: "简单" },
-        { id: 1, label: "适中" },
-        { id: 2, label: "困难" },
-      ],
-    };
-  },
-  methods: {
-    getData() {
-      getList()
-        .then((response) => {
-          this.problemList = response.data;
-          console.log(response.data);
-        })
-        .catch((error) => {
-          console.log(error);
+        // difficultyList: ["简单", "适中", "困难"],
+        difficultyList: [
+          { id: 0, label: "简单" },
+          { id: 1, label: "适中" },
+          { id: 2, label: "困难" },
+        ],
+      };
+    },
+    methods: {
+      getData() {
+        getList()
+          .then((response) => {
+            this.problemList = response.data;
+            console.log(response.data);
+          })
+          .catch((error) => {
+            console.log(error);
+          });
+        getPtagList().then((response) => {
+          this.ptagList = response.data;
         });
-      getPtagList().then((response) => {
-        this.ptagList = response.data;
-      });
-    },
-    // getDetail() {
-    //   this.$router.push({ path: "detail", query: { id: row.id } });
-    // },
-    formatDifficulty(row) {
-      // return this.difficultyList[row.difficulty];
-      var difficulty = this.difficultyList.find((d) => {
-        return d.id == row.difficulty;
-      });
-      return difficulty.label;
-    },
-    filterHandler(value, row, column) {
-      const property = column["property"];
-      return row[property] === value;
-    },
-    search() {
-      this.problemList;
-    },
-    handleSelectionChange(selected) {},
-
-    //每页条数改变时触发 选择一页显示多少行
-    handleSizeChange(val) {
-      this.currentPage = 1;
-      this.pageSize = val;
-    },
-    //当前页改变时触发 跳转其他页
-    handleCurrentChange(val) {
-      this.currentPage = val;
-    },
-
-    formatTag(id) {
-      if (id) {
-        var tag = this.ptagList.find((t) => {
-          return t.id == id;
+      },
+      // getDetail() {
+      //   this.$router.push({ path: "detail", query: { id: row.id } });
+      // },
+      formatDifficulty(row) {
+        // return this.difficultyList[row.difficulty];
+        var difficulty = this.difficultyList.find((d) => {
+          return d.id == row.difficulty;
         });
-        return tag.name;
-      } else return "尚未分配标签";
+        return difficulty.label;
+      },
+      filterHandler(value, row, column) {
+        const property = column["property"];
+        return row[property] === value;
+      },
+      search() {
+        this.problemList;
+      },
+      handleSelectionChange(selected) {},
+
+      //每页条数改变时触发 选择一页显示多少行
+      handleSizeChange(val) {
+        this.currentPage = 1;
+        this.pageSize = val;
+      },
+      //当前页改变时触发 跳转其他页
+      handleCurrentChange(val) {
+        this.currentPage = val;
+      },
+
+      formatTag(id) {
+        if (id) {
+          var tag = this.ptagList.find((t) => {
+            return t.id == id;
+          });
+          return tag.name;
+        } else return "尚未分配标签";
+      },
+      tagColor(item) {
+        return PtagColor[item];
+      },
     },
-    tagColor(item) {
-      return PtagColor[item];
+    mounted() {
+      this.getData();
     },
-  },
-  mounted() {
-    this.getData();
-  },
-};
+  };
 </script>
 <style>
-.el-tag {
-  margin-left: 5px;
-  border-style: none;
-}
-.el-input {
-  width: 6em;
-  margin-right: 1em;
-}
+  .el-tag {
+    margin-left: 5px;
+    border-style: none;
+  }
+  .el-input {
+    width: 6em;
+    margin-right: 1em;
+  }
 </style>

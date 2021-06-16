@@ -42,6 +42,6 @@ export function addUser(data) {
 export function deleteUser(id) {
     return request({
         url: host + 'users/' + id + '/',
-        method: "delete"
+        method: "delete",
     })
 }

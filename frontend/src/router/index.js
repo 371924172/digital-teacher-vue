@@ -85,6 +85,89 @@ export const constantRoutes = [
     ]
   },
 
+  {
+    path: '/organization',
+    component: Layout,
+    meta: { title: '组织' },
+    children: [
+      {
+        path: 'edit',
+        name: 'edit',
+        component: () => import('@/views/organization/edit'),
+        meta: { title: '编辑组织', icon: 'form' }
+      },
+      {
+        path: 'list',
+        name: 'list',
+        component: () => import('@/views/organization/list'),
+        meta: { title: '组织列表', icon: 'form' }
+      },
+
+    ]
+  },
+
+
+  {
+    path: '/college',
+    component: Layout,
+    meta: { title: '学院' },
+    children: [
+      {
+        path: 'edit',
+        name: 'edit',
+        component: () => import('@/views/college/edit'),
+        meta: { title: '编辑学院', icon: 'form' }
+      },
+      {
+        path: 'list',
+        name: 'list',
+        component: () => import('@/views/college/list'),
+        meta: { title: '学院列表', icon: 'form'}
+      },
+    ]
+  },
+
+  {
+    path: '/major',
+    component: Layout,
+    meta: { title: '专业' },
+    children: [
+      {
+        path: 'edit',
+        name: 'edit',
+        component: () => import('@/views/major/edit'),
+        meta: { title: '编辑专业', icon: 'form' }
+      },
+      {
+        path: 'list',
+        name: 'list',
+        component: () => import('@/views/major/list'),
+        meta: { title: '专业列表' , icon: 'form'}
+      },
+    ]
+  },
+
+  {
+    path: '/class',
+    component: Layout,
+    meta: { title: '班级' },
+    children: [
+      {
+        path: 'edit',
+        name: 'edit',
+        component: () => import('@/views/class/edit'),
+        meta: { title: '编辑班级', icon: 'form' }
+      },
+      {
+        path: 'list',
+        name: 'list',
+        component: () => import('@/views/class/list'),
+        meta: { title: '班级列表', icon: 'form' }
+      },
+    ]
+  },
+
+
   { path: '/', redirect: '/dashboard', hidden: true },
   // 404 page must be placed at the end !!!
   { path: '*', redirect: '/404', hidden: true },
