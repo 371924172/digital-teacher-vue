@@ -33,8 +33,14 @@
           <el-input class="dialog_input" v-model="majorInfo.short_name" ></el-input>
         </el-form-item>
         <el-form-item label="开设时间" width="80px">
-          <!--<el-date-picker v-model="majorInfo.estab_date"> </el-date-picker>-->
-          <el-input class="dialog_input" v-model="majorInfo.estab_date" placeholder="输入格式为yyyy-mm-dd"></el-input>
+          <el-date-picker
+            v-model="majorInfo.estab_date"
+            type="date"
+            @change="getEstabDate"
+            format="yyyy-MM-dd"
+            value-format="yyyy-MM-dd"
+            placeholder="选择日期">
+          </el-date-picker>
         </el-form-item>
         <el-form-item label="专业介绍" width="80px">
           <el-input class="dialog_input" v-model="majorInfo.intro" ></el-input>
@@ -76,13 +82,21 @@
       return {
 
         tableData:[],
-        majorInfo:{},
+        majorInfo:{
+          estab_date:''
+        },
         pageSize: 5,
         currentPage: 1,
         dialogVisible: false,
       }
     },
     methods: {
+      getEstabDate (val) {
+        console.log(val);
+        this.majorInfo.estab_date = val;
+      },
+
+
       getData() {//获取数据
         getMajorList().then((response) => {
           this.tableData = response.data;

@@ -42,7 +42,7 @@
               v-for="item in collegeList"
               :key="item.id"
               :label="item.name"
-              :value="item">
+              :value="item.id">
             </el-option>
           </el-select>
         </el-form-item>
@@ -65,7 +65,15 @@
           <el-input class="dialog_input" v-model="classInfo.intro" ></el-input>
         </el-form-item>
         <el-form-item label="成立时间" width="80px">
-          <el-input class="dialog_input" v-model="classInfo.estab_date" placeholder="输入格式为yyyy-mm-dd"></el-input>
+          <el-date-picker
+            v-model="classInfo.estab_date"
+            type="date"
+            @change="getEstabDate"
+            format="yyyy-MM-dd"
+            value-format="yyyy-MM-dd"
+            placeholder="选择日期">
+          </el-date-picker>
+          <!--<el-input class="dialog_input" v-model="classInfo.estab_date" placeholder="输入格式为yyyy-mm-dd"></el-input>-->
         </el-form-item>
         <el-form-item label="学习年数" width="40px">
           <el-input class="dialog_input" v-model="classInfo.year_number" ></el-input>
@@ -107,8 +115,9 @@
       return {
 
         tableData:[],
-        classInfo:{},
-
+        classInfo:{
+          estab_date:''
+        },
         collegeList: [],
         majorList: [],
         pageSize: 5,
@@ -117,6 +126,13 @@
       }
     },
     methods: {
+      getEstabDate (val) {
+        // const newDate = val.getFullYear() + '-' + (val.getMonth() + 1) + '-' + val.getDate();
+        // this.classInfo.estab_date = newDate;
+        console.log(val);
+        this.classInfo.estab_date = val;
+      },
+
       getData() {//获取数据
         getClassList().then((response) => {
           this.tableData = response.data;
