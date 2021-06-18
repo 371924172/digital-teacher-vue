@@ -52,7 +52,7 @@
               !search ||
               (data.name.toLowerCase().includes(searchName.toLowerCase()) &&
                 data.ptag.includes(searchTag) &&
-                data.difficulty.toString().includes(searchDiff))
+                (searchDiff ? data.difficulty == searchDiff : 1))
           )
           .slice((currentPage - 1) * pageSize, currentPage * pageSize)
       "
@@ -70,50 +70,26 @@
           </router-link>
         </template>
       </el-table-column>
-      <el-table-column prob="ptag" label="标签">
+
+      <el-table-column label="状态">
         <template slot-scope="scope">
-          <el-tag
-            v-for="item in scope.row.ptag.split(',')"
-            :key="item.index"
-            size="mini"
-            :color="tagColor(item)"
-            effect="dark"
-          >
-            {{ formatTag(item) }}
-          </el-tag>
+          {{ formatStatus(scope.row.publish_status) }}
         </template>
       </el-table-column>
-      <el-table-column
-        prop="difficulty"
-        label="难度"
-        :filters="[
-          { text: '简单', value: '0' },
-          { text: '适中', value: '1' },
-          { text: '困难', value: '2' },
-        ]"
-        :filter-method="filterHandler"
-        :formatter="formatDifficulty"
-      >
-      </el-table-column>
-       <el-table-column label="状态">
-         <template slot-scope="scope">
-           {{formatStatus(scope.row.publish_status)}}
-         </template>
-       </el-table-column>
-      <el-table-column label="是否通过">
+      <el-table-column label="是否通过发布审核">
         <template slot-scope="scope">
           <el-button
             type="success"
             size="mini"
             icon="el-icon-success"
-            @click="receive(scope.row.id)"
+            @click="receive(scope.row.id, 2)"
             circle
           ></el-button>
           <el-button
             type="danger"
             icon="el-icon-close"
             size="mini"
-            @click="reject(scope.row.id)"
+            @click="reject(scope.row.id, 3)"
             circle
           ></el-button>
         </template>
@@ -133,7 +109,12 @@
   </div>
 </template>
 <script>
-import { getList, getPtagList, PtagColor } from "@/api/problem";
+import {
+  getByPublishStatus,
+  getPtagList,
+  PtagColor,
+  statusList,
+} from "@/api/problem";
 
 export default {
   name: "problemList",
@@ -145,34 +126,11 @@ export default {
       pageSize: 5,
       currentPage: 1,
       problemList: [],
-      ptagList: [{ id: Number, name: "" }],
-
-      // difficultyList: ["简单", "适中", "困难"],
-      difficultyList: [
-        { id: 0, label: "简单" },
-        { id: 1, label: "适中" },
-        { id: 2, label: "困难" },
-      ],
-      statusList: [
-        { id: 0, label: "未发布" },
-        { id: 1, label: "发布待审核" },
-        { id: 2, label: "发布审核通过" },
-        { id: 3, label: "已发布" },
-        { id: 4, label: "下架待审核" },
-        { id: 5, label: "下架审核通过" },
-        { id: 6, label: "下架审核失败" },
-        { id: 7, label: "已下架" },
-        { id: 8, label: "删除待审核" },
-        { id: 9, label: "删除审核通过" },
-        { id: 10, label: "删除审核失败" },
-        { id: 11, label: "已删除" },
-        { id: 12, label: "删除待审核" },
-      ],
     };
   },
   methods: {
     getData() {
-      getList()
+      getByPublishStatus(0)
         .then((response) => {
           this.problemList = response.data;
           console.log(response.data);
@@ -187,13 +145,7 @@ export default {
     // getDetail() {
     //   this.$router.push({ path: "detail", query: { id: row.id } });
     // },
-    formatDifficulty(row) {
-      // return this.difficultyList[row.difficulty];
-      var difficulty = this.difficultyList.find((d) => {
-        return d.id == row.difficulty;
-      });
-      return difficulty.label;
-    },
+
     filterHandler(value, row, column) {
       const property = column["property"];
       return row[property] === value;
@@ -212,20 +164,10 @@ export default {
     handleCurrentChange(val) {
       this.currentPage = val;
     },
-    receive(id) {
-
-    },
+    receive(id) {},
     reject(id) {},
-    formatTag(id) {
-      if (id) {
-        var tag = this.ptagList.find((t) => {
-          return t.id == id;
-        });
-        return tag.name;
-      } else return "尚未分配标签";
-    },
     formatStatus(id) {
-      var status = this.statusList.find((t) => {
+      var status = statusList.find((t) => {
         return t.id == id;
       });
       return status.label;

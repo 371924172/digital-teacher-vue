@@ -95,7 +95,11 @@ export const constantRoutes = [
         name: 'addProblem',
         component: () => import('@/views/problem/add'),
         meta: { title: '添加题目', icon: 'form' }
-      },
+      }, {
+        path: 'detail',
+        component: () => import('@/views/problem/detail'),
+        meta: { title: 'xijie' }
+      }
 
     ]
   },

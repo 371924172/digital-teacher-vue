@@ -3,12 +3,6 @@
     <el-form ref="form" :model="form" label-width="120px">
       <el-row>
         <el-col :span="12">
-          <el-form-item label="题号">
-            <el-input v-model="form.problem_id" ref="name" />
-          </el-form-item> </el-col
-      ></el-row>
-      <el-row>
-        <el-col :span="12">
           <el-form-item label="题目名称">
             <el-input v-model="form.name" ref="name" />
           </el-form-item>
@@ -102,6 +96,16 @@
           >
         </el-checkbox-group>
       </el-form-item>
+      <el-form-item label="是否公开"
+        ><el-switch
+          v-model="form.public_status"
+          active-color="#13ce66"
+          inactive-color="#ff4949"
+          active-value="1"
+          inactive-value="0"
+        >
+        </el-switch
+      ></el-form-item>
 
       <el-form-item>
         <el-button type="primary" @click="addProblem">Create</el-button>
@@ -213,26 +217,11 @@ export default {
       ptag: [],
       pcategory: [],
       source: [],
-      TagOptions: [
-        { Name: "数字电路", id: "1" },
-        { Name: "通信工程", id: "2" },
-        { Name: "计算机组成原理", id: "3" },
-        { Name: "其他", id: "4" },
-      ],
+      TagOptions: [],
 
-      categoryOptions: [
-        { Name: "类别1", id: "1" },
-        { Name: "类别2", id: "2" },
-        { Name: "类别3", id: "3" },
-        { Name: "其他", id: "4" },
-      ],
+      categoryOptions: [],
 
-      sourceOptions: [
-        { Name: "来源1", id: "1" },
-        { Name: "来源2", id: "2" },
-        { Name: "来源3", id: "3" },
-        { Name: "其他", id: "4" },
-      ],
+      sourceOptions: [],
 
       optionsdiff: [
         { Name: "简单", id: "1" },
@@ -248,14 +237,7 @@ export default {
         pcateory: "1",
         problem_decription:
           '((({"signal": [{ "name": "clk", "wave": "p......" },{ "name": "bus", "wave": "x.34.5x", "data": "head body tail" },{ "name": "wire", "wave": "0.1..0." }]})))\n\n((({"signal": [{ "name": "clk", "wave": "p......" },{ "name": "bus", "wave": "x.34.5x", "data": "head body tail" },{ "name": "wire", "wave": "0.1..0." }]})))',
-        // pcateory: "",
-        // region: "",
-        // input: "",
-        // output: "",
-        // describe: "",
-        // type: [],
-        // definition: "",
-        // desc: "",
+        public_status: "1",
       },
 
       taglist: [
@@ -311,7 +293,16 @@ export default {
       this.form.source = source;
       console.log(this.form);
       addProblem(this.form).then((response) => {
-        console.log(response.data);
+        const { status } = response.data;
+        console.log(response)
+        if ((status == 101)) {
+          this.$message.error(response.data.message);
+        } else {
+          this.$message({
+            type: "success",
+            message: "添加成功,请至我的题目页面进行后续操作",
+          });
+        }
       });
     },
     insertWave() {
@@ -374,6 +365,8 @@ export default {
       //关闭
       this.dialog = false;
     },
+    //数据准备
+    prepareData() {},
     removesignal(item) {
       var index = this.waveJson.signal.indexOf(item);
       if (index !== -1) {

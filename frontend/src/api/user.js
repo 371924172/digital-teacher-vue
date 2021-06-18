@@ -17,7 +17,6 @@ export function register(data) {
 }
 
 export function login(data) {
-  console.log(host)
   return request({
     url: host + 'authenticated/',
     method: 'post',

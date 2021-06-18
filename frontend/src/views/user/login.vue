@@ -131,8 +131,15 @@ export default {
               });
               this.loading = false;
             })
-            .catch(() => {
-              this.$message.error("用户名或密码错误");
+            .catch((error) => {
+              if (error.response) {
+                if (error.response.status == 400) {
+                  this.$message.error("用户名或密码错误");
+                }
+              } else {
+                this.$message.error("服务器错误");
+              }
+
               this.loading = false;
             });
         } else {
