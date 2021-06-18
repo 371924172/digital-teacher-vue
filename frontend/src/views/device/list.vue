@@ -60,8 +60,18 @@
         <el-form-item label="设备移动ip">
     <el-input v-model="editinfo.mip" ></el-input>
         </el-form-item>
-        <el-form-item label="出厂日期">
-    <el-input v-model="editinfo.mfr_time" ></el-input>
+        <el-form-item label="出厂日期" 
+          :rules="[
+            { required: true, message: '记录时间不能为空', trigger: 'blur'},
+            { validator: validateDate, trigger: ['blur', 'change'] }
+          ]"
+>
+      <el-date-picker 
+            v-model="editinfo.mfr_time"
+            type="datetime"
+            value-format="yyyy-MM-dd"
+            placeholder="选择日期"
+          ></el-date-picker>
         </el-form-item>
       </el-form>
     </div>
