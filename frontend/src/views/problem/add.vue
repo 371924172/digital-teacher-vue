@@ -67,7 +67,7 @@
       <el-form-item label="题目类型">
         <el-checkbox-group v-model="ptag">
           <el-checkbox-button
-            v-for="tag in TagOptions"
+            v-for="tag in tagOptions"
             :label="tag.id"
             :key="tag.id"
             >{{ tag.Name }}</el-checkbox-button
@@ -170,7 +170,7 @@
             <el-button @click="addsignal">新增信号</el-button>
           </el-form-item>
         </el-form>
-        <div :id="a"></div>
+        <div id="a"></div>
       </div>
     </el-dialog>
     <el-dialog
@@ -200,11 +200,11 @@
 import {
   getProblemList,
   addProblem,
-  getProblem,
-  deleteProblem,
   updateProblem,
+  deleteProblem,
 } from "@/api/problem";
 import Markdown from "@/components/vue-markdown/simple";
+import pro from "@/components/vue-markdown/pro.js";
 var WaveDrom = require("wavedrom");
 window.WaveSkin = require("../../assets/default.js");
 export default {
@@ -217,7 +217,7 @@ export default {
       ptag: [],
       pcategory: [],
       source: [],
-      TagOptions: [],
+      tagOptions: [],
 
       categoryOptions: [],
 
@@ -230,8 +230,8 @@ export default {
       ],
       TagId: Number,
       form: {
-        problem_id: "1",
-        name: "1",
+        problem_id: "",
+        name: "",
         ptag: "",
         source: "",
         pcateory: "1",
@@ -292,18 +292,27 @@ export default {
       this.form.pcateory = category;
       this.form.source = source;
       console.log(this.form);
-      addProblem(this.form).then((response) => {
-        const { status } = response.data;
-        console.log(response)
-        if ((status == 101)) {
-          this.$message.error(response.data.message);
-        } else {
+      if (!this.form.id) {
+        addProblem(this.form).then((response) => {
+          const { status } = response.data;
+          console.log(response);
+          if (status == 101) {
+            this.$message.error(response.data.message);
+          } else {
+            this.$message({
+              type: "success",
+              message: "添加成功,请至我的题目页面进行后续操作",
+            });
+          }
+        });
+      } else {
+        updateProblem(this.form).then((response) => {
           this.$message({
             type: "success",
-            message: "添加成功,请至我的题目页面进行后续操作",
+            message: "修改成功,请至我的题目页面进行后续操作",
           });
-        }
-      });
+        });
+      }
     },
     insertWave() {
       this.dialog = true;
@@ -397,6 +406,17 @@ export default {
     getTest_decription(value) {
       this.form.test_decription = value;
     },
+  },
+  mounted() {
+    //编辑题目，填充数据
+    if (this.$route.query.problem) {
+      let problem = JSON.parse(this.$route.query.problem);
+      this.form = problem;
+      this.ptag = problem.ptag ? problem.ptag.split(",") : [];
+      this.pcategory = problem.pcategory ? problem.pcategory.split(",") : [];
+
+      this.source = problem.psource ? problem.psource.split(",") : [];
+    }
   },
   watch: {
     waveIndex() {

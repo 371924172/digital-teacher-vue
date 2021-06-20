@@ -10,38 +10,6 @@
           prefix-icon="el-icon-search"
         ></el-input
       ></el-col>
-      <el-col :span="1.5">
-        <el-select
-          v-model="searchTag"
-          placeholder="标签"
-          multiple
-          size="mini"
-          :clearable="true"
-          style="margin-top: 10px"
-        >
-          <el-option
-            v-for="item in ptagList"
-            :key="item.id"
-            :label="item.name"
-            :value="item.id"
-          >
-          </el-option>
-        </el-select> </el-col
-      ><el-col :span="1.5"
-        ><el-select
-          v-model="searchDiff"
-          placeholder="难度"
-          size="mini"
-          style="margin-top: 10px"
-        >
-          <el-option
-            v-for="item in difficultyList"
-            :key="item.id"
-            :label="item.label"
-            :value="item.id"
-          >
-          </el-option> </el-select
-      ></el-col>
     </el-row>
 
     <el-table
@@ -50,9 +18,7 @@
           .filter(
             (data) =>
               !search ||
-              (data.name.toLowerCase().includes(searchName.toLowerCase()) &&
-                data.ptag.includes(searchTag) &&
-                (searchDiff ? data.difficulty == searchDiff : 1))
+              data.name.toLowerCase().includes(searchName.toLowerCase())
           )
           .slice((currentPage - 1) * pageSize, currentPage * pageSize)
       "
@@ -76,20 +42,20 @@
           {{ formatStatus(scope.row.publish_status) }}
         </template>
       </el-table-column>
-      <el-table-column label="是否通过发布审核">
+      <el-table-column label="是否通过下架审核">
         <template slot-scope="scope">
           <el-button
             type="success"
             size="mini"
             icon="el-icon-success"
-            @click="receive(scope.row.id, 2)"
+            @click="receive(scope.row.id)"
             circle
           ></el-button>
           <el-button
             type="danger"
             icon="el-icon-close"
             size="mini"
-            @click="reject(scope.row.id, 3)"
+            @click="reject(scope.row.id)"
             circle
           ></el-button>
         </template>
@@ -114,10 +80,13 @@ import {
   getPtagList,
   PtagColor,
   statusList,
+  publish_status,
 } from "@/api/problem";
+import { changePassword } from "@/api/user";
 
 export default {
   name: "problemList",
+  inject: ["reload"],
   data() {
     return {
       searchName: "",
@@ -130,7 +99,7 @@ export default {
   },
   methods: {
     getData() {
-      getByPublishStatus(0)
+      getByPublishStatus(1)
         .then((response) => {
           this.problemList = response.data;
           console.log(response.data);
@@ -142,9 +111,6 @@ export default {
         this.ptagList = response.data;
       });
     },
-    // getDetail() {
-    //   this.$router.push({ path: "detail", query: { id: row.id } });
-    // },
 
     filterHandler(value, row, column) {
       const property = column["property"];
@@ -164,8 +130,17 @@ export default {
     handleCurrentChange(val) {
       this.currentPage = val;
     },
-    receive(id) {},
-    reject(id) {},
+    receive(id) {
+      publish_status(id, 6).then((response) => {
+        console.log(response.data);
+        this.reload();
+      });
+    },
+    reject(id) {
+      publish_status(id, 7).then((response) => {
+        this.reload();
+      });
+    },
     formatStatus(id) {
       var status = statusList.find((t) => {
         return t.id == id;

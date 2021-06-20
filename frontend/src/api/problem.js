@@ -20,6 +20,13 @@ export function addProblem(data) {
         data: data
     })
 }
+export function updateProblem(data) {
+    return request({
+        url: host + 'problem/',
+        method: 'put',
+        data: data
+    })
+}
 export function getMyProblem() {
     return request({
         url: host + 'problem/myProblem/',
@@ -46,6 +53,14 @@ export function publish_status(id, status) {
     return request({
         url: host + 'problem/' + id + '/publishStatus/',
         method: 'put',
+        data
+    })
+}
+
+export function draftCount(data) {
+    return request({
+        url: host + 'problem/draftCount/',
+        method: 'post',
         data
     })
 }

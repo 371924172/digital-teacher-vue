@@ -20,3 +20,10 @@ export function getPgroupList() {
         method: 'get'
     })
 }
+
+export function getMyPgroup() {
+    return request({
+        url: host + 'pgroup/myPgroup/',
+        method: 'get'
+    })
+}

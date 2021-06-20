@@ -40,16 +40,76 @@
           {{ formatStatus(scope.row.publish_status) }}
         </template>
       </el-table-column>
-      <el-table-column label="操作">
-        <el-select v-model="status" style="width: 100px">
-          <el-option
-            v-for="item in statusOptions"
-            :key="item.id"
-            :label="item.label"
-            :value="item.id"
-          ></el-option>
-        </el-select>
-      </el-table-column>
+      <!-- <el-table-column label="操作">
+        <template slot-scope="scope">
+          <el-select
+            v-model="scope.row.publish_status"
+            style="width: 100px"
+            @blur="publish_status(scope.row.id, scope.row.publish_status)"
+          >
+            <el-option
+              v-for="item in statusOptions"
+              :key="item.id"
+              :label="item.label"
+              :value="item.id"
+            ></el-option>
+          </el-select>
+        </template>
+      </el-table-column> -->
+      <el-table-column>
+        <template slot-scope="scope">
+          <el-tooltip
+            class="item"
+            effect="dark"
+            content="申请发布"
+            placement="top-start"
+          >
+            <el-button
+              type="success"
+              size="mini"
+              icon="el-icon-top"
+              @click="publish_status(scope.row.id, 1)"
+              circle
+            ></el-button> </el-tooltip
+          ><el-tooltip
+            class="item"
+            effect="dark"
+            content="申请下架"
+            placement="top-start"
+            ><el-button
+              type="info"
+              size="mini"
+              icon="el-icon-bottom"
+              @click="publish_status(scope.row.id, 5)"
+              circle
+            ></el-button
+          ></el-tooltip>
+          <el-tooltip
+            class="item"
+            effect="dark"
+            content="申请删除"
+            placement="top-start"
+            ><el-button
+              type="danger"
+              size="mini"
+              icon="el-icon-delete"
+              @click="publish_status(scope.row.id, 9)"
+              circle
+            ></el-button></el-tooltip
+          ><el-tooltip
+            class="item"
+            effect="dark"
+            content="编辑"
+            placement="top-start"
+            ><el-button
+              type="primary"
+              size="mini"
+              icon="el-icon-edit"
+              @click="editProblem(scope.row)"
+              circle
+            ></el-button
+          ></el-tooltip> </template
+      ></el-table-column>
     </el-table>
     <el-pagination
       align="center"
@@ -65,10 +125,12 @@
   </div>
 </template>
 <script>
-import { getMyProblem, statusList } from "@/api/problem";
+import { getMyProblem, statusList, publish_status } from "@/api/problem";
+import pro from "@/components/vue-markdown/pro";
 
 export default {
   name: "problemList",
+  inject: ["reload"],
   data() {
     return {
       searchName: "",
@@ -105,7 +167,26 @@ export default {
     search() {
       this.problemList;
     },
-    changeStatus() {},
+    editProblem(problem) {
+      const { publish_status } = problem;
+      if (publish_status == 0 || publish_status == 8) {
+        this.$router.push({
+          name: "addProblem",
+          query: {
+            problem: JSON.stringify(problem),
+          },
+        });
+      } else {
+        this.$message.error("仅可对未发布或者下架状态的题目进行编辑，请申请");
+      }
+    },
+    publish_status(id, status) {
+      console.log(status);
+      publish_status(id, status).then((response) => {
+        console.log(response.data);
+        this.reload();
+      });
+    },
     //每页条数改变时触发 选择一页显示多少行
     handleSizeChange(val) {
       this.currentPage = 1;
@@ -117,8 +198,8 @@ export default {
     },
 
     formatStatus(id) {
-      if (id) {
-        var s = status.find((t) => {
+      if (id || id == 0) {
+        var s = statusList.find((t) => {
           return t.id == id;
         });
         return s.label;

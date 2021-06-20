@@ -21,6 +21,7 @@ router.beforeEach(async (to, from, next) => {
     );
     sessionStorage.removeItem("store")
   }
+
   // console.log(router.options)
   // start progress bar 
   NProgress.start()
@@ -40,7 +41,6 @@ router.beforeEach(async (to, from, next) => {
       // determine whether the user has obtained his permission roles through getInfo
       // const hasRoles = store.getters.roles && store.getters.roles.length > 0
       const status = store.getters.status;
-      console.log(status)
       if (status) {
         if (status == 'True')
           next()

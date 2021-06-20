@@ -37,15 +37,6 @@
     <el-form-item label="测试描述">
       <div id="test_decription"></div>
     </el-form-item>
-     <el-form-item label="测试描述">
-      <div id="test_decription"></div>
-    </el-form-item>
-     <el-form-item label="测试描述">
-      <div id="test_decription"></div>
-    </el-form-item>
-     <el-form-item label="测试描述">
-      <div id="test_decription"></div>
-    </el-form-item>
   </el-form>
 </template>
 <script>
@@ -65,9 +56,8 @@ export default {
     };
   },
   methods: {
-    getProblem(id) {
-      getProblem(51).then((response) => {
-        console.log(response.data);
+    getProblem() {
+      getProblem(this.$route.query.id).then((response) => {
         this.problemDetail = response.data;
         if (this.problemDetail.problem_decription) {
           document.getElementById("problem_decription").innerHTML = marked(

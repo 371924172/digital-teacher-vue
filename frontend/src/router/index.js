@@ -57,34 +57,42 @@ export const constantRoutes = [
       },
       {
         path: 'pgroup',
-        component: () => import('@/views/user/pgroup'),
+        component: () => import('@/views/user/mypgroup'),
         meta: {
           title: '我的题单'
         },
+      }, {
+        path: 'detail',
+        name: 'userDetail',
+        component: () => import('@/views/user/detail'),
+        meta: { title: '详细信息' },
+        hidden: true,
       },
+      {
+        path: 'changePassword',
+        component: () => import('@/views/user/changePassword'),
+        meta: { title: '修改密码' },
+      }
     ]
   },
   {
     path: '/problem',
     component: Layout,
-    meta: { title: '题目管理', icon: 'form' },
+    redirect: '/problem/list',
+    meta: { title: '题目', icon: 'form' },
     children: [
       {
         path: 'edit',
         name: 'edit',
         component: () => import('@/views/problem/edit'),
-        meta: { title: '编辑题目', icon: 'form' }
+        meta: { title: '编辑题目', icon: 'form' },
+        hidden: true,
       },
       {
         path: 'list',
         name: 'list',
         component: () => import('@/views/problem/list'),
-        meta: { title: '题目列表', icon: 'form' }
-      }, {
-        path: 'test',
-        name: 'test',
-        component: () => import('@/views/problem/test'),
-        meta: { roles: ['admin'], title: '测试', icon: 'form' }
+        meta: { title: '题目', icon: 'form' }
       }, {
         path: 'detail',
         name: 'problemDetail',
@@ -94,11 +102,14 @@ export const constantRoutes = [
         path: 'add',
         name: 'addProblem',
         component: () => import('@/views/problem/add'),
-        meta: { title: '添加题目', icon: 'form' }
+        meta: { title: '添加题目', icon: 'form' },
+        hidden: true,
       }, {
         path: 'detail',
+        name: 'problemDetail',
         component: () => import('@/views/problem/detail'),
-        meta: { title: 'xijie' }
+        meta: { title: '题目信息' },
+        hidden: true,
       }
 
     ]
@@ -106,12 +117,12 @@ export const constantRoutes = [
   {
     path: '/pgroup',
     component: Layout,
-    meta: { title: '题单管理', icon: 'form' },
+    meta: { title: '题单', icon: 'form' },
     children: [{
       path: 'list',
       name: 'pgrouplist',
       component: () => import('@/views/pgroup/list'),
-      meta: { title: '题单列表', icon: 'form' }
+      meta: { title: '题单', icon: 'form' }
     }, {
       path: 'add',
       name: 'addpgroup',
@@ -124,6 +135,12 @@ export const constantRoutes = [
       name: 'pgroupdetail',
       component: () => import('@/views/pgroup/detail'),
       meta: { title: '题单中的题目' },
+      hidden: true
+    }, {
+      path: 'myPgroupDetail',
+      name: 'myPgroupDetail',
+      component: () => import('@/views/user/myPgroupDetail'),
+      meta: { title: '题单信息' },
       hidden: true
     },
     ]
@@ -139,52 +156,57 @@ export const constantRoutes = [
 ]
 export const asyncRoutes = [
   {
-    path: '/user',
-    redirect: '/user/list/',
+    path: 'admin',
     component: Layout,
-    meta: { roles: ['admin'], title: '用户管理', icon: 'form' },
+    meta: { title: '管理员' },
     alwaysShow: true,
-    children: [{
-      path: 'list',
-      component: () => import('@/views/user/list'),
-      meta: { title: '用户列表' }
-    }, {
-      path: 'checkUser',
-      component: () => import('@/views/user/checkUser'),
-      meta: { title: '用户审核' }
-    }, {
-      path: 'check',
-      // redirect: 'check/publish',
-      meta: { title: '题目审核' },
-      component: () => import('@/views/user/checkProblem/publish'),
-      // children: [{
-      //   path: 'publish',
-      //   component: () => import('@/views/user/checkProblem/publish'),
-      //   meta: { title: '发布审核' }
-      // }, {
-      //   path: 'withdraw',
-      //   component: () => import('@/views/user/checkProblem/withdraw'),
-      //   meta: { title: '下架审核' }
-      // }]
+    children: [
+      {
+        path: '/user',
+        component: () => import('@/views/admin/user/index'),
+        redirect: '/user/list',
+        meta: { title: '用户管理', icon: 'form' },
+        children: [{
+          path: 'list',
+          component: () => import('@/views/admin/user/list'),
+          meta: { title: '用户列表' }
+        }, {
+          path: 'checkUser',
+          name: 'checkUser',
+          component: () => import('@/views/admin/user/checkUser'),
+          meta: { title: '用户审核' }
+        },
+        {
+          path: "assignRole",
+          component: () => import('@/views/admin/user/assignRole'),
+          meta: { title: '管理员权限分配' }
+        },]
 
-    }, {
-      path: "assignRole",
-      component: () => import('@/views/user/assignRole'),
-      meta: { title: '权限管理' }
-    }, {
-      path: 'detail',
-      name: 'userDetail',
-      component: () => import('@/views/user/detail'),
-      meta: { title: '详细信息' },
-      hidden: true,
-    },
-    {
-      path: 'changePassword',
-      component: () => import('@/views/user/changePassword'),
-      meta: { title: '修改密码' },
-    }]
+      },
+      {
+        path: '/problemAdmin',
+        name: 'problemAdmin',
+        redirect: '/problemAdmin/publish',
+        component: () => import('@/views/admin/problem/index'),
+        redirect: '',
+        meta: { title: '题目审核' },
+        children: [{
+          path: 'publish',
+          component: () => import('@/views/admin/problem/publish'),
+          meta: { title: "发布审核" }
+        }, {
+          path: 'withdraw',
+          component: () => import('@/views/admin/problem/withdraw'),
+          meta: { title: "下架审核" }
+        }, {
+          path: 'delete',
+          component: () => import('@/views/admin/problem/delete'),
+          meta: { title: "删除审核" }
+        }]
+      }
+    ]
+  }
 
-  },
 ]
 const createRouter = () => new Router({
   // mode: 'history', // require service support

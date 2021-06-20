@@ -168,9 +168,6 @@ export default {
         this.ptagList = response.data;
       });
     },
-    // getDetail() {
-    //   this.$router.push({ path: "detail", query: { id: row.id } });
-    // },
     formatDifficulty(row) {
       // return this.difficultyList[row.difficulty];
       var difficulty = this.difficultyList.find((d) => {

@@ -1,7 +1,7 @@
 <template>
   <div>
     <el-row>
-      <el-col :span="14">
+      <el-col :span="16">
         <el-input
           v-model="searchName"
           size="mini"
@@ -42,6 +42,15 @@
           >
           </el-option> </el-select
       ></el-col>
+      <el-col :span="3">
+        <el-button
+          size="mini"
+          type="primary"
+          style="margin-top: 10px"
+          @click="createProblem"
+          >创建题目</el-button
+        >
+      </el-col>
     </el-row>
 
     <el-table
@@ -111,7 +120,8 @@
   </div>
 </template>
 <script>
-import { getList, getPtagList, PtagColor } from "@/api/problem";
+import { getList, getPtagList, PtagColor, draftCount } from "@/api/problem";
+import store from "@/store";
 
 export default {
   name: "problemList",
@@ -147,17 +157,17 @@ export default {
         this.ptagList = response.data;
       });
     },
-    // getDetail() {
-    //   this.$router.push({ path: "detail", query: { id: row.id } });
-    // },
     formatDifficulty(row) {
-      if (row.difficulty) {
-        // return this.difficultyList[row.difficulty];
+      if (row.difficulty || row.difficulty == 0) {
         var difficulty = this.difficultyList.find((d) => {
           return d.id == row.difficulty;
         });
         return difficulty.label;
-      } else return "其他";
+      } else {
+        return "未标记难度";
+      }
+
+      // return this.difficultyList[row.difficulty];
     },
     filterHandler(value, row, column) {
       const property = column["property"];
@@ -165,6 +175,19 @@ export default {
     },
     search() {
       this.problemList;
+    },
+    createProblem() {
+      var data = { id: store.getters.userid };
+      draftCount(data).then((response) => {
+        const { count } = response.data;
+        if (count > 5) {
+          this.$message.error("您的未发布题目已经超过5条，请处理");
+        } else {
+          this.$router.push({
+            name: "addProblem",
+          });
+        }
+      });
     },
     handleSelectionChange(selected) {},
 
