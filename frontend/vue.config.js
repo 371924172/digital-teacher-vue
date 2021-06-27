@@ -33,6 +33,7 @@ module.exports = {
   devServer: {
     port: port,
     open: true,
+    host:'0.0.0.0',
     overlay: {
       warnings: false,
       errors: true
@@ -65,6 +66,7 @@ module.exports = {
     config.plugins.delete('prefetch')
 
     // set svg-sprite-loader
+    
     config.module
       .rule('svg')
       .exclude.add(resolve('src/icons'))
