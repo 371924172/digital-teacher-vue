@@ -8,13 +8,6 @@ export function getUserList() {
     })
 }
 
-export function assignRole(data) {
-    return request({
-        url: host + 'role/assign/',
-        method: 'post',
-        data
-    })
-}
 
 export function getRole() {
     return request({
@@ -23,7 +16,7 @@ export function getRole() {
     })
 }
 
-export function deleteAdmin(id) {
+export function deleteRole(id) {
     return request({
         url: host + 'role/' + id + '/',
         method: 'delete'
@@ -45,6 +38,13 @@ export function deleteUser(id) {
         method: "delete",
     })
 }
+export function assignAdmin(data) {
+    return request({
+        url: host + 'role/assignAdmin/',
+        method: 'post',
+        data
+    })
+}
 
 export function getUnadmin() {
     return request({
@@ -56,6 +56,43 @@ export function getUnadmin() {
 export function getAdmin() {
     return request({
         url: host + 'role/admin/',
+        method: 'get'
+    })
+}
+
+export function assignStudent(data) {
+    return request({
+        url: host + 'role/assignStudent/',
+        method: 'post',
+        data
+    })
+}
+
+export function getUnstudent() {
+    return request({
+        url: host + 'role/unstudent/',
+        method: 'get'
+    })
+}
+
+export function getStudent() {
+    return request({
+        url: host + 'role/student/',
+        method: 'get'
+    })
+}
+
+
+export function getUnteacher() {
+    return request({
+        url: host + 'role/unteacher/',
+        method: 'get'
+    })
+}
+
+export function getTeacher() {
+    return request({
+        url: host + 'role/teacher/',
         method: 'get'
     })
 }

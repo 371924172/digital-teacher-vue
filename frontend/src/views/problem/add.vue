@@ -92,7 +92,7 @@
             v-for="source in sourceOptions"
             :label="source.id"
             :key="source.id"
-            >{{ source.name }}</el-checkbox-button
+            >{{ source.source }}</el-checkbox-button
           >
         </el-checkbox-group>
       </el-form-item>
@@ -310,12 +310,16 @@ export default {
         });
       } else {
         updateProblem(this.form).then((response) => {
+          
           this.$message({
             type: "success",
             message: "修改成功,请至我的题目页面进行后续操作",
           });
         });
       }
+      this.$route.push({
+        path:'/user/problem/'
+      })
     },
     insertWave() {
       this.dialog = true;

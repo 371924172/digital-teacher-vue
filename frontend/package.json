@@ -1,7 +1,6 @@
 {
-  "name": "vue-admin-template",
+  "name": "digital-circuit",
   "version": "4.4.0",
-  "description": "A vue admin template with Element UI & axios & iconfont & permission control & lint",
   "author": "Pan <panfree23@gmail.com>",
   "scripts": {
     "dev": "vue-cli-service serve",
@@ -43,7 +42,7 @@
     "autoprefixer": "9.5.1",
     "babel-eslint": "10.1.0",
     "babel-jest": "^26.6.3",
-    "babel-plugin-dynamic-import-node": "2.3.3",
+    "babel-plugin-dynamic-import-node": "^2.3.3",
     "chalk": "2.4.2",
     "connect": "3.6.6",
     "eslint": "6.7.2",

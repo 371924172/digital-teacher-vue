@@ -3,8 +3,8 @@ import Router from 'vue-router'
 
 Vue.use(Router)
 
-import Layout from '@/layout'
-
+// import Layout from '@/layout'
+const Layout = ()=>import('@/layout')
 
 export const constantRoutes = [
   {
@@ -222,8 +222,8 @@ export const asyncRoutes = [
           meta: { title: '用户审核' }
         },
         {
-          path: "assignRole",
-          component: () => import('@/views/admin/user/assignRole'),
+          path: "assignAdmin",
+          component: () => import('@/views/admin/user/assignAdmin'),
           meta: { title: '管理员权限分配' }
         },]
 
