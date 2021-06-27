@@ -12,7 +12,7 @@
   </el-form>
 
       <el-table
-        :data="deviceData"
+        :data="SourceData"
             stripe
                 style="width: 100%">
     <el-table-column prop="numbers" label="序号" width="140">
@@ -20,12 +20,10 @@
         {{scope.$index+1}}
       </template>
     </el-table-column>
-    <el-table-column prop="id" label="设备ID" width="160" sortable></el-table-column>
-    <el-table-column prop="sn" label="设备序列号" width="160" sortable></el-table-column>
-    <el-table-column prop="type" label="设备类型" width="160" sortable></el-table-column>
-    <el-table-column prop="mmac" label="设备移动MAC" width="200" ></el-table-column>
-    <el-table-column prop="mip" label="设备移动ip" width="200" ></el-table-column>
-    <el-table-column prop="mfr_time" label="出厂日期" width="140" sortable></el-table-column>
+    <el-table-column prop="id" label="来源ID" width="180" sortable></el-table-column>
+    <el-table-column prop="type" label="来源类型" width="200" sortable></el-table-column>
+    <el-table-column prop="source" label="来源" width="200" sortable></el-table-column>
+    <el-table-column prop="decription" label="描述" width="380" ></el-table-column>
     <el-table-column prop="edit" label="操作" width="180" align="center">
          <template slot-scope="scope">
         <el-button
@@ -45,30 +43,14 @@
   :before-close="handleClose">
   <div>
       <el-form ref="form" :model="editinfo" :inline="true" size="mini" >
-        <el-form-item label="设备ID">
-    <el-input v-model="editinfo.id" readonly: true></el-input>
-        </el-form-item>
-        <el-form-item label="设备序列号">
-    <el-input v-model="editinfo.sn" ></el-input>
-        </el-form-item>
-        <el-form-item label="设备类型">
+        <el-form-item label="来源类型">
     <el-input v-model="editinfo.type" ></el-input>
         </el-form-item>
-        <el-form-item label="设备移动MAC">
-    <el-input v-model="editinfo.mmac" ></el-input>
+        <el-form-item label="来源">
+    <el-input v-model="editinfo.source" ></el-input>
         </el-form-item>
-        <el-form-item label="设备移动ip">
-    <el-input v-model="editinfo.mip" ></el-input>
-        </el-form-item>
-        <el-form-item label="出厂日期">
-          <el-date-picker
-            v-model="editinfo.mfr_time"
-            type="date"
-            format="yyyy-MM-dd hh:mm:ss"
-            value-format="yyyy-MM-dd hh:mm:ss"
-            placeholder="选择日期">
-          </el-date-picker>
-    <!--    <el-input v-model="editinfo.mfr_time" ></el-input>    -->
+        <el-form-item label="描述">
+    <el-input v-model="editinfo.decription" ></el-input>
         </el-form-item>
       </el-form>
     </div>
@@ -82,30 +64,26 @@
 </template>
 
 <script>
-import {getDeviceList,addDevice,getDevice,deleteDevice,updateDevice} from "@/api/device";
+import {getSourceList,addSource,getSource,deleteSource,updateSource} from "@/api/psource";
   export default {
     inject: ["reload"],
     data() {
       return {
-        deviceinfo: {  //设备类别信息
+        Sourceinfo: {  //来源类别信息
           id:'',
-          sn: '',
           type:'',
-          mmac:'',
-          mip:'',
-          mfr_time:''
+          source: '',
+          decription:'',
       },
         editinfo: {  //dialog页面暂存信息
           id:'',
-          sn: '',
           type:'',
-          mmac:'',
-          mip:'',
-          mfr_time:''
+          source: '',
+          decription:'',
       },
-        deviceData:[],
+        SourceData:[],
         dialogVisible:false,
-        deviceIndex:0,
+        sourceIndex:0,
         addflag:false,  //判断是否为add按钮激活dialog界面
       }
     },
@@ -113,19 +91,17 @@ import {getDeviceList,addDevice,getDevice,deleteDevice,updateDevice} from "@/api
       //新增题目类别
       addlabel(){
         this.dialogVisible=true;
-        this.deviceIndex=0;
+        this.sourceIndex=0;
         this.addflag=true;
       },
       //编辑按钮
       handleEdit(item,idx){
-             this.deviceIndex=idx;
+             this.sourceIndex=idx;
              this.editinfo={
              id:item.id,
-             sn:item.sn,
              type:item.type,
-             mmac:item.mmac,
-             mip:item.mip,
-             mfr_time:item.mfr_time,
+             source:item.source,
+             decription:item.decription,
         }
         this.dialogVisible=true;
       },
@@ -133,8 +109,8 @@ import {getDeviceList,addDevice,getDevice,deleteDevice,updateDevice} from "@/api
       handleDelete(idx,r){
        this.$confirm('确认删除？')
          .then(_ => {
-            //this.deviceData.splice(idx,1);
-              this.deleteDeviceData(r.id);
+            //this.SourceData.splice(idx,1);
+              this.deleteSourceData(r.id);
           })
     .catch(_ => {});
       },
@@ -143,24 +119,22 @@ import {getDeviceList,addDevice,getDevice,deleteDevice,updateDevice} from "@/api
         if(this.addflag==false){
           //若为编辑按钮启动该dialog界面
           this.dialogVisible=false;
-          //this.deviceData[this.deviceIndex]=this.editinfo;
-          this.$set(this.deviceData, this.deviceIndex, this.editinfo);
-          this.updateDevice(this.editinfo);
+          //this.SourceData[this.SourceIndex]=this.editinfo;
+          this.$set(this.SourceData, this.sourceIndex, this.editinfo);
+          this.updateSource(this.editinfo);
         }
         else{//用增加按钮启动该dialog界面
           this.dialogVisible=false;
-          //this.deviceData.push(this.editinfo);
-          this.addDeviceData(this.editinfo)
+          //this.SourceData.push(this.editinfo);
+          this.addSourceData(this.editinfo)
         }
-          this.deviceIndex=0;
+          this.sourceIndex=0;
           this.addflag=false;
           this.editinfo={
             id:'',
-            sn: '',
             type:'',
-            mmac:'',
-            mip:'',
-            mfr_time:'',
+            source: '',
+            decription:'',
           }
        },
       handleClose(done) {
@@ -168,14 +142,14 @@ import {getDeviceList,addDevice,getDevice,deleteDevice,updateDevice} from "@/api
         this.addflag=false;
           //console.log(this.editinfo);
       },     
-      getDeviceData(){//获取数据
-        getDeviceList().then((response) => {
-          this.deviceData = response.data;
-          //console.log(this.deviceData)
+      getSourceData(){//获取数据
+        getSourceList().then((response) => {
+          this.SourceData = response.data;
+          //console.log(this.SourceData)
         });
       },
-      addDeviceData(data){//增
-        addDevice(data).then((response) => {
+      addSourceData(data){//增
+        addSource(data).then((response) => {
             this.$message({
               message: "添加成功！",
               type: "success",
@@ -183,8 +157,8 @@ import {getDeviceList,addDevice,getDevice,deleteDevice,updateDevice} from "@/api
           });
           this.reload();
       },
-       updateDevice(data){//更
-         updateDevice(data).then((response)=>{
+       updateSource(data){//更
+         updateSource(data).then((response)=>{
             const {status} = response;
             if (status == 200)
               this.$message({
@@ -195,9 +169,9 @@ import {getDeviceList,addDevice,getDevice,deleteDevice,updateDevice} from "@/api
          });
          this.reload();
       },
-       deleteDeviceData(id) {
+       deleteSourceData(id) {
         console.log(id);
-            deleteDevice(id);
+            deleteSource(id);
         this.$message({
           message: "删除成功！",
           type: "success",
@@ -209,7 +183,7 @@ import {getDeviceList,addDevice,getDevice,deleteDevice,updateDevice} from "@/api
 
 mounted() {
 
-      this.getDeviceData();
+      this.getSourceData();
 },
 
 
