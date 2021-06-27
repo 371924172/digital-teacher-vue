@@ -93,12 +93,7 @@ export const constantRoutes = [
         name: 'list',
         component: () => import('@/views/problem/list'),
         meta: { title: '题目', icon: 'form' }
-      }, {
-        path: 'detail',
-        name: 'problemDetail',
-        component: () => import('@/views/problem/detail'),
-        hidden: true
-      }, {
+      },  {
         path: 'add',
         name: 'addProblem',
         component: () => import('@/views/problem/add'),
@@ -110,6 +105,16 @@ export const constantRoutes = [
         component: () => import('@/views/problem/detail'),
         meta: { title: '题目信息' },
         hidden: true,
+      }, {
+        path: 'psource',
+        name: 'psource',
+        component: () => import('@/views/psource/list'),
+        meta: { title: '题目来源' },
+      }, {
+        path: 'ptagAndPcategory',
+        name: 'ptagAndPcategory',
+        component: () => import('@/views/tagandcategory/list'),
+        meta: { title: '标签与类别' },
       }
 
     ]
@@ -143,6 +148,46 @@ export const constantRoutes = [
       meta: { title: '题单信息' },
       hidden: true
     },
+    ]
+  },
+  {
+    path: '/organization',
+    component: Layout,
+    meta: { title: "学校信息" },
+    children: [
+      {
+        path: 'class',
+        name: 'class',
+        component: () => import('@/views/class/list'),
+        meta: { title: "班级" }
+      }, {
+        path: 'major',
+        name: 'major',
+        component: () => import('@/views/major/list'),
+        meta: { title: "专业" }
+      }, {
+        path: 'college',
+        name: 'college',
+        component: () => import('@/views/college/list'),
+        meta: { title: "学院" }
+      }, {
+        path: 'organization',
+        name: 'organization',
+        component: () => import('@/views/organization/list'),
+        meta: { title: "学校" }
+      }
+    ]
+  }, {
+    path: "/verifyServer",
+    name: "/verifyServer",
+    component: Layout,
+    meta: { title: '验证服务器' },
+    children: [{
+      path: 'list',
+      name: 'serverList',
+      component: () => import('@/views/verifyserver/list'),
+      meta: { title: '服务器' }
+    }
     ]
   },
   { path: '/', redirect: '/dashboard', hidden: true },

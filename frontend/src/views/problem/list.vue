@@ -9,7 +9,7 @@
           style="width: 180px; margin: 10px"
           prefix-icon="el-icon-search"
         ></el-input
-        ></el-col>
+      ></el-col>
       <el-col :span="1.5">
         <el-select
           v-model="searchTag"
@@ -120,7 +120,8 @@
   </div>
 </template>
 <script>
-import { getList, getPtagList, PtagColor, draftCount } from "@/api/problem";
+import { getList, PtagColor, draftCount } from "@/api/problem";
+import { getTagList } from "@/api/ptag";
 import store from "@/store";
 
 export default {
@@ -153,7 +154,8 @@ export default {
         .catch((error) => {
           console.log(error);
         });
-      getPtagList().then((response) => {
+      getTagList().then((response) => {
+        console.log(response.data)
         this.ptagList = response.data;
       });
     },
@@ -191,40 +193,40 @@ export default {
     },
     handleSelectionChange(selected) {},
 
-      //每页条数改变时触发 选择一页显示多少行
-      handleSizeChange(val) {
-        this.currentPage = 1;
-        this.pageSize = val;
-      },
-      //当前页改变时触发 跳转其他页
-      handleCurrentChange(val) {
-        this.currentPage = val;
-      },
+    //每页条数改变时触发 选择一页显示多少行
+    handleSizeChange(val) {
+      this.currentPage = 1;
+      this.pageSize = val;
+    },
+    //当前页改变时触发 跳转其他页
+    handleCurrentChange(val) {
+      this.currentPage = val;
+    },
 
-      formatTag(id) {
-        if (id) {
-          var tag = this.ptagList.find((t) => {
-            return t.id == id;
-          });
-          return tag.name;
-        } else return "尚未分配标签";
-      },
-      tagColor(item) {
-        return PtagColor[item];
-      },
+    formatTag(id) {
+      if (id) {
+        var tag = this.ptagList.find((t) => {
+          return t.id == id;
+        });
+        return tag.name;
+      } else return "尚未分配标签";
     },
-    mounted() {
-      this.getData();
+    tagColor(item) {
+      return PtagColor[item];
     },
-  };
+  },
+  mounted() {
+    this.getData();
+  },
+};
 </script>
 <style>
-  .el-tag {
-    margin-left: 5px;
-    border-style: none;
-  }
-  .el-input {
-    width: 6em;
-    margin-right: 1em;
-  }
+.el-tag {
+  margin-left: 5px;
+  border-style: none;
+}
+.el-input {
+  width: 6em;
+  margin-right: 1em;
+}
 </style>

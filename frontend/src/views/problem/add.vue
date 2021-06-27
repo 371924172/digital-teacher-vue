@@ -70,7 +70,7 @@
             v-for="tag in tagOptions"
             :label="tag.id"
             :key="tag.id"
-            >{{ tag.Name }}</el-checkbox-button
+            >{{ tag.name }}</el-checkbox-button
           >
         </el-checkbox-group>
       </el-form-item>
@@ -81,7 +81,7 @@
             v-for="category in categoryOptions"
             :label="category.id"
             :key="category.id"
-            >{{ category.Name }}</el-checkbox-button
+            >{{ category.name }}</el-checkbox-button
           >
         </el-checkbox-group>
       </el-form-item>
@@ -92,7 +92,7 @@
             v-for="source in sourceOptions"
             :label="source.id"
             :key="source.id"
-            >{{ source.Name }}</el-checkbox-button
+            >{{ source.name }}</el-checkbox-button
           >
         </el-checkbox-group>
       </el-form-item>
@@ -203,6 +203,9 @@ import {
   updateProblem,
   deleteProblem,
 } from "@/api/problem";
+import { getTagList } from "@/api/ptag";
+import { getCategoryList } from "@/api/pcategory";
+import { getSourceList } from "@/api/psource";
 import Markdown from "@/components/vue-markdown/simple";
 import pro from "@/components/vue-markdown/pro.js";
 var WaveDrom = require("wavedrom");
@@ -375,7 +378,18 @@ export default {
       this.dialog = false;
     },
     //数据准备
-    prepareData() {},
+    prepareData() {
+      getTagList().then((response) => {
+        this.tagOptions = response.data;
+      });
+      getCategoryList().then((response) => {
+        this.categoryOptions = response.data;
+      });
+      getSourceList().then((response) => {
+        this.sourceOptions = response.data;
+        console.log(response.data);
+      });
+    },
     removesignal(item) {
       var index = this.waveJson.signal.indexOf(item);
       if (index !== -1) {
@@ -417,6 +431,8 @@ export default {
 
       this.source = problem.psource ? problem.psource.split(",") : [];
     }
+    this.prepareData();
+    console.log(1);
   },
   watch: {
     waveIndex() {

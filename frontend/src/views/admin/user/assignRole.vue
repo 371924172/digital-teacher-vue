@@ -64,7 +64,6 @@
 import {
   getUnadmin,
   getAdmin,
-  getRole,
   deleteAdmin,
   assignRole,
 } from "@/api/userManage";
