@@ -42,18 +42,6 @@ export function addUser(data) {
 export function deleteUser(id) {
     return request({
         url: host + 'users/' + id + '/',
-        method: "delete"
-    })
-}
-export function getUnadmin() {
-    return request({
-        url: host + 'role/unadmin/',
-        method: 'get'
-    })
-}
-export function getAdmin() {
-    return request({
-        url: host + 'role/admin/',
-        method: 'get'
+        method: "delete",
     })
 }

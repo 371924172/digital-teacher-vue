@@ -193,6 +193,7 @@ export default {
       this.currentPage = val;
     },
     handleSelectionChange(selected) {},
+
     addUpdateInfo() {
       if (this.userInfo.status) {
         updateInfo(this.userInfo).then((response) => {
