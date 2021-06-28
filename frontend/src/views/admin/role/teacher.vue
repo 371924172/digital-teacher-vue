@@ -1,7 +1,7 @@
 <template>
   <div>
-    <el-table :data="studentRole" style="width: 50%">
-      <el-table-column prop="student_id" label="学号"></el-table-column>
+    <el-table :data="teacherRole" style="width: 50%">
+      <el-table-column prop="teacher_id" label="教师号"></el-table-column>
       <el-table-column prop="user.username" label="用户名"></el-table-column>
       <el-table-column prop="user.name" label="真实姓名"></el-table-column>
       <el-table-column>
@@ -45,7 +45,7 @@
     </el-table>
     <el-button type="primary" @click="dialogVisible = true">新增</el-button>
     <el-dialog title="提示" :visible.sync="dialogVisible" width="30%">
-      <el-select v-model="student.user" filterable placeholder="请选择用户">
+      <el-select v-model="teacher.user" filterable placeholder="用户名">
         <el-option
           v-for="user in userList"
           :key="user.id"
@@ -54,12 +54,12 @@
         >
         </el-option>
       </el-select>
-      <el-select v-model="student.role_id" filterable placeholder="请选择用户">
+      <el-select v-model="teacher.role_id" filterable placeholder="教师号" style="margin-top:10px">
         <el-option
-          v-for="student in studentList"
-          :key="student.id"
-          :label="student.id"
-          :value="student.id"
+          v-for="teacher in teacherList"
+          :key="teacher.id"
+          :label="teacher.id"
+          :value="teacher.id"
         >
         </el-option>
       </el-select>
@@ -71,41 +71,41 @@
 </template>
 <script>
 import {
-  getUnstudent,
-  getStudent,
+  getUnteacher,
+  getTeacher,
+  getTeacher111,
   deleteRole,
   assignRole,
-  getStudent111
 } from "@/api/userManage";
 
 export default {
   inject: ["reload"],
   data() {
     return {
-      studentRole: [],
+      teacherRole: [],
       userList: [],
-      studentList: [],
+      teacherList: [],
       dialogVisible: false,
-      student: {
+      teacher: {
         user: "",
         role_id: "",
-        name: "student",
+        name: "teacher",
       },
     };
   },
   methods: {
-    getStudentRole() {
-      getStudent().then((response) => {
-        this.studentRole = response.data;
+    getTeacherRole() {
+      getTeacher().then((response) => {
+        this.teacherRole = response.data;
       });
     },
-    getStudent(){
-      getStudent111().then((response)=>{
-        this.studentList =response.data;
+    getTeacher(){
+      getTeacher111().then((response)=>{
+        this.teacherList =response.data;
       })
     },
     assignRole() {
-      assignRole(this.student).then((response) => {
+      assignRole(this.teacher).then((response) => {
         this.dialogVisible = false;
         this.reload();
       });
@@ -115,8 +115,8 @@ export default {
         this.reload();
       });
     },
-    getUnstudent() {
-      getUnstudent().then((response) => {
+    getUnteacher() {
+      getUnteacher().then((response) => {
         this.userList = response.data;
       });
     },
@@ -129,9 +129,9 @@ export default {
     },
   },
   mounted() {
-    this.getUnstudent();
-    this.getStudent();
-    this.getStudentRole()
+    this.getUnteacher();
+    this.getTeacher();
+    this.getTeacherRole();
   },
 };
 </script>

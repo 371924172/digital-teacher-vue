@@ -1,9 +1,9 @@
 <template>
   <div>
-    <el-table :data="teacherRole" style="width: 50%">
-      <el-table-column prop="teacher_id" label="教师号"></el-table-column>
-      <el-table-column prop="user.username" label="用户名"></el-table-column>
-      <el-table-column prop="user.name" label="真实姓名"></el-table-column>
+    <el-table :data="adminList" style="width: 50%">
+      <el-table-column prop="username" label="用户名"></el-table-column>
+
+      <el-table-column prop="name" label="真实姓名"></el-table-column>
       <el-table-column>
         <template slot-scope="scope">
           <!-- <el-button type="danger" @click="deleteRole(scope.row.id)"
@@ -45,21 +45,12 @@
     </el-table>
     <el-button type="primary" @click="dialogVisible = true">新增</el-button>
     <el-dialog title="提示" :visible.sync="dialogVisible" width="30%">
-      <el-select v-model="teacher.user" filterable placeholder="请选择用户">
+      <el-select v-model="admin.user" filterable placeholder="用户">
         <el-option
           v-for="user in userList"
           :key="user.id"
           :label="user.username"
           :value="user.id"
-        >
-        </el-option>
-      </el-select>
-      <el-select v-model="teacher.role_id" filterable placeholder="请选择用户">
-        <el-option
-          v-for="teacher in teacherList"
-          :key="teacher.id"
-          :label="teacher.id"
-          :value="teacher.id"
         >
         </el-option>
       </el-select>
@@ -71,9 +62,8 @@
 </template>
 <script>
 import {
-  getUnteacher,
-  getteacher,
-  getTeacher111,
+  getUnadmin,
+  getAdmin,
   deleteRole,
   assignRole,
 } from "@/api/userManage";
@@ -82,30 +72,24 @@ export default {
   inject: ["reload"],
   data() {
     return {
-      teacherRole: [],
       userList: [],
-      teacherList: [],
+      adminList: [],
       dialogVisible: false,
-      teacher: {
+      admin: {
         user: "",
-        role_id: "",
-        name: "teacher",
+        role_id: "0",
+        name: "admin",
       },
     };
   },
   methods: {
-    getTeacherRole() {
-      getTeacher().then((response) => {
-        this.teacherRole = response.data;
+    getAdmin() {
+      getAdmin().then((response) => {
+        this.adminList = response.data;
       });
     },
-    getTeacher(){
-      getTeacher111().then((response)=>{
-        this.teacherList =response.data;
-      })
-    },
     assignRole() {
-      assignRole(this.teacher).then((response) => {
+      assignRole(this.admin).then((response) => {
         this.dialogVisible = false;
         this.reload();
       });
@@ -115,8 +99,8 @@ export default {
         this.reload();
       });
     },
-    getUnteacher() {
-      getUnteacher().then((response) => {
+    getUnadmin() {
+      getUnadmin().then((response) => {
         this.userList = response.data;
       });
     },
@@ -129,9 +113,8 @@ export default {
     },
   },
   mounted() {
-    this.getUnteacher();
-    this.getTeacher();
-    this.getTeacherRole();
+    this.getUnadmin();
+    this.getAdmin();
   },
 };
 </script>

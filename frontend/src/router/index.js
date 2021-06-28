@@ -4,7 +4,7 @@ import Router from 'vue-router'
 Vue.use(Router)
 
 // import Layout from '@/layout'
-const Layout = ()=>import('@/layout')
+const Layout = () => import('@/layout')
 
 export const constantRoutes = [
   {
@@ -16,6 +16,7 @@ export const constantRoutes = [
 
   {
     path: '/register',
+    name: 'register',
     component: () => import('@/views/user/register'),
     hidden: true
   },
@@ -34,6 +35,8 @@ export const constantRoutes = [
     ]
 
   },
+
+
   {
     path: '/user',
     component: Layout,
@@ -79,9 +82,26 @@ export const constantRoutes = [
     path: '/problem',
     component: Layout,
     redirect: '/problem/list',
-    meta: { title: '题目', icon: 'form' },
+    meta: { title: '题目管理', icon: 'form' },
     children: [
+
       {
+        path: 'list',
+        name: 'list',
+        component: () => import('@/views/problem/list'),
+        meta: { title: '题目', icon: 'form' }
+      },
+      {
+        path: 'psource',
+        name: 'psource',
+        component: () => import('@/views/psource/list'),
+        meta: { title: '题目来源' },
+      }, {
+        path: 'ptagAndPcategory',
+        name: 'ptagAndPcategory',
+        component: () => import('@/views/tagandcategory/list'),
+        meta: { title: '题目标签与类别' },
+      }, {
         path: 'edit',
         name: 'edit',
         component: () => import('@/views/problem/edit'),
@@ -89,11 +109,6 @@ export const constantRoutes = [
         hidden: true,
       },
       {
-        path: 'list',
-        name: 'list',
-        component: () => import('@/views/problem/list'),
-        meta: { title: '题目', icon: 'form' }
-      },  {
         path: 'add',
         name: 'addProblem',
         component: () => import('@/views/problem/add'),
@@ -103,58 +118,77 @@ export const constantRoutes = [
         path: 'detail',
         name: 'problemDetail',
         component: () => import('@/views/problem/detail'),
-        meta: { title: '题目信息' },
+        meta: { title: '题目信息', icon: 'form' },
         hidden: true,
-      }, {
-        path: 'psource',
-        name: 'psource',
-        component: () => import('@/views/psource/list'),
-        meta: { title: '题目来源' },
-      }, {
-        path: 'ptagAndPcategory',
-        name: 'ptagAndPcategory',
-        component: () => import('@/views/tagandcategory/list'),
-        meta: { title: '标签与类别' },
-      }
-
+      },
     ]
   },
   {
     path: '/pgroup',
     component: Layout,
-    meta: { title: '题单', icon: 'form' },
-    children: [{
-      path: 'list',
-      name: 'pgrouplist',
-      component: () => import('@/views/pgroup/list'),
-      meta: { title: '题单', icon: 'form' }
-    }, {
-      path: 'add',
-      name: 'addpgroup',
-      component: () => import('@/views/pgroup/add'),
-      meta: { title: '添加题单' },
-      hidden: true
-    },
-    {
-      path: 'detail',
-      name: 'pgroupdetail',
-      component: () => import('@/views/pgroup/detail'),
-      meta: { title: '题单中的题目' },
-      hidden: true
-    }, {
-      path: 'myPgroupDetail',
-      name: 'myPgroupDetail',
-      component: () => import('@/views/user/myPgroupDetail'),
-      meta: { title: '题单信息' },
-      hidden: true
-    },
+    meta: { title: '题单管理', icon: 'form' },
+    children: [
+      {
+        path: 'list',
+        name: 'pgrouplist',
+        component: () => import('@/views/pgroup/list'),
+        meta: { title: '题单', icon: 'form' }
+      }, {
+        path: 'add',
+        name: 'addpgroup',
+        component: () => import('@/views/pgroup/add'),
+        meta: { title: '添加题单' },
+        hidden: true
+      },
+      {
+        path: 'detail',
+        name: 'pgroupdetail',
+        component: () => import('@/views/pgroup/detail'),
+        meta: { title: '题单中的题目' },
+        hidden: true
+      }, {
+        path: 'myPgroupDetail',
+        name: 'myPgroupDetail',
+        component: () => import('@/views/user/myPgroupDetail'),
+        meta: { title: '题单信息' },
+        hidden: true
+      },
     ]
+  }, {
+    path: '/les',
+    name: 'les',
+    redirect: '/les/lesson',
+    component: Layout,
+    meta: { title: '课程管理' },
+    children: [
+      {
+        path: 'lesson',
+        component: () => import('@/views/lesson/list'),
+        meta: { title: '课程', icon: 'form' },
+      },
+
+      {
+        path: 'instruct',
+        component: () => import('@/views/instruct/list'),
+        meta: { title: '授课', icon: 'form' },
+      },
+
+      {
+        path: 'selclass',
+        component: () => import('@/views/selclass/list'),
+        meta: { title: '选课', icon: 'form' },
+      },]
   },
   {
     path: '/organization',
     component: Layout,
-    meta: { title: "学校信息" },
+    meta: { title: "学校管理" },
     children: [
+      {
+        path: 'student',
+        component: () => import('@/views/student/list'),
+        meta: { title: '学生', icon: 'form' },
+      },
       {
         path: 'class',
         name: 'class',
@@ -175,18 +209,18 @@ export const constantRoutes = [
         name: 'organization',
         component: () => import('@/views/organization/list'),
         meta: { title: "学校" }
-      }
+      },
     ]
   }, {
     path: "/verifyServer",
     name: "/verifyServer",
     component: Layout,
-    meta: { title: '验证服务器' },
+    meta: { title: '服务器管理' },
     children: [{
       path: 'list',
       name: 'serverList',
       component: () => import('@/views/verifyserver/list'),
-      meta: { title: '服务器' }
+      meta: { title: '服务器信息' }
     }
     ]
   },
@@ -221,19 +255,26 @@ export const asyncRoutes = [
           component: () => import('@/views/admin/user/checkUser'),
           meta: { title: '用户审核' }
         },
-        {
-          path: "assignAdmin",
-          component: () => import('@/views/admin/user/assignAdmin'),
-          meta: { title: '管理员' }
-        }, {
-          path: "assignStudent",
-          component: () => import('@/views/admin/user/assignStudent'),
-          meta: { title: '学生' }
-        },{
-          path: "assignTeacher",
-          component: () => import('@/views/admin/user/assignTeacher'),
-          meta: { title: '教师' }
-        },]
+        ],
+      }, {
+        path: '/role',
+        component: () => import('@/views/admin/role/index'),
+        redirect: '/role/admin',
+        meta: { title: '角色分配', icon: 'form' },
+        children: [
+          {
+            path: "admin",
+            component: () => import('@/views/admin/role/admin'),
+            meta: { title: '管理员' }
+          }, {
+            path: "student",
+            component: () => import('@/views/admin/role/student'),
+            meta: { title: '学生' }
+          }, {
+            path: "teacher",
+            component: () => import('@/views/admin/role/teacher'),
+            meta: { title: '教师' }
+          },]
 
       },
       {

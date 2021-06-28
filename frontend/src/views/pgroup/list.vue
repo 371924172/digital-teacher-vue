@@ -1,9 +1,17 @@
 <template>
-  <el-table :data="pgroupList" style="width: 100%" @row-click="detail">
-    <el-table-column prop="name" label="名称" width="200px"> </el-table-column>
-    <el-table-column prop="decription" label="描述" width="200px">
-    </el-table-column>
-  </el-table>
+  <div>
+    <el-table :data="pgroupList" style="width: 100%" @row-click="detail">
+      <el-table-column prop="name" label="名称" width="200px">
+      </el-table-column>
+      <el-table-column prop="decription" label="描述" width="200px">
+      </el-table-column>
+    </el-table>
+    <router-link :to="{ name: 'addpgroup' }">
+      <el-button
+        >创建题单</el-button
+      >
+    </router-link>
+  </div>
 </template>
 <script>
 import { getPgroupList } from "@/api/pgroup";

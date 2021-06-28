@@ -55,6 +55,10 @@
         @click.native.prevent="handleLogin"
         >Login</el-button
       >
+
+      <router-link :to="{ name: 'register' }"
+        ><font color="white">Register</font></router-link
+      >
     </el-form>
   </div>
 </template>

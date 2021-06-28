@@ -177,7 +177,10 @@ export default {
       this.$refs[formName].validate((valid) => {
         if (valid) {
           register(this.userForm).then((response) => {
-            console.log(response);
+             this.$message({
+                message: "注册成功，请等待管理员审核。",
+                type: "success",
+              });
           });
         } else {
           console.log("error submit!!");
