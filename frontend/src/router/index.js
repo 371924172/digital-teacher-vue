@@ -224,7 +224,15 @@ export const asyncRoutes = [
         {
           path: "assignAdmin",
           component: () => import('@/views/admin/user/assignAdmin'),
-          meta: { title: '管理员权限分配' }
+          meta: { title: '管理员' }
+        }, {
+          path: "assignStudent",
+          component: () => import('@/views/admin/user/assignStudent'),
+          meta: { title: '学生' }
+        },{
+          path: "assignTeacher",
+          component: () => import('@/views/admin/user/assignTeacher'),
+          meta: { title: '教师' }
         },]
 
       },

@@ -38,9 +38,9 @@ export function deleteUser(id) {
         method: "delete",
     })
 }
-export function assignAdmin(data) {
+export function assignRole(data) {
     return request({
-        url: host + 'role/assignAdmin/',
+        url: host + 'role/assignRole/',
         method: 'post',
         data
     })
@@ -60,13 +60,7 @@ export function getAdmin() {
     })
 }
 
-export function assignStudent(data) {
-    return request({
-        url: host + 'role/assignStudent/',
-        method: 'post',
-        data
-    })
-}
+
 
 export function getUnstudent() {
     return request({
@@ -81,7 +75,12 @@ export function getStudent() {
         method: 'get'
     })
 }
-
+export function getStudent111() {
+    return request({
+        url: host + 'student/',
+        method: 'get'
+    })
+}
 
 export function getUnteacher() {
     return request({
@@ -93,6 +92,13 @@ export function getUnteacher() {
 export function getTeacher() {
     return request({
         url: host + 'role/teacher/',
+        method: 'get'
+    })
+}
+
+export function getTeacher111() {
+    return request({
+        url: host + 'teacher/',
         method: 'get'
     })
 }
