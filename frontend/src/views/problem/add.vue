@@ -317,7 +317,7 @@ export default {
           });
         });
       }
-      this.$route.push({
+      this.$router.push({
         path:'/user/problem/'
       })
     },
