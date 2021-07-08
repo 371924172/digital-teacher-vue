@@ -1,9 +1,9 @@
 <template>
   <div>
     <el-table :data="adminList" style="width: 50%">
-      <el-table-column prop="username" label="用户名"></el-table-column>
+      <el-table-column prop="user.username" label="用户名"></el-table-column>
 
-      <el-table-column prop="name" label="真实姓名"></el-table-column>
+      <el-table-column prop="user.name" label="真实姓名"></el-table-column>
       <el-table-column>
         <template slot-scope="scope">
           <!-- <el-button type="danger" @click="deleteRole(scope.row.id)"
