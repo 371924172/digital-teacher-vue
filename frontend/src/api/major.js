@@ -2,41 +2,48 @@ import request from '@/utils/request'
 import host from '@/api/host'
 
 export function getMajorList() {
-  return request({
-    url: host + 'major/',
-    method: 'get',
-  })
+        return request({
+                url: host + 'major/',
+                method: 'get',
+        })
 }
 
 export function addMajor(data) {
-  return request({
-    url: host + 'major/',
-    method: 'post',
-    data
-  })
+        return request({
+                url: host + 'major/',
+                method: 'post',
+                data
+        })
 }
 
 export function getMajor(id) {
-  return request({
-    url: host + 'major/' + id + '/',
-    method: 'get',
-  })
+        return request({
+                url: host + 'major/' + id + '/',
+                method: 'get',
+        })
 }
 
 export function deleteMajor(id) {
-  return request({
-    url: host + 'major/' + id + '/',
-    method: 'delete'
+        return request({
+                url: host + 'major/' + id + '/',
+                method: 'delete'
 
-  })
+        })
 }
 
 export function updateMajor(data) {
-  return request({
-    url: host + 'major/' + data.id  + '/',
-    method: "put",
-    data
-  })
+        return request({
+                url: host + 'major/' + data.id + '/',
+                method: "put",
+                data
+        })
 }
 
 
+export function getMajorByCollege(data) {
+        return request({
+                url: host + 'major/getMajorByCollege/',
+                method: "post",
+                data
+        })
+}

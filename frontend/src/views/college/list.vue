@@ -86,7 +86,6 @@
         <el-form-item label="所属学校或组织">
           <el-select
             v-model="collegeInfo.organization_id"
-            @change="getCollegeList"
           >
             <el-option
               v-for="item in organizationList"
@@ -164,6 +163,7 @@ export default {
       getCollegeListByOrganization(data).then((response) => {
         this.tableData = response.data;
       });
+      this.display = inline
     },
     openUpdate(id) {
       getCollege(id).then((response) => {
