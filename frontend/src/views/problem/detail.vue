@@ -59,6 +59,7 @@ export default {
     getProblem() {
       getProblem(this.$route.query.id).then((response) => {
         this.problemDetail = response.data;
+        console.log(this.problemDetail);
         if (this.problemDetail.problem_decription) {
           document.getElementById("problem_decription").innerHTML = marked(
             this.problemDetail.problem_decription
@@ -102,7 +103,22 @@ export default {
     },
     tagColor(item) {
       return PtagColor[item];
+    },adds() {
+      for (let i in this.propgroupList) {
+        var propgroup = {};
+        propgroup.pgroup_id = this.pGroupId.id;
+        propgroup.problem_id = this.propgroupList[i].id;
+        this.pglist = this.pglist.concat(propgroup);
+      }
+      console.log(this.pglist);
+      //console.log(this.pglist);
+      addProblemPgroup(this.pglist).then((response) => {
+        console.log(response.data);
+        this.dialog = false;
+        this.reload();
+      });
     },
+   
   },
   mounted() {
     this.getProblem();

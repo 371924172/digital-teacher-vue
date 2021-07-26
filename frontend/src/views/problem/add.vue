@@ -4,12 +4,12 @@
       <el-row>
         <el-col :span="12">
           <el-form-item label="题目名称">
-            <el-input v-model="form.name" ref="name" />
+            <el-input v-model="form.name" ref="name" style="width: 500px" />
           </el-form-item>
         </el-col>
       </el-row>
       <el-form-item label="题目描述">
-        <markdown
+        <markdownWave
           v-model="form.problem_decription"
           :wave="waveJson"
           @insertWave="insertWave"
@@ -21,36 +21,24 @@
       <el-form-item label="模块定义">
         <markdown
           v-model="form.module_decription"
-          :wave="waveJson"
-          @insertWave="insertWave"
-          @editWave="selectWave"
           @getValue="getModule_decription"
         />
       </el-form-item>
       <el-form-item label="输入描述">
         <markdown
           v-model="form.input_decription"
-          :wave="waveJson"
-          @insertWave="insertWave"
-          @editWave="selectWave"
           @getValue="getInput_decription"
         />
       </el-form-item>
       <el-form-item label="输出描述">
         <markdown
           v-model="form.output_decription"
-          :wave="waveJson"
-          @insertWave="insertWave"
-          @editWave="selectWave"
           @getValue="getOutput_decription"
         />
       </el-form-item>
       <el-form-item label="测试描述">
         <markdown
           v-model="form.test_decription"
-          :wave="waveJson"
-          @insertWave="insertWave"
-          @editWave="selectWave"
           @getValue="getTest_decription"
         />
       </el-form-item>
@@ -108,7 +96,7 @@
       ></el-form-item>
 
       <el-form-item>
-        <el-button type="primary" @click="addProblem">Create</el-button>
+        <el-button type="primary" @click="addProblem">创建题目</el-button>
       </el-form-item>
     </el-form>
     <el-dialog
@@ -206,12 +194,13 @@ import {
 import { getTagList } from "@/api/ptag";
 import { getCategoryList } from "@/api/pcategory";
 import { getSourceList } from "@/api/psource";
+import MarkdownWave from "@/components/vue-markdown/simple-wave";
 import Markdown from "@/components/vue-markdown/simple";
-import pro from "@/components/vue-markdown/pro.js";
 var WaveDrom = require("wavedrom");
 window.WaveSkin = require("../../assets/default.js");
 export default {
   components: {
+    MarkdownWave,
     Markdown,
   },
 
@@ -238,8 +227,7 @@ export default {
         ptag: "",
         source: "",
         pcateory: "1",
-        problem_decription:
-          '((({"signal": [{ "name": "clk", "wave": "p......" },{ "name": "bus", "wave": "x.34.5x", "data": "head body tail" },{ "name": "wire", "wave": "0.1..0." }]})))\n\n((({"signal": [{ "name": "clk", "wave": "p......" },{ "name": "bus", "wave": "x.34.5x", "data": "head body tail" },{ "name": "wire", "wave": "0.1..0." }]})))',
+        problem_decription: "",
         public_status: "1",
       },
 
@@ -310,7 +298,6 @@ export default {
         });
       } else {
         updateProblem(this.form).then((response) => {
-          
           this.$message({
             type: "success",
             message: "修改成功,请至我的题目页面进行后续操作",
@@ -318,8 +305,8 @@ export default {
         });
       }
       this.$router.push({
-        path:'/user/problem/'
-      })
+        path: "/user/problem/",
+      });
     },
     insertWave() {
       this.dialog = true;

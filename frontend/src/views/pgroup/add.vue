@@ -3,11 +3,16 @@
     <el-form label-width="120px">
       <el-row>
         <el-form-item label="题单名称">
-          <el-input v-model="pgroup.name" ref="name" />
+          <el-input v-model="pgroup.name" ref="name" style="width: 300px" />
         </el-form-item>
       </el-row>
+
       <el-form-item label="题单描述">
-        <el-input v-model="pgroup.decription" ref="name" />
+        <markdown
+          v-model="pgroup.decription"
+          @getValue="getDecription"
+          style="height: 300px"
+        />
       </el-form-item>
       <el-form-item>
         <el-col :span="12">
@@ -19,8 +24,8 @@
 </template>
 
 <script>
-import Markdown from "@/components/vue-markdown/simple";
 import { addPgroup } from "@/api/pgroup";
+import Markdown from "@/components/vue-markdown/simple";
 window.WaveSkin = require("../../assets/default.js");
 export default {
   components: {
@@ -41,13 +46,14 @@ export default {
     add() {
       addPgroup(this.pgroup).then((response) => {
         const { code, message } = response.data;
+        console.log(this.pgroup);
         if (code == 0) {
           this.$message.error(message);
         } else {
           this.id = response.data.id;
           this.$message({
             type: "success",
-            message: "添加题单成功",
+            message: "添加题单成功,在我的提单页面进行下面操作",
           });
           this.$router.push({
             name: "myPgroupDetail",
@@ -56,15 +62,8 @@ export default {
         }
       });
     },
-    test() {
-      if (this.form.name == "" || this.form.name == null) {
-        //eslint-disable-line
-        alert("请重新输入");
-        return;
-      } else {
-        alert("可以使用");
-        return;
-      }
+    getDecription(value) {
+      this.pgroup.decription = value;
     },
   },
 };

@@ -134,7 +134,7 @@ export default {
   data() {
     return {
       searchName: "",
-      pageSize: 5,
+      pageSize: 20,
       currentPage: 1,
       problemList: [],
       statusOptions: [

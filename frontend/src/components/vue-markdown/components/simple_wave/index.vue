@@ -9,7 +9,12 @@
             <li>
                 <slot name="title"/>
             </li>
-            
+            <li v-if="tools.strong" name="插入波形图">
+                <span @click="insertWave" class="el-icon-s-platform"></span>
+            </li>
+            <li v-if="tools.strong" name="编辑波形图">
+                <span @click="editWave" class="el-icon-edit"></span>
+            </li>
             <li v-if="tools.strong" name="粗体">
                 <span @click="insertStrong" class="iconfont icon-bold"></span>
             </li>

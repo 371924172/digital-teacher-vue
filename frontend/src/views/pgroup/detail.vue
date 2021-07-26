@@ -1,6 +1,20 @@
 <template>
   <div>
     <el-row>
+      <el-col :span="12">
+        <el-form label-width="80px">
+          <el-form-item label="名称">{{ pgroupInfo.name }}</el-form-item>
+          <el-form-item label="描述">
+            <div id="decription"></div>
+          </el-form-item>
+        </el-form>
+      </el-col>
+      <el-col :span="12">
+        <div id="charts" :style="{ width: '100px', height: '100px' }"></div>
+      </el-col>
+    </el-row>
+
+    <el-row>
       <el-col :span="14">
         <el-input
           v-model="PgroupsearchName"
@@ -113,6 +127,9 @@
 </template>
 <script>
 import { getList, getPtagList, PtagColor } from "@/api/problem";
+import { getPgroupInfo } from "@/api/pgroup";
+import * as echarts from "echarts";
+import marked from "../../components/vue-markdown/assets/js/marked/marked";
 import {
   addProblemPgroup,
   deleteProblemPgroup,
@@ -125,6 +142,7 @@ export default {
   data() {
     return {
       dialog: false,
+      pgroupInfo: {},
       pGroupId: { id: "" },
       problemList: [],
       problemListId: [],
@@ -145,12 +163,53 @@ export default {
       searchDiff: "",
       pageSize: 20,
       currentPage: 1,
+
+      chartsOption: {
+        tooltip: {
+          trigger: "item",
+        },
+
+        series: [
+          {
+            type: "pie",
+            radius: ["40%", "70%"],
+            avoidLabelOverlap: false,
+            itemStyle: {
+              borderRadius: 10,
+              borderColor: "#fff",
+              borderWidth: 2,
+            },
+            label: {
+              show: false,
+              position: "center",
+            },
+            emphasis: {
+              label: {
+                show: false,
+                fontSize: "40",
+                fontWeight: "bold",
+              },
+            },
+            labelLine: {
+              show: false,
+            },
+            data: [
+              { value: 1048, name: "搜索引擎" },
+              { value: 735, name: "直接访问" },
+              { value: 580, name: "邮件营销" },
+              { value: 484, name: "联盟广告" },
+              { value: 300, name: "视频广告" },
+            ],
+          },
+        ],
+      },
     };
   },
   methods: {
     adds() {
       for (let i in this.propgroupList) {
         var propgroup = {};
+
         propgroup.pgroup_id = this.pGroupId.id;
         propgroup.problem_id = this.propgroupList[i].id;
         this.pglist = this.pglist.concat(propgroup);
@@ -164,10 +223,17 @@ export default {
       });
     },
     getData() {
+      getPgroupInfo(this.$route.query.id).then((response) => {
+        this.pgroupInfo = response.data;
+        if (this.pgroupInfo.decription) {
+          document.getElementById("decription").innerHTML = marked(
+            this.pgroupInfo.decription
+          );
+        }
+      });
       getOutofPgroup(this.pGroupId)
         .then((response) => {
           this.problemList = response.data;
-          console.log(response.data);
         })
         .catch((error) => {
           console.log(error);
@@ -197,11 +263,12 @@ export default {
       this.reload();
     },
     getDataofId() {
-      console.log(this.pGroupId.id);
       getListofId(this.pGroupId)
         .then((response) => {
           this.problemListId = response.data;
-          console.log(response.data);
+          console.log(this.problemListId);
+          this.getChartsOptionData();
+          this.renderCharts();
         })
         .catch((error) => {
           console.log(error);
@@ -254,6 +321,39 @@ export default {
     },
     tagColor(item) {
       return PtagColor[item];
+    },
+    getChartsOptionData() {
+      let count0 = 0,
+        count1 = 0,
+        count2 = 0,
+        count3 = 0;
+      this.problemListId.forEach(function (p) {
+        switch (p.difficulty) {
+          case 0:
+            count0++;
+            break;
+          case 1:
+            count1++;
+            break;
+          case 2:
+            count2++;
+            break;
+          default:
+            count3++;
+        }
+      });
+      let data = [];
+      if (count0) data.push({ value: count0, name: "简单" });
+      if (count1) data.push({ value: count1, name: "适中" });
+      if (count2) data.push({ value: count2, name: "困难" });
+      if (count3) data.push({ value: count3, name: "未标记难度" });
+      console.log(data);
+      this.chartsOption.series[0].data = data;
+    },
+    renderCharts() {
+      var chartDom = document.getElementById("charts");
+      var myChart = echarts.init(chartDom);
+      this.chartsOption && myChart.setOption(this.chartsOption);
     },
   },
   mounted() {

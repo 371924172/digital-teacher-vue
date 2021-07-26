@@ -19,7 +19,7 @@ Vue.use(VueAxios, axios)
 
 import Dialog from 'art-dialog-vue' //esm
 //const DiAlog = require('art-dialog-vue').default //RequireJS，非esm形式要加.default
-Vue.use(Dialog)//使用插件
+Vue.use(Dialog) //使用插件
 
 import '@/icons' // icon
 import '@/permission' // permission control
@@ -33,20 +33,20 @@ import '@/permission' // permission control
  * please remove it before going online ! ! !
  */
 if (process.env.NODE_ENV === 'production') {
-  const { mockXHR } = require('../mock')
-  mockXHR()
+        const { mockXHR } = require('../mock')
+        mockXHR()
 }
 
 // set ElementUI lang to EN
 Vue.use(ElementUI)
-// 如果想要中文版 element-ui，按如下方式声明
-// Vue.use(ElementUI)
+        // 如果想要中文版 element-ui，按如下方式声明
+        // Vue.use(ElementUI)
 
 Vue.config.productionTip = false
 
 new Vue({
-  el: '#app',
-  router,
-  store,
-  render: h => h(App)
+        el: '#app',
+        router,
+        store,
+        render: h => h(App)
 })
