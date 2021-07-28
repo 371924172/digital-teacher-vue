@@ -10,6 +10,10 @@ NProgress.configure({ showSpinner: false }) // NProgress Configuration
 const whiteList = ['/login', '/register'] // no redirect whitelist
 
 router.beforeEach(async (to, from, next) => {
+  // if (sessionStorage.getItem("accessRoutes")) {
+  //   router.removeRoute('admin');
+  //   router.addRoutes(JSON.parse(sessionStorage.getItem("accessRoutes")));
+  // }
   // 在页面加载时读取sessionStorage里的状态信息
   if (sessionStorage.getItem("store")) {
     store.replaceState(
@@ -21,6 +25,7 @@ router.beforeEach(async (to, from, next) => {
     );
     sessionStorage.removeItem("store")
   }
+
 
   // console.log(router.options)
   // start progress bar 
@@ -59,6 +64,8 @@ router.beforeEach(async (to, from, next) => {
           // generate accessible routes map based on roles
           const accessRoutes = await store.dispatch('permission/generateRoutes', roles)
           sessionStorage.setItem('routes', JSON.stringify(constantRoutes.concat(accessRoutes)))
+
+          sessionStorage.setItem('accessRoutes', JSON.stringify(accessRoutes))
           // dynamically add accessible routes
           router.addRoutes(accessRoutes)
           // hack method to ensure that addRoutes is complete

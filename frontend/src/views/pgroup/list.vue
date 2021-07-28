@@ -1,16 +1,29 @@
 <template>
   <div>
     <el-table :data="pgroupList" style="width: 100%" @row-click="detail">
-      <el-table-column prop="name" label="名称" width="200px">
+      <el-table-column prop="name" label="名称" width="230px">
       </el-table-column>
-      <el-table-column label="标签" width="200px"> </el-table-column>
+      <el-table-column label="标签" width="400px">
+        <template slot-scope="scope">
+          <el-tag
+            v-for="item in scope.row.tag"
+            :key="item.index"
+            size="mini"
+            :color="tagColor(item)"
+            effect="dark"
+          >
+            {{ formatTag(item) }}
+          </el-tag>
+        </template>
+      </el-table-column>
       <el-table-column label="难度分布">
         <template slot-scope="scope">
-          {{ renderCharts(scope.row.id) }}
           <div
             :id="scope.row.id + 'charts'"
-            style="width: 50px; height: 50px; z-index: 1"
-          ></div>
+            style="position: fixed; width: 50px; height: 50px; z-index: 1"
+          >
+            {{ renderCharts(scope.row) }}
+          </div>
         </template>
       </el-table-column>
     </el-table>
@@ -21,15 +34,19 @@
 </template>
 <script>
 import { getPgroupList } from "@/api/pgroup";
-
-  import * as echarts from "echarts";
+import { getTagList } from "@/api/ptag";
+import { PtagColor } from "@/api/problem";
+import * as echarts from "echarts";
 export default {
   data() {
     return {
       pgroupList: [],
+      ptagList: [],
       chartsOption: {
         tooltip: {
           trigger: "item",
+          position: ["10%", "0%"],
+          backgroundColor: "rgba(255,255,255,0.3)",
         },
         series: [
           {
@@ -59,8 +76,6 @@ export default {
               { value: 1048, name: "搜索引擎" },
               { value: 735, name: "直接访问" },
               { value: 580, name: "邮件营销" },
-              { value: 484, name: "联盟广告" },
-              { value: 300, name: "视频广告" },
             ],
           },
         ],
@@ -71,7 +86,11 @@ export default {
     getPgroupList() {
       getPgroupList().then((response) => {
         this.pgroupList = response.data;
-        console.log(this.pgroupList);
+      });
+    },
+    getPtagList() {
+      getTagList().then((response) => {
+        this.ptagList = response.data;
       });
     },
     detail(row, event, column) {
@@ -82,15 +101,31 @@ export default {
         },
       });
     },
-    renderCharts(id) {
+    renderCharts(pgroup) {
       this.$nextTick(() => {
-        var myChart = echarts.init(document.getElementById(id + "charts"));
-        this.chartsOption && myChart.setOption(this.chartsOption);
+        let chartsOption = this.chartsOption;
+        if (pgroup.difficulty) chartsOption.series[0].data = pgroup.difficulty;
+        var myChart = echarts.init(
+          document.getElementById(pgroup.id + "charts")
+        );
+        myChart.setOption(chartsOption);
       });
+    },
+    formatTag(id) {
+      if (id) {
+        var tag = this.ptagList.find((t) => {
+          return t.id == id;
+        });
+        return tag.name;
+      } else return "尚未分配标签";
+    },
+    tagColor(item) {
+      return PtagColor[item];
     },
   },
   mounted() {
     this.getPgroupList();
+    this.getPtagList();
   },
 };
 </script>

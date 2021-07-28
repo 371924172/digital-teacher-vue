@@ -5,6 +5,7 @@
 </template>
 
 <script>
+import router from "./router";
 export default {
   name: "App",
   provide() {
@@ -22,12 +23,7 @@ export default {
     window.addEventListener("beforeunload", () => {
       sessionStorage.setItem("store", JSON.stringify(this.$store.state));
     });
-    // window.addEventListener("unload", () => {
-    //   if (sessionStorage.getItem("routes")) {
-    //     let accessRoutes = JSON.parse(sessionStorage.getItem("routes"));
-    //     router.addRoutes(accessRoutes);
-    //   }
-    // });
+    
   },
   methods: {
     reload() {

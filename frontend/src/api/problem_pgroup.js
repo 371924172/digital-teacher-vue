@@ -17,7 +17,6 @@ export function deleteProblemPgroup(id) {
 }
 
 export function getListofId(data) {
-        console.log(1)
         return request({
                 url: host + 'propgroup/listOfId/',
                 method: 'post',

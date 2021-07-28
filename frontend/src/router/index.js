@@ -77,6 +77,20 @@ export const constantRoutes = [
         meta: { title: '修改密码' },
       }
     ]
+  }, {
+    path: '/dashboard',
+    component: Layout,
+    meta: {
+      title: 'dashboard',
+      icon: 'dashboard'
+    },
+    children: [
+      {
+        path: 'dashboard',
+        name: 'dashboard',
+        component: () => import('@/views/dashboard/index'),
+        meta: { title: 'dashboard', icon: 'dashboard' }
+      },]
   },
   {
     path: '/problem',
@@ -213,7 +227,7 @@ export const constantRoutes = [
     ]
   }, {
     path: "/verifyServer",
-    name: "/verifyServer",
+    name: "verifyServer",
     component: Layout,
     meta: { title: '服务器管理' },
     children: [{
@@ -235,13 +249,14 @@ export const constantRoutes = [
 ]
 export const asyncRoutes = [
   {
-    path: 'admin',
+    path: '/admin',
+    name: "admin",
     component: Layout,
     meta: { title: '管理员' },
     alwaysShow: true,
     children: [
       {
-        path: '/user',
+        path: 'user',
         component: () => import('@/views/admin/user/index'),
         redirect: '/user/list',
         meta: { title: '用户管理', icon: 'form' },
@@ -257,7 +272,7 @@ export const asyncRoutes = [
         },
         ],
       }, {
-        path: '/role',
+        path: 'role',
         component: () => import('@/views/admin/role/index'),
         redirect: '/role/admin',
         meta: { title: '角色分配', icon: 'form' },
@@ -278,7 +293,7 @@ export const asyncRoutes = [
 
       },
       {
-        path: '/problemAdmin',
+        path: 'problemAdmin',
         name: 'problemAdmin',
         redirect: '/problemAdmin/publish',
         component: () => import('@/views/admin/problem/index'),
