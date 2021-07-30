@@ -63,10 +63,10 @@
         problemListId.filter(
           (data) =>
             !search ||
-            (data.name.toLowerCase().includes(PgroupsearchName.toLowerCase()) ||
-              data.problem_id
-                .toLowerCase()
-                .includes(PgroupsearchName.toLowerCase()) &&
+            data.name.toLowerCase().includes(PgroupsearchName.toLowerCase()) ||
+            (data.problem_id
+              .toLowerCase()
+              .includes(PgroupsearchName.toLowerCase()) &&
               data.ptag.includes(searchTag) &&
               (searchDiff ? data.difficulty == searchDiff : 1))
         )
@@ -128,6 +128,7 @@
 <script>
 import { getList, getPtagList, PtagColor } from "@/api/problem";
 import { getPgroupInfo } from "@/api/pgroup";
+import { formatTag } from "@/api/format";
 import * as echarts from "echarts";
 import marked from "../../components/vue-markdown/assets/js/marked/marked";
 import {
@@ -193,9 +194,7 @@ export default {
             labelLine: {
               show: false,
             },
-            data: [
-             
-            ],
+            data: [],
           },
         ],
       },
@@ -308,12 +307,7 @@ export default {
     },
 
     formatTag(id) {
-      if (id) {
-        var tag = this.ptagList.find((t) => {
-          return t.id == id;
-        });
-        return tag.name;
-      } else return "尚未分配标签";
+      return formatTag(id, this.ptagList);
     },
     tagColor(item) {
       return PtagColor[item];

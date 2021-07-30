@@ -108,26 +108,26 @@
       :total="problemList.length"
     >
     </el-pagination>
-         
-        <el-button type="primary" @click="adds">选择题目并创建题单</el-button>
-      
+
+    <el-button type="primary" @click="adds">选择题目并创建题单</el-button>
   </div>
 </template>
 <script>
 import { getList, getPtagList, PtagColor } from "@/api/problem";
-import{addProblemPgroup}from '@/api/problem_pgroup';
+import { addProblemPgroup } from "@/api/problem_pgroup";
+import { formatTag } from "@/api/format";
 export default {
   name: "problemList",
   data() {
     return {
-      pGroupId: Number=1,
+      pGroupId: (Number = 1),
       searchName: "",
       searchTag: "",
       searchDiff: "",
       pageSize: 5,
       currentPage: 1,
       problemList: [],
-      idlist:[],
+      idlist: [],
       pglist: [],
       ptagList: [{ id: Number, name: "" }],
 
@@ -140,24 +140,25 @@ export default {
     };
   },
   methods: {
-    getParams(){
-      var routeparams=this.$route.params.id;
-      this.pGroupId=routeparams;
+    getParams() {
+      var routeparams = this.$route.params.id;
+      this.pGroupId = routeparams;
     },
-    adds(){
-     for( let i in this.idlist){
-       var idLi={};
-       idLi.pgroup_id=this.pGroupId;
-       idLi.problem_id=this.idlist[i].id;
-       this.pglist=this.pglist.concat(idLi);
-     }
-     //console.log(this.pglist);
-     addProblemPgroup(this.pglist).then(response=>{
-       console.log(response.data);
-     })
+    adds() {
+      for (let i in this.idlist) {
+        var idLi = {};
+        idLi.pgroup_id = this.pGroupId;
+        idLi.problem_id = this.idlist[i].id;
+        this.pglist = this.pglist.concat(idLi);
+      }
+      //console.log(this.pglist);
+      addProblemPgroup(this.pglist).then((response) => {
+        console.log(response.data);
+      });
     },
     getData() {
-      getList() .then((response) => {
+      getList()
+        .then((response) => {
           this.problemList = response.data;
           console.log(response.data);
         })
@@ -183,7 +184,7 @@ export default {
       this.problemList;
     },
     handleSelectionChange(selected) {
-     this.idlist=selected;
+      this.idlist = selected;
       //console.log(selected);
     },
 
@@ -198,12 +199,7 @@ export default {
     },
 
     formatTag(id) {
-      if (id) {
-        var tag = this.ptagList.find((t) => {
-          return t.id == id;
-        });
-        return tag.name;
-      } else return "尚未分配标签";
+      return formatTag(id, this.ptagList);
     },
     tagColor(item) {
       return PtagColor[item];

@@ -35,6 +35,7 @@
 <script>
 import { getPgroupList } from "@/api/pgroup";
 import { getTagList } from "@/api/ptag";
+import { formatTag } from "@/api/format";
 import { PtagColor } from "@/api/problem";
 import * as echarts from "echarts";
 export default {
@@ -112,12 +113,7 @@ export default {
       });
     },
     formatTag(id) {
-      if (id) {
-        var tag = this.ptagList.find((t) => {
-          return t.id == id;
-        });
-        return tag.name;
-      } else return "尚未分配标签";
+      return formatTag(id, this.ptagList);
     },
     tagColor(item) {
       return PtagColor[item];

@@ -45,7 +45,7 @@
       <el-form-item label="难度选择">
         <el-select v-model="form.difficulty" placeholder="请选择题目难度">
           <el-option
-            v-for="item in optionsdiff"
+            v-for="item in difficulyOptions"
             :key="item.id"
             :label="item.Name"
             :value="item.id"
@@ -115,50 +115,51 @@
             :prop="'signal.' + index + '.value'"
           >
             <el-row :gutter="20">
-              <el-col :span="4"
-                ><div class="grid-content bg-purple">
-                  <el-input
-                    v-model="s.name"
-                    @input="update"
-                    placeholder="信号名称"
-                  ></el-input></div
+              <el-col :span="4">
+                <el-input
+                  v-model="s.name"
+                  @input="update"
+                  placeholder="信号名称"
+                ></el-input
               ></el-col>
-              <el-col :span="4"
-                ><div class="grid-content bg-purple-light">
-                  <el-input
-                    v-model="s.wave"
-                    @input="update"
-                    placeholder="波形数据"
-                  ></el-input></div
+              <el-col :span="4">
+                <el-input
+                  v-model="s.wave"
+                  @input="update"
+                  placeholder="波形数据"
+                ></el-input>
+              </el-col>
+              <el-col :span="4">
+                <el-input
+                  v-model="s.signalData"
+                  @input="update"
+                  placeholder="信号标识,请用逗号隔开"
+                ></el-input>
+              </el-col>
+              <el-col :span="4">
+                <el-input
+                  v-model="s.period"
+                  @input="update"
+                  placeholder="周期"
+                ></el-input
               ></el-col>
-              <el-col :span="4"
-                ><div class="grid-content bg-purple">
-                  <el-input
-                    v-model="s.period"
-                    @input="update"
-                    placeholder="周期"
-                  ></el-input></div
-              ></el-col>
-              <el-col :span="4"
-                ><div class="grid-content bg-purple-light">
-                  <el-input
-                    v-model="s.phase"
-                    @input="update"
-                    placeholder="相位"
-                  ></el-input></div></el-col
-              ><el-col :span="1.5"
-                ><div class="grid-content bg-purple-light">
-                  <el-button @click.prevent="removesignal(s)">删除</el-button>
-                </div></el-col
-              >
+              <el-col :span="4">
+                <el-input
+                  v-model="s.phase"
+                  @input="update"
+                  placeholder="相位"
+                ></el-input></el-col
+              ><el-col :span="1.5">
+                <el-button @click.prevent="removesignal(s)">删除</el-button>
+              </el-col>
             </el-row>
           </el-form-item>
           <el-form-item>
-            <el-button type="primary" @click="finish">提交</el-button>
+            <el-button type="primary" @click="finish">确定</el-button>
             <el-button @click="addsignal">新增信号</el-button>
           </el-form-item>
         </el-form>
-        <div id="a"></div>
+        <div id="editWave"></div>
       </div>
     </el-dialog>
     <el-dialog
@@ -198,6 +199,7 @@ import MarkdownWave from "@/components/vue-markdown/simple-wave";
 import Markdown from "@/components/vue-markdown/simple";
 var WaveDrom = require("wavedrom");
 window.WaveSkin = require("../../assets/default.js");
+
 export default {
   components: {
     MarkdownWave,
@@ -210,17 +212,13 @@ export default {
       pcategory: [],
       source: [],
       tagOptions: [],
-
       categoryOptions: [],
-
       sourceOptions: [],
-
-      optionsdiff: [
+      difficulyOptions: [
         { Name: "简单", id: "1" },
         { Name: "普通", id: "2" },
         { Name: "困难", id: "3" },
       ],
-      TagId: Number,
       form: {
         problem_id: "",
         name: "",
@@ -243,18 +241,9 @@ export default {
           pcageory_id: "",
         },
       ],
-      waveJson: {
-        signal: [
-          {
-            name: "",
-            wave: "",
-            period: "",
-            phase: "",
-          },
-        ],
-      },
+      waveJson: {},
       waveString: [],
-      waveIndex: "",
+      waveIndex: 0,
       dialog: false,
       selectDialog: false,
     };
@@ -282,7 +271,7 @@ export default {
       this.form.ptag = tag;
       this.form.pcateory = category;
       this.form.source = source;
-      console.log(this.form);
+
       if (!this.form.id) {
         addProblem(this.form).then((response) => {
           const { status } = response.data;
@@ -308,50 +297,13 @@ export default {
         path: "/user/problem/",
       });
     },
-    insertWave() {
-      this.dialog = true;
-    },
-    selectWave() {
-      var regExp = /\(\(\(.+\)\)\)/g;
-      // var result = regExp.match(this.form.problem_decription);
-      this.waveString = this.form.problem_decription.match(regExp);
-      this.selectDialog = true;
-    },
-    editWave() {
-      this.dialog = true;
-    },
-    finish() {
-      if (this.waveIndex != 0) {
-        this.form.problem_decription =
-          this.$refs.problem_decription.currentValue.replace(
-            this.waveString[this.waveIndex - 1],
-            "(((" + JSON.stringify(this.waveJson) + ")))"
-          );
-        console.log(1);
-      } else {
-        var waveString =
-          "(((" +
-          JSON.stringify({
-            signal: [
-              {
-                name: "",
-                wave: "",
-                period: "",
-                phase: "",
-              },
-            ],
-          }) +
-          ")))";
-        this.form.problem_decription =
-          this.$refs.problem_decription.currentValue.replace(
-            waveString,
-            "(((" + JSON.stringify(this.waveJson) + ")))"
-          );
-        console.log(2);
-      }
-      this.selectDialog = false;
-      this.dialog = false;
+    initWave() {
+      this.waveJson = {};
+      WaveDrom.renderWaveForm("", this.waveJson, "editWave");
+      WaveDrom.renderWaveForm("", this.waveJson, "selectWave");
       this.waveIndex = 0;
+    },
+    insertWave() {
       this.waveJson = {
         signal: [
           {
@@ -359,10 +311,43 @@ export default {
             wave: "",
             period: "",
             phase: "",
+            data: "",
           },
         ],
       };
-      WaveDrom.renderWaveForm("", this.waveJson, "selectWave");
+      this.dialog = true;
+    },
+
+    selectWave() {
+      var regExp = /\(\(\(.+\)\)\)/g;
+      this.waveString = this.form.problem_decription.match(regExp);
+      this.selectDialog = true;
+    },
+
+    editWave() {
+      this.dialog = true;
+    },
+    finish() {
+      //updateWave
+      if (this.waveIndex != 0) {
+        this.form.problem_decription =
+          this.$refs.problem_decription.currentValue.replace(
+            this.waveString[this.waveIndex - 1],
+            "(((" + JSON.stringify(this.waveJson) + ")))"
+          );
+      }
+      //createWave
+      else {
+        var waveString = "((({})))";
+        this.form.problem_decription =
+          this.$refs.problem_decription.currentValue.replace(
+            waveString,
+            "(((" + JSON.stringify(this.waveJson) + ")))"
+          );
+      }
+      this.selectDialog = false;
+      this.dialog = false;
+      this.initWave();
     },
     destroy() {
       //关闭
@@ -393,7 +378,15 @@ export default {
       this.update();
     },
     update() {
-      WaveDrom.renderWaveForm(this.id, this.waveJson, "a");
+      let l = this.waveJson.signal.length;
+      if (l) {
+        for (var i = 0; i < l; i++) {
+          if (this.waveJson.signal[i].signalData)
+            this.waveJson.signal[i].data =
+              this.waveJson.signal[i].signalData.split(",");
+        }
+      }
+      WaveDrom.renderWaveForm("", this.waveJson, "editWave");
     },
     getProblem_decription(value) {
       this.form.problem_decription = value;

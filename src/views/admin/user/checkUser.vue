@@ -1,6 +1,10 @@
 <template>
   <div>
-    <el-table :data="userList" style="width: 100%" empty-text='所有用户都已审核完毕'>
+    <el-table
+      :data="userList"
+      style="width: 100%"
+      empty-text="所有用户都已审核完毕"
+    >
       <el-table-column prop="username" label="用户名"></el-table-column>
       <el-table-column prop="name" label="姓名"></el-table-column>
       <el-table-column label="审核状态">
@@ -28,12 +32,12 @@ export default {
       });
     },
     onSubmit() {
-      checkUser(this.userList).then((response) => {
-      });
+      checkUser(this.userList).then((response) => {});
     },
   },
   mounted() {
     this.getUncheckedUser();
+    console.log(this.$router);
   },
 };
 </script>

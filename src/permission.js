@@ -67,10 +67,13 @@ router.beforeEach(async (to, from, next) => {
 
           sessionStorage.setItem('accessRoutes', JSON.stringify(accessRoutes))
           // dynamically add accessible routes
+          console.log(router)
           router.addRoutes(accessRoutes)
           // hack method to ensure that addRoutes is complete
           // set the replace: true, so the navigation will not leave a history record
           next({ ...to, replace: true })
+          
+          console.log(router)
         } catch (error) {
           // remove token and go to login page to re-login
           await store.dispatch('user/resetToken')

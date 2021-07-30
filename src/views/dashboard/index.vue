@@ -138,6 +138,7 @@ export default {
   },
   mounted() {
     this.getData();
+    console.log(this.$router);
   },
 };
 </script>

@@ -41,6 +41,7 @@
 </template>
 <script>
 import { getProblem, PtagColor } from "@/api/problem";
+import { formatTag } from "@/api/format";
 var WaveDrom = require("wavedrom");
 window.WaveSkin = require("../../assets/default");
 import marked from "../../components/vue-markdown/assets/js/marked/marked";
@@ -94,16 +95,12 @@ export default {
       } else return "其他";
     },
     formatTag(id) {
-      if (id) {
-        var tag = this.ptagList.find((t) => {
-          return t.id == id;
-        });
-        return tag.name;
-      } else return "尚未分配标签";
+      return formatTag(id, this.ptagList);
     },
     tagColor(item) {
       return PtagColor[item];
-    },adds() {
+    },
+    adds() {
       for (let i in this.propgroupList) {
         var propgroup = {};
         propgroup.pgroup_id = this.pGroupId.id;
@@ -118,7 +115,6 @@ export default {
         this.reload();
       });
     },
-   
   },
   mounted() {
     this.getProblem();

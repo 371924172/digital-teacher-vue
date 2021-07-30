@@ -115,12 +115,6 @@ export const constantRoutes = [
         name: 'ptagAndPcategory',
         component: () => import('@/views/tagandcategory/list'),
         meta: { title: '题目标签与类别' },
-      }, {
-        path: 'edit',
-        name: 'edit',
-        component: () => import('@/views/problem/edit'),
-        meta: { title: '编辑题目', icon: 'form' },
-        hidden: true,
       },
       {
         path: 'add',

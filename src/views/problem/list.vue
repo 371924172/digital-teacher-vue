@@ -122,6 +122,7 @@
 <script>
 import { getList, PtagColor, draftCount } from "@/api/problem";
 import { getTagList } from "@/api/ptag";
+import { formatTag } from "@/api/format";
 import store from "@/store";
 
 export default {
@@ -149,13 +150,11 @@ export default {
       getList()
         .then((response) => {
           this.problemList = response.data;
-          console.log(response.data);
         })
         .catch((error) => {
           console.log(error);
         });
       getTagList().then((response) => {
-        console.log(response.data)
         this.ptagList = response.data;
       });
     },
@@ -202,14 +201,8 @@ export default {
     handleCurrentChange(val) {
       this.currentPage = val;
     },
-
     formatTag(id) {
-      if (id) {
-        var tag = this.ptagList.find((t) => {
-          return t.id == id;
-        });
-        return tag.name;
-      } else return "尚未分配标签";
+      return formatTag(id, this.ptagList);
     },
     tagColor(item) {
       return PtagColor[item];

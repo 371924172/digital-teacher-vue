@@ -233,6 +233,7 @@
 </template>
 <script>
 import { getList, getPtagList, PtagColor } from "@/api/problem";
+import { formatTag } from "@/api/format";
 import {
   addProblemPgroup,
   deleteProblemPgroup,
@@ -365,12 +366,7 @@ export default {
     },
 
     formatTag(id) {
-      if (id) {
-        var tag = this.ptagList.find((t) => {
-          return t.id == id;
-        });
-        return tag.name;
-      } else return "尚未分配标签";
+      return formatTag(id, this.ptagList);
     },
     tagColor(item) {
       return PtagColor[item];
