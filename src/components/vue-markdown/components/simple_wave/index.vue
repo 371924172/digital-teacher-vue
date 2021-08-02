@@ -107,11 +107,12 @@
                     <ul
                         :class="{ active: themeSlideDown }"
                         @mouseleave="themeSlideDown = false"
-                    >
+                    >   
+                        <li @click="setThemes('gitHub')">GitHub</li>
                         <li @click="setThemes('light')">Light</li>
                         <li @click="setThemes('dark')">VS Code</li>
                         <li @click="setThemes('oneDark')">Atom OneDark</li>
-                        <li @click="setThemes('gitHub')">GitHub</li>
+                        
                     </ul>
                 </div>
             </li>

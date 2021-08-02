@@ -131,7 +131,7 @@ export default {
       this.currentPage = val;
     },
     receive(id) {
-      publish_status(id, 2).then((response) => {
+      publish_status(id, 4).then((response) => {
         console.log(response.data);
         this.reload();
       });

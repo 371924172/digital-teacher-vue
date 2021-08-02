@@ -10,7 +10,7 @@ export default {
         },
         theme: {// 默认主题
             type: String,
-            default: 'light'
+            default: 'gitHub'
         },
         width: {// 初始化宽度
             type: [Number, String],

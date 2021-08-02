@@ -103,18 +103,20 @@ export const constantRoutes = [
         path: 'list',
         name: 'list',
         component: () => import('@/views/problem/list'),
-        meta: { title: '题目', icon: 'form' }
+        meta: { title: '题目列表', icon: 'el-icon-document' }
       },
       {
         path: 'psource',
         name: 'psource',
         component: () => import('@/views/psource/list'),
-        meta: { title: '题目来源' },
+        meta: { title: '题目来源', icon: 'el-icon-connection' },
       }, {
         path: 'ptagAndPcategory',
         name: 'ptagAndPcategory',
         component: () => import('@/views/tagandcategory/list'),
-        meta: { title: '题目标签与类别' },
+        meta: {
+          title: '题目标签与类别', icon: 'el-icon-collection-tag'
+        },
       },
       {
         path: 'add',
@@ -140,7 +142,7 @@ export const constantRoutes = [
         path: 'list',
         name: 'pgrouplist',
         component: () => import('@/views/pgroup/list'),
-        meta: { title: '题单', icon: 'form' }
+        meta: { title: '题单管理', icon: 'el-icon-folder' }
       }, {
         path: 'add',
         name: 'addpgroup',
@@ -167,68 +169,70 @@ export const constantRoutes = [
     name: 'les',
     redirect: '/les/lesson',
     component: Layout,
-    meta: { title: '课程管理' },
+    meta: { title: '课程管理', icon: 'el-icon-date' },
     children: [
       {
         path: 'lesson',
         component: () => import('@/views/lesson/list'),
-        meta: { title: '课程', icon: 'form' },
+        meta: { title: '课程列表', icon: 'el-icon-collection' },
       },
 
       {
         path: 'instruct',
         component: () => import('@/views/instruct/list'),
-        meta: { title: '授课', icon: 'form' },
+        meta: { title: '授课管理', icon: 'form', icon: 'el-icon-top-right' },
       },
 
       {
         path: 'selclass',
         component: () => import('@/views/selclass/list'),
-        meta: { title: '选课', icon: 'form' },
+        meta: { title: '选课管理', icon: 'el-icon-finished' },
       },]
   },
   {
     path: '/organization',
     component: Layout,
-    meta: { title: "学校管理" },
+    meta: { title: "学校管理", icon: 'el-icon-school' },
     children: [
       {
         path: 'student',
         component: () => import('@/views/student/list'),
-        meta: { title: '学生', icon: 'form' },
+        meta: { title: '学生', icon: 'el-icon-user' },
       },
       {
         path: 'class',
         name: 'class',
         component: () => import('@/views/class/list'),
-        meta: { title: "班级" }
+        meta: { title: "班级", icon: 'el-icon-reading' }
       }, {
         path: 'major',
         name: 'major',
         component: () => import('@/views/major/list'),
-        meta: { title: "专业" }
+        meta: { title: "专业", icon: 'el-icon-data-line' }
       }, {
         path: 'college',
         name: 'college',
         component: () => import('@/views/college/list'),
-        meta: { title: "学院" }
+        meta: { title: "学院", icon: 'el-icon-house' }
       }, {
         path: 'organization',
         name: 'organization',
         component: () => import('@/views/organization/list'),
-        meta: { title: "学校" }
+        meta: { title: "学校", icon: 'el-icon-office-building' }
       },
     ]
   }, {
     path: "/verifyServer",
     name: "verifyServer",
     component: Layout,
-    meta: { title: '服务器管理' },
+    redirect: '/verifyServer/list',
+    meta: { title: '服务器管理', icon: 'el-icon-cpu' },
     children: [{
       path: 'list',
       name: 'serverList',
       component: () => import('@/views/verifyserver/list'),
-      meta: { title: '服务器信息' }
+      meta: { title: '服务器信息' },
+      hidden: true,
     }
     ]
   },
@@ -246,43 +250,43 @@ export const asyncRoutes = [
     path: '/admin',
     name: "admin",
     component: Layout,
-    meta: { title: '管理员' },
+    meta: { title: '管理员', icon: 'el-icon-s-management' },
     alwaysShow: true,
     children: [
       {
         path: 'user',
         component: () => import('@/views/admin/user/index'),
         redirect: '/user/list',
-        meta: { title: '用户管理', icon: 'form' },
+        meta: { title: '用户管理', icon: 'el-icon-user' },
         children: [{
           path: 'list',
           component: () => import('@/views/admin/user/list'),
-          meta: { title: '用户列表' }
+          meta: { title: '用户列表', icon: 'el-icon-user-solid' }
         }, {
           path: 'checkUser',
           name: 'checkUser',
           component: () => import('@/views/admin/user/checkUser'),
-          meta: { title: '用户审核' }
+          meta: { title: '用户审核', icon: 'el-icon-success' }
         },
         ],
       }, {
         path: 'role',
         component: () => import('@/views/admin/role/index'),
         redirect: '/role/admin',
-        meta: { title: '角色分配', icon: 'form' },
+        meta: { title: '角色分配', icon: 'el-icon-s-custom' },
         children: [
           {
             path: "admin",
             component: () => import('@/views/admin/role/admin'),
-            meta: { title: '管理员' }
+            meta: { title: '管理员', icon: 'el-icon-s-check' }
           }, {
             path: "student",
             component: () => import('@/views/admin/role/student'),
-            meta: { title: '学生' }
+            meta: { title: '学生', icon: 'el-icon-user' }
           }, {
             path: "teacher",
             component: () => import('@/views/admin/role/teacher'),
-            meta: { title: '教师' }
+            meta: { title: '教师', icon: 'el-icon-user-solid' }
           },]
 
       },
@@ -292,19 +296,19 @@ export const asyncRoutes = [
         redirect: '/problemAdmin/publish',
         component: () => import('@/views/admin/problem/index'),
         redirect: '',
-        meta: { title: '题目审核' },
+        meta: { title: '题目审核', icon: 'el-icon-circle-check' },
         children: [{
           path: 'publish',
           component: () => import('@/views/admin/problem/publish'),
-          meta: { title: "发布审核" }
+          meta: { title: "发布审核", icon: 'el-icon-top' }
         }, {
           path: 'withdraw',
           component: () => import('@/views/admin/problem/withdraw'),
-          meta: { title: "下架审核" }
+          meta: { title: "下架审核", icon: 'el-icon-bottom' }
         }, {
           path: 'delete',
           component: () => import('@/views/admin/problem/delete'),
-          meta: { title: "删除审核" }
+          meta: { title: "删除审核", icon: 'el-icon-delete' }
         }]
       }
     ]

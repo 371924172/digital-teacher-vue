@@ -26,16 +26,19 @@
       {{ formatDifficulty(this.problemDetail) }}
     </el-form-item>
     <el-form-item label="题目描述">
-      <div id="problem_decription"></div>
+      <div id="problem_decription" class="markdown-theme-gitHub"></div>
+    </el-form-item>
+    <el-form-item label="模块定义">
+      <div id="module_decription" class="markdown-theme-gitHub"></div>
     </el-form-item>
     <el-form-item label="输入描述">
-      <div id="input_decription"></div>
+      <div id="input_decription" class="markdown-theme-gitHub"></div>
     </el-form-item>
     <el-form-item label="输出描述">
-      <div id="output_decription"></div>
+      <div id="output_decription" class="markdown-theme-gitHub"></div>
     </el-form-item>
     <el-form-item label="测试描述">
-      <div id="test_decription"></div>
+      <div id="test_decription" class="markdown-theme-gitHub"></div>
     </el-form-item>
   </el-form>
 </template>
@@ -44,7 +47,8 @@ import { getProblem, PtagColor } from "@/api/problem";
 import { formatTag } from "@/api/format";
 var WaveDrom = require("wavedrom");
 window.WaveSkin = require("../../assets/default");
-import marked from "../../components/vue-markdown/assets/js/marked/marked";
+// import marked from "../../components/vue-markdown/assets/js/marked/marked";
+import marked from "../../components/vue-markdown/config/marked";
 export default {
   data() {
     return {
@@ -64,6 +68,11 @@ export default {
         if (this.problemDetail.problem_decription) {
           document.getElementById("problem_decription").innerHTML = marked(
             this.problemDetail.problem_decription
+          );
+        }
+        if (this.problemDetail.module_decription) {
+          document.getElementById("module_decription").innerHTML = marked(
+            this.problemDetail.module_decription
           );
         }
         if (this.problemDetail.input_decription) {
@@ -98,7 +107,7 @@ export default {
       return formatTag(id, this.ptagList);
     },
     tagColor(item) {
-      return PtagColor[item];
+      return PtagColor[item % 7];
     },
     adds() {
       for (let i in this.propgroupList) {
@@ -121,3 +130,6 @@ export default {
   },
 };
 </script>
+<style scoped lang="less">
+@import "../../components/vue-markdown/assets/css/gitHub";
+</style>

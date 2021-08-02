@@ -25,7 +25,7 @@ export default {
     split: true,
     preview: true,
     fullscreen: true,
-    theme: true,
+    // theme: true,
     exportmd: true,
     importmd: true,
     save: false,

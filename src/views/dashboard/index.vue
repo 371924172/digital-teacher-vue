@@ -112,23 +112,18 @@ export default {
   methods: {
     getData() {
       recordByClass().then((response) => {
-        console.log(response.data);
         this.classOption.xAxis.data = response.data.user_name;
         this.classOption.series[0].data = response.data.percent;
         var classChart = echarts.init(document.getElementById("classChart"));
         this.classOption && classChart.setOption(this.classOption);
       });
       recordByProblem().then((response) => {
-        console.log(response.data);
         this.problemOption.yAxis.data = response.data.problem_name;
         this.problemOption.series[0].data = response.data.percent;
         var problemChart = echarts.init(
           document.getElementById("problemChart")
         );
         this.problemOption && problemChart.setOption(this.problemOption);
-        problemChart.on("click", function (params) {
-          console.log(params);
-        });
       });
     },
     // renderCharts(id) {
@@ -138,7 +133,6 @@ export default {
   },
   mounted() {
     this.getData();
-    console.log(this.$router);
   },
 };
 </script>

@@ -333,7 +333,7 @@ export default {
         this.form.problem_decription =
           this.$refs.problem_decription.currentValue.replace(
             this.waveString[this.waveIndex - 1],
-            "(((" + JSON.stringify(this.waveJson) + ")))"
+            "\n(((" + JSON.stringify(this.waveJson) + ")))"
           );
       }
       //createWave
