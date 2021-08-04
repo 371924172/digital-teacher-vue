@@ -133,6 +133,7 @@ export default {
   },
   mounted() {
     this.getData();
+    console.log(this.$store.getters.roles);
   },
 };
 </script>

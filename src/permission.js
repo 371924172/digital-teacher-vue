@@ -1,20 +1,20 @@
-import router, { constantRoutes, asyncRoutes } from './router'
+import router, { constantRoutes, asyncRoutes, resetRouter } from './router'
 import store from './store'
 import { Message } from 'element-ui'
 import NProgress from 'nprogress' // progress bar
 import 'nprogress/nprogress.css' // progress bar style
 import { getToken } from '@/utils/auth' // get token from cookie
 import getPageTitle from '@/utils/get-page-title'
+import Vue from 'vue'
+import Router from 'vue-router'
+
+Vue.use(Router)
 NProgress.configure({ showSpinner: false }) // NProgress Configuration
 
 const whiteList = ['/login', '/register'] // no redirect whitelist
 
+
 router.beforeEach(async (to, from, next) => {
-  // if (sessionStorage.getItem("accessRoutes")) {
-  //   router.removeRoute('admin');
-  //   router.addRoutes(JSON.parse(sessionStorage.getItem("accessRoutes")));
-  // }
-  // 在页面加载时读取sessionStorage里的状态信息
   if (sessionStorage.getItem("store")) {
     store.replaceState(
       Object.assign(
@@ -23,6 +23,8 @@ router.beforeEach(async (to, from, next) => {
         JSON.parse(sessionStorage.getItem("store"))
       )
     );
+    resetRouter();
+    router.addRoutes(asyncRoutes);
     sessionStorage.removeItem("store")
   }
 
@@ -64,15 +66,12 @@ router.beforeEach(async (to, from, next) => {
           // generate accessible routes map based on roles
           const accessRoutes = await store.dispatch('permission/generateRoutes', roles)
           sessionStorage.setItem('routes', JSON.stringify(constantRoutes.concat(accessRoutes)))
-
-          sessionStorage.setItem('accessRoutes', JSON.stringify(accessRoutes))
           // dynamically add accessible routes
-          console.log(router)
           router.addRoutes(accessRoutes)
           // hack method to ensure that addRoutes is complete
           // set the replace: true, so the navigation will not leave a history record
           next({ ...to, replace: true })
-          
+
           console.log(router)
         } catch (error) {
           // remove token and go to login page to re-login
