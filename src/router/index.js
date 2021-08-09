@@ -131,6 +131,13 @@ export const constantRoutes = [
         meta: { title: '题目信息', icon: 'form' },
         hidden: true,
       },
+      {
+        path: 'edit',
+        name: 'editProblem',
+        component: () => import('@/views/problem/edit'),
+        meta: { title: '编辑题目', icon: 'form' },
+        hidden: true,
+      },
     ]
   },
   {
@@ -195,30 +202,31 @@ export const constantRoutes = [
     meta: { title: "学校管理", icon: 'el-icon-school' },
     children: [
       {
-        path: 'student',
-        component: () => import('@/views/student/list'),
-        meta: { title: '学生', icon: 'el-icon-user' },
-      },
-      {
-        path: 'class',
-        name: 'class',
-        component: () => import('@/views/class/list'),
-        meta: { title: "班级", icon: 'el-icon-reading' }
-      }, {
-        path: 'major',
-        name: 'major',
-        component: () => import('@/views/major/list'),
-        meta: { title: "专业", icon: 'el-icon-data-line' }
+        path: 'organization',
+        name: 'organization',
+        component: () => import('@/views/organization/list'),
+        meta: { title: "学校", icon: 'el-icon-office-building' }
       }, {
         path: 'college',
         name: 'college',
         component: () => import('@/views/college/list'),
         meta: { title: "学院", icon: 'el-icon-house' }
+      },
+      {
+        path: 'major',
+        name: 'major',
+        component: () => import('@/views/major/list'),
+        meta: { title: "专业", icon: 'el-icon-data-line' }
       }, {
-        path: 'organization',
-        name: 'organization',
-        component: () => import('@/views/organization/list'),
-        meta: { title: "学校", icon: 'el-icon-office-building' }
+        path: 'class',
+        name: 'class',
+        component: () => import('@/views/class/list'),
+        meta: { title: "班级", icon: 'el-icon-reading' }
+      },
+      {
+        path: 'student',
+        component: () => import('@/views/student/list'),
+        meta: { title: '学生', icon: 'el-icon-user' },
       },
     ]
   }, {

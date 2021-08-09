@@ -16,7 +16,7 @@
       </el-form-item>
       <el-form-item>
         <el-col :span="12">
-          <el-button v-on:click="add">创建题单</el-button>
+          <el-button @click="add">创建题单</el-button>
         </el-col>
       </el-form-item>
     </el-form>
@@ -65,6 +65,7 @@ export default {
     getDecription(value) {
       this.pgroup.decription = value;
     },
+    
   },
 };
 </script>

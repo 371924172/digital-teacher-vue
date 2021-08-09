@@ -14,6 +14,13 @@ export function deletePgroup(id) {
                 method: 'delete',
         })
 }
+export function updatePgroup(data) {
+        return request({
+                url: host + 'pgroup/' + data.id + '/',
+                method: 'put',
+                data
+        })
+}
 export function getPgroupList() {
         return request({
                 url: host + 'pgroup/',

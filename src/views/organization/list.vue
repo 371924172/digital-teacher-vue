@@ -23,7 +23,7 @@
 
 
     <el-dialog style="width: 1000px;height:1000px;" title="组织信息"
-               :visible.sync="dialogVisible" before-close="handleClose">
+               :visible.sync="dialogVisible" :before-close="handleClose">
       <el-form :model="organizationInfo">
         <el-form-item label="组织名称" width="80px">
           <el-input class="dialog_input" v-model="organizationInfo.name" ></el-input>

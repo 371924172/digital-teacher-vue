@@ -96,7 +96,7 @@
       ></el-form-item>
 
       <el-form-item>
-        <el-button type="primary" @click="addProblem">创建题目</el-button>
+        <el-button type="primary" @click="addProblem">更新题目</el-button>
       </el-form-item>
     </el-form>
     <el-dialog

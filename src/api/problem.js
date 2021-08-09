@@ -22,7 +22,7 @@ export function addProblem(data) {
 }
 export function updateProblem(data) {
     return request({
-        url: host + 'problem/',
+        url: host + 'problem/' + data.id + '/',
         method: 'put',
         data: data
     })

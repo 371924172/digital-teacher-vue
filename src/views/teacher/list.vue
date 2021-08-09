@@ -18,7 +18,7 @@
     </div>
 
     <el-dialog style="width: 1000px;height: 1000px;" title="教师信息"
-               :visible.sync="dialogVisible" before-close="handleClose">
+               :visible.sync="dialogVisible" :before-close="handleClose">
       <el-form :model="teacherInfo">
         
     <el-form-item label="所在学院" width="180px">

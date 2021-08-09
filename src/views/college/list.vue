@@ -15,7 +15,7 @@
           >
           </el-option> </el-select
       ></el-col>
-      <el-rol :span="12">
+      <el-col :span="12">
         <el-button
           style="float: right"
           class="add_btn"
@@ -23,7 +23,7 @@
           @click="openCreate"
           >创建学院</el-button
         >
-      </el-rol>
+      </el-col>
     </el-row>
     <div class="tableMain">
       <el-table
@@ -80,13 +80,11 @@
       style="width: 1000px; height: 1000px"
       title="学院信息"
       :visible.sync="dialogVisible"
-      before-close="handleClose"
+      :before-close="handleClose"
     >
       <el-form :model="collegeInfo" label-width="180px">
         <el-form-item label="所属学校或组织">
-          <el-select
-            v-model="collegeInfo.organization_id"
-          >
+          <el-select v-model="collegeInfo.organization_id">
             <el-option
               v-for="item in organizationList"
               :key="item.id"
@@ -163,7 +161,7 @@ export default {
       getCollegeListByOrganization(data).then((response) => {
         this.tableData = response.data;
       });
-      this.display = inline
+      this.display = inline;
     },
     openUpdate(id) {
       getCollege(id).then((response) => {

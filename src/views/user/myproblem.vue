@@ -171,7 +171,7 @@ export default {
       const { publish_status } = problem;
       if (publish_status == 0 || publish_status == 8) {
         this.$router.push({
-          name: "addProblem",
+          name: "editProblem",
           query: {
             problem: JSON.stringify(problem),
           },

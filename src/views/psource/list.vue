@@ -1,38 +1,36 @@
 <template>
   <div class="app-container">
-    <el-row>
-      <el-col :span="16">
-        <el-input
-          v-model="search"
-          size="mini"
-          placeholder="输入关键字搜索"
-          style="width: 180px; margin: 10px"
-          prefix-icon="el-icon-search"
-        ></el-input
-      ></el-col>
-    </el-row>
+    <el-form ref="form" :inline="true" label-width="40px" size="mini">
+      <el-form-item>
+        <el-input placeholder="来源名查询" v-model="source_name"></el-input>
+      </el-form-item>
+      <el-form-item>
+        <!-- <el-button
+              type="primary"
+              @click="searchTagName(tag_name)"
+              icon="el-icon-search"
+              >查询</el-button
+            > -->
+        <el-button
+          type="primary"
+          @click="addlabel"
+          icon="el-icon-circle-plus-outline"
+          >添加</el-button
+        >
+      </el-form-item>
+    </el-form>
 
     <el-table
       :data="
-        SourceData.filter(
-          (data) =>
-            !search || data.name.toLowerCase().includes(search.toLowerCase())
+        SourceData.filter((data) =>
+          data.source.toLowerCase().includes(source_name)
         )
       "
       stripe
       style="width: 100%"
     >
-      <el-table-column prop="numbers" label="序号" width="140">
-        <template slot-scope="scope">
-          {{ scope.$index + 1 }}
-        </template>
-      </el-table-column>
-      <el-table-column
-        prop="id"
-        label="来源ID"
-        width="180"
-        sortable
-      ></el-table-column>
+     
+
       <el-table-column
         prop="type"
         label="来源类型"
@@ -103,6 +101,7 @@ export default {
   inject: ["reload"],
   data() {
     return {
+      source_name: "",
       Sourceinfo: {
         //来源类别信息
         id: "",
@@ -118,6 +117,7 @@ export default {
         decription: "",
       },
       SourceData: [],
+      sourcelist: [],
       dialogVisible: false,
       sourceIndex: 0,
       search: "",
@@ -178,9 +178,6 @@ export default {
       this.dialogVisible = false;
       this.addflag = false;
       //console.log(this.editinfo);
-    },
-    search() {
-      this.SourceData;
     },
     getSourceData() {
       //获取数据
