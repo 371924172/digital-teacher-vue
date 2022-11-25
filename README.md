@@ -18,6 +18,8 @@
 
    ```js
     const host =  "后端地址"
+    
+    需要同时把后端服务开启，否则会报错
 
 3. 在api文件夹下创建自己的 js 接口文件，命名和view下文件夹名字一样，例如problem.js, user.js 等。
 
